@@ -1,11 +1,11 @@
 import { Fragment } from 'react';
+import Navbar from '../components/Navbar';
 
 export default function Home() {
   return (
     <Fragment>
-      <button className="py-2 dark:text-black px-4 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700">
-          Click me
-      </button>
+      <Navbar/>
+
      </Fragment>
   );
 }
