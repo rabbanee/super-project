@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.1.0",
+    "axios": "^0.21.1",
     "cookie": "^0.4.1",
     "next": "10.0.4",
     "postcss": "^8.2.2",
@@ -19,6 +20,7 @@
     "tailwindcss": "^2.0.2"
   },
   "devDependencies": {
+    "@types/cookie": "^0.4.0",
     "eslint": "^7.17.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.22.1",
