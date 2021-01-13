@@ -4,10 +4,11 @@ import * as Icon from '../components/Icon';
 import ApiSource from '../data/api-source';
 import * as Button from '../components/Button';
 import * as Alert from '../components/Alert';
-import cookie from 'js-cookie';
 import { useDispatch } from "react-redux";
 import { login } from '../redux/actions';
-import { WithoutAuth } from '../hoc/withoutAuth';
+import { withoutAuth } from '../hoc/withoutAuth';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const Login = () => {
   const [loading, setLoading]  = useState(false);
@@ -15,10 +16,12 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const dispatch: Function = useDispatch();
+  const router = useRouter();
 
-  // useEffect(() => {
-  //   cookie.set('tes', 'a value');
-  // }, []);
+  useEffect(() => {
+    // console.log(cookie.get('token'));
+     
+  }, []);
 
   const handleLogin = async (e : any) => {
     e.preventDefault();
@@ -38,7 +41,7 @@ const Login = () => {
     }
     console.log(response);
     await dispatch(login(response.data.success.token));
-    
+    router.replace('/');
     setLoading(false);
   }
 
@@ -96,9 +99,12 @@ const Login = () => {
             </Button.primary>
           </div>
         </form>
+        <div className="bg-white px-0 py-3 text-center border border-gray-300 rounded-md">
+          Don't have an account? <Link href="/register"><a className=" text-indigo-600 hover:text-indigo-500 font-medium">Register</a></Link>
+        </div>
       </div>
     </Layout>
   );
 };
 
-export default WithoutAuth(Login);
+export default withoutAuth(Login);

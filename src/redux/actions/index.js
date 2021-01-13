@@ -12,7 +12,6 @@ export const login = (token) => {
     cookie.set('token', token, { 
       sameSite: 'Strict'
     });
-    console.log('ini token: ',token);
     dispatch(auth('LOGIN', token));
   }
 }
