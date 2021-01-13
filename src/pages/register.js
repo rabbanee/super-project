@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
+import { withoutAuth } from '../hoc/withoutAuth';
 
 const Register = () => {
   return (
@@ -32,21 +33,6 @@ const Register = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input id="remember_me" name="remember_me" type="checkbox" className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"/>
-              <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900 dark:text-gray-50">
-                Remember me
-              </label>
-            </div>
-             <div className="text-sm">
-              <Link href="/login" >
-                <a className="font-medium text-indigo-600 hover:text-indigo-500">
-                 Login
-                </a>
-              </Link>
-            </div>
-          </div>
 
           <div>
             <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -54,10 +40,12 @@ const Register = () => {
             </button>
           </div>
         </form>
-       
+        <div className="bg-white px-0 py-3 text-center border border-gray-300 rounded-md">
+          Have an account? <Link href="/login"><a className=" text-indigo-600 hover:text-indigo-500 font-medium">Login</a></Link>
+        </div>
       </div>
       </Layout>
   );
 };
 
-export default Register;
+export default withoutAuth(Register);
