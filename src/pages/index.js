@@ -1,11 +1,11 @@
-import { Fragment } from 'react';
+import Layout from '../components/Layout';
 import Navbar from '../components/Navbar';
 
 export default function Home() {
   return (
-    <Fragment>
+    <Layout title="Home">
       <Navbar/>
 
-     </Fragment>
+     </Layout>
   );
 }
