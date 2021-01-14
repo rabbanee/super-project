@@ -1,4 +1,5 @@
 import cookie from 'js-cookie';
+import ApiSource from '../../data/api-source';
 
 export const auth = (type, token) => {
   return {
@@ -7,8 +8,8 @@ export const auth = (type, token) => {
   }
 }
 
-export const login = (token) => {
-  return (dispatch) => {
+export const login = async (token) => {
+  return async (dispatch) => {
     cookie.set('token', token, { 
       sameSite: 'Strict'
     });
@@ -16,16 +17,17 @@ export const login = (token) => {
   }
 }
 
-// export const getUser = async (token) => {
-//  return async (dispatch) => {
-//    let result;
-//    try {
-//      result = ((await Axios.get(`${config.BASE_URL}users/detail`, { headers: { 'Authorization': `Bearer ${token}` } }))).data;
-//    } catch (error) {
-//      console.log(error);
-//      return;
-//    }
-//    const user = result.data;
-//    dispatch('LOGIN', auth(user));
-//  }
-// }
+export const getUser = async (token) => {
+ return async (dispatch) => {
+   let result;
+   try {
+     result = ApiSource.getUser(token);
+   } catch (error) {
+     console.log(error);
+     return;
+   }
+   console.log(result);
+  //  const user = result.data;
+  //  dispatch('SET_USER', auth(user));
+ }
+}

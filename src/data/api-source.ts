@@ -7,10 +7,18 @@ class ApiSource {
       password
     });
   }
+  
+  static async register(name : string, email : string, password : string) {
+    return await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}register`, {
+      name,
+      email,
+      password
+    });
+  }
 
   static async getUser(token : string) {
     return await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}user`, { 
-      headers: {'Authorization' : token}
+      headers: {'Authorization' : `Bearer ${token}`}
     });
   }
 }
