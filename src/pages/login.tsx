@@ -6,7 +6,7 @@ import * as Button from '../components/Button';
 import * as Alert from '../components/Alert';
 import { useDispatch } from "react-redux";
 import { login } from '../redux/actions';
-import { withoutAuth } from '../hoc/withoutAuth';
+import { withoutAuthServerSideProps } from '../lib/withoutAuthServerSide';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -107,4 +107,5 @@ const Login = () => {
   );
 };
 
-export default withoutAuth(Login);
+export default Login;
+export const getServerSideProps = withoutAuthServerSideProps();
