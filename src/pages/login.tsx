@@ -1,18 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
-import LoadingButton from '../components/LoadingButton';
+import * as Icon from '../components/Icon';
+import ApiSource from '../data/api-source';
+import * as Button from '../components/Button';
+import * as Alert from '../components/Alert';
+import { useDispatch } from "react-redux";
+import { login } from '../redux/actions';
+import { withoutAuth } from '../hoc/withoutAuth';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const Login = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading]  = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const dispatch: Function = useDispatch();
+  const router = useRouter();
 
-  const loginHandler = (e) => {
+  useEffect(() => {
+    // console.log(cookie.get('token'));
+     
+  }, []);
+
+  const handleLogin = async (e : any) => {
     e.preventDefault();
+    let response : any;
+    setError(null);
+    setLoading(true);
+    try {
+       response = await ApiSource.login(email, password);
+    } catch (error) {
+      if (error.response.status === 401) {
+        setError('Incorrect email or password');
+      } else {
+        setError('Please try again');
+      }
+      setLoading(false);
+      return;
+    }
+    console.log(response);
+    await dispatch(login(response.data.success.token));
+    router.replace('/');
+    setLoading(false);
   }
 
   return (
-    <Layout title="Login">
+    <Layout title="Login" className="py-12 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center justify-center">
       <div className="max-w-md w-full space-y-8">
         <div>
           <img className="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow"/>
@@ -20,7 +54,10 @@ const Login = () => {
             Login to your account
           </h2>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={loginHandler}>
+        {
+          error && <Alert.danger description={error}></Alert.danger>
+        }
+        <form className="mt-8 space-y-6" onSubmit={handleLogin}>
           <input type="hidden" name="remember" value="true"/>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -49,19 +86,25 @@ const Login = () => {
           </div>
 
           <div>
-            <button type="submit" className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${loading && 'cursor-not-allowed'}`} disabled={loading}>
+            <Button.primary  
+            className={`${loading && 'cursor-not-allowed'}`}
+            disabled={loading}
+            >
               {
-                loading && <LoadingButton/> 
+                loading && <Icon.loadingIndicatorButton /> 
               }
               {
                 loading ? 'Processing' : 'Login'
               }
-            </button>
+            </Button.primary>
           </div>
         </form>
+        <div className="bg-white px-0 py-3 text-center border border-gray-300 rounded-md">
+          Don't have an account? <Link href="/register"><a className=" text-indigo-600 hover:text-indigo-500 font-medium">Register</a></Link>
+        </div>
       </div>
     </Layout>
   );
 };
 
-export default Login;
+export default withoutAuth(Login);
