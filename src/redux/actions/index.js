@@ -8,8 +8,8 @@ export const auth = (type, token) => {
   }
 }
 
-export const login = async (token) => {
-  return async (dispatch) => {
+export const login = (token) => {
+  return (dispatch) => {
     cookie.set('token', token, { 
       sameSite: 'Strict'
     });
