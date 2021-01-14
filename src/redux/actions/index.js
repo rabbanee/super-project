@@ -8,8 +8,8 @@ export const auth = (type, token) => {
   }
 }
 
-export const login = async (token) => {
-  return async (dispatch) => {
+export const login =  (token) => {
+  return  (dispatch) => {
     cookie.set('token', token, { 
       sameSite: 'Strict'
     });
@@ -17,8 +17,8 @@ export const login = async (token) => {
   }
 }
 
-export const getUser = async (token) => {
- return async (dispatch) => {
+export const getUser =  (token) => {
+ return  (dispatch) => {
    let result;
    try {
      result = ApiSource.getUser(token);
