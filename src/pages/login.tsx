@@ -31,7 +31,7 @@ const Login = () => {
     try {
        response = await ApiSource.login(email, password);
     } catch (error) {
-      if (error.response.status === 401) {
+      if (error.response?.status === 401) {
         setError('Incorrect email or password');
       } else {
         setError('Please try again');

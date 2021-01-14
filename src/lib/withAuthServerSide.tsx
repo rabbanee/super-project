@@ -32,7 +32,7 @@ export function withAuthServerSideProps(getServerSidePropsFunc?: Function){
           };
       }
       return {
-        props: {
+        props: {  
           user,
           data: {
             props: {user}
