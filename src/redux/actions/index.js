@@ -8,13 +8,8 @@ export const auth = (type, token) => {
   }
 }
 
-<<<<<<< HEAD
 export const login =  (token) => {
   return  (dispatch) => {
-=======
-export const login = (token) => {
-  return (dispatch) => {
->>>>>>> 09eddb48b5a76324bdc1fd4ddf2e0845aafa187f
     cookie.set('token', token, { 
       sameSite: 'Strict'
     });
