@@ -40,6 +40,7 @@ const Login = () => {
       return;
     }
     console.log(response);
+
     await dispatch(login(response.data.success.token));
     router.replace('/');
     setLoading(false);
