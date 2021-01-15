@@ -1,6 +1,6 @@
-import ApiSource from "../data/api-source";
 import Cookies from 'cookies';
-var cookie = require('cookie-signature');
+import { CookieHelper } from '../utils/server/auth/cookie-helper';
+let cookie = require('cookie-signature');
 
 export function withoutAuthServerSideProps(getServerSidePropsFunc?: Function){
   
@@ -8,7 +8,7 @@ export function withoutAuthServerSideProps(getServerSidePropsFunc?: Function){
       const cookies = new Cookies(context.req, context.res);
       const tokenFromCookie =  cookies.get('token') ?? '';
 
-      const tokenUnsignFromCookie = cookie.unsign(tokenFromCookie, process.env.NEXT_PUBLIC_COOKIE_SIGNATURE_PASSWORD);
+      const tokenUnsignFromCookie = cookie.unsign(tokenFromCookie, process.env.COOKIE_SIGNATURE_PASSWORD);
 
       let user = null;
 
@@ -18,6 +18,9 @@ export function withoutAuthServerSideProps(getServerSidePropsFunc?: Function){
           });
           context.res.end();
       }
+
+      CookieHelper.resetCookie(cookies);
+
 
       if(getServerSidePropsFunc){
           return {props: {user, data: await getServerSidePropsFunc(context, user)}};

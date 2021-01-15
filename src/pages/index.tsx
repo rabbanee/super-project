@@ -14,7 +14,7 @@ import { withAuthServerSideProps } from '../lib/withAuthServerSide';
   const tokenFromCookie =  cookie.get('token');
 
   useEffect(() => {
-
+    
   }, []);
 
   return (

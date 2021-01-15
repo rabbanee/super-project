@@ -1,6 +1,5 @@
 import cookie from 'js-cookie';
 import ApiSource from '../../data/api-source';
-let cookieSignature = require('cookie-signature');
 
 export const auth = (type, token) => {
   return {
@@ -11,11 +10,10 @@ export const auth = (type, token) => {
 
 export const login =  (token) => {
   return  (dispatch) => {
-    var tokenWithSignature = cookieSignature.sign(token, process.env.NEXT_PUBLIC_COOKIE_SIGNATURE_PASSWORD);
-    cookie.set('token', tokenWithSignature, { 
+    cookie.set('token', token, { 
       sameSite: 'strict',
     });
-    dispatch(auth('LOGIN', tokenWithSignature));
+    dispatch(auth('LOGIN', token));
   }
 }
 
