@@ -6,7 +6,11 @@ const Layout = (props) => {
     <React.Fragment>
       <Head>
         <title>{props.title}</title>
-        <link rel="icon" href="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"/>
+        <meta name="theme-color" content="#439B84" />
+        <link rel="icon" href="/svg/logo.svg"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com"/>
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
+        <link rel="manifest" href="/manifest.json" />
       </Head>
       <main className={`${props.className && props.className}  dark:bg-gray-800 bg-gray-50`}>
         {props.children}

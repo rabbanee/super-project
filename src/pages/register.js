@@ -98,7 +98,7 @@ const Register = () => {
           </div>
         </form>
         <div className="bg-white px-0 py-3 text-center border border-gray-300 rounded-md">
-          Have an account? <Link href="/login"><a className=" text-indigo-600 hover:text-indigo-500 font-medium">Login</a></Link>
+          Already have an account? <Link href="/login"><a className=" text-indigo-600 hover:text-indigo-500 font-medium">Login</a></Link>
         </div>
       </div>
       </Layout>

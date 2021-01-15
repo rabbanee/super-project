@@ -3,7 +3,7 @@ const primary = (props: any) => {
   return (
       <button 
       type="submit"
-      className={`${defaultClass} bg-indigo-600 hover:bg-indigo-700 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${props.className && props.className}`}
+      className={`${defaultClass} bg-primary hover:bg-primary-darkest focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark ${props.className && props.className}`}
       disabled={props.disabled}>
         { props.children }      
       </button>
