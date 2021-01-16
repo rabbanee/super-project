@@ -7,4 +7,20 @@ const loadingIndicatorButton = () => {
   );
 };
 
-export { loadingIndicatorButton };
+const sun = () => {
+  return (
+    <span className="flex items-center relative justify-center w-full h-full">
+      ☀
+    </span>
+  );
+};
+
+const moon = () => {
+  return (
+    <span className="flex items-center relative justify-center w-full h-full">
+      🌙
+    </span>
+  );
+};
+
+export { loadingIndicatorButton, sun, moon };
