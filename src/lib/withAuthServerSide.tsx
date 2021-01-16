@@ -1,6 +1,8 @@
 import ApiSource from "../data/api-source";
 import Cookies from 'cookies'
-var cookie = require('cookie-signature');
+import { CookieHelper } from "../utils/server/auth/cookie-helper";
+import { SignatureCookieHelper } from "../utils/server/auth/signature-cookie-helper";
+let cookie = require('cookie-signature');
 
 export function withAuthServerSideProps(getServerSidePropsFunc?: Function){
   
@@ -8,48 +10,45 @@ export function withAuthServerSideProps(getServerSidePropsFunc?: Function){
       const cookies = new Cookies(context.req, context.res);
       const tokenFromCookie =  cookies.get('token') ?? '';
       const userFromCookie =  cookies.get('user') ?? '';
-
-      const tokenUnsignFromCookie = cookie.unsign(tokenFromCookie, process.env.NEXT_PUBLIC_COOKIE_SIGNATURE_PASSWORD);
-      const userUnsignFromCookie = cookie.unsign(userFromCookie, process.env.NEXT_PUBLIC_COOKIE_SIGNATURE_PASSWORD);
-
+       
+      const userUnsignFromCookie = SignatureCookieHelper.unsignCookie(cookie, userFromCookie);
+      const tokenUnsignFromCookie = SignatureCookieHelper.unsignCookie(cookie, tokenFromCookie);
       let user = null;
       
       if(!tokenUnsignFromCookie) {
-          user = await getUser(context, tokenUnsignFromCookie);
-
-          cookies.set('token', '');
-          cookies.set('user', '');
+        user = await getUser(tokenFromCookie);
+        if (user === null) {
+          CookieHelper.resetCookie(cookies);
           context.res.writeHead(302, {
             Location: '/login',
           });
           context.res.end();
-      }
+        } 
 
-      if (!userUnsignFromCookie) {
-        console.log('masuk? !userUnsignFromCookie');
-        
-        user = await getUser(context, tokenUnsignFromCookie);
-        
-        // Set a signature cookie
-        let userSignature = cookie.sign(JSON.stringify(user), 'daffaganteng');
-        
-       cookies.set('user', userSignature, {
-          sameSite: 'Strict',
-          httpOnly: true,
-        });
-      } else {
-        user = userUnsignFromCookie;
+        let userSignature = SignatureCookieHelper.signCookie(cookie, JSON.stringify(user));
+        let tokenSignature =  SignatureCookieHelper.signCookie(cookie, tokenFromCookie);
+        CookieHelper.setTokenCookie(cookies, tokenSignature);
+        CookieHelper.setUserCookie(cookies, userSignature);
       }
+     
       
-      console.log('ini user',user);
-      console.log('ini userUnsignFromCookie',userUnsignFromCookie);
-      if (!user) {
-        cookies.set('token', '');
-        cookies.set('user', '');
+      if (!userUnsignFromCookie && !user) {
+        user = await getUser(tokenUnsignFromCookie);
+        // Set a signature cookie
+        let userSignature = SignatureCookieHelper.signCookie(cookie, JSON.stringify(user));
+        CookieHelper.setUserCookie(cookies, userSignature);
+      } 
+      
+      if (!user && !userUnsignFromCookie) {
+        CookieHelper.resetCookie(cookies);
         context.res.writeHead(302, {
           Location: '/login',
         });
         context.res.end();
+      }
+
+      if (!user) {
+        user = userUnsignFromCookie;
       }
 
       if(getServerSidePropsFunc){
@@ -72,7 +71,7 @@ export function withAuthServerSideProps(getServerSidePropsFunc?: Function){
     }
 }
 
-async function  getUser(context: any, token: string) {
+async function  getUser(token: string) {
   let result;
    try {
      result = await ApiSource.getUser(token);

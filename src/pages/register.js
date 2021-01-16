@@ -41,10 +41,11 @@ const Register = () => {
       response = await ApiSource.register(name, email, password);
     } catch (error) {
       setAlert({...resetAlert, isShow: true, description: 'Please try again.'});
+      return;
     }
     console.log(response);
     await dispatch(login(response.data.success.token));
-
+    router.replace('/');
     setIsLoading(false);
   }
 

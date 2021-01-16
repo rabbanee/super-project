@@ -29,6 +29,19 @@ const Sidebar = () => {
             </div>
         </div>
      </div>
+     <div className="sakolawp-content-wrapper skwp-column-main skwp-column">
+       <div className="sakolawp-inner-content">
+        <div className="dashboard-inner skwp-content-inner skwp-row skwp-clearfix">
+          <div className="dash-item skwp-column skwp-column-1">
+          <div className="welcome-wrap">
+             <h1 className="skwp-hello">Hello, Viollet D&#039;Amore</h1>
+            <span>Welcome Back</span>
+           <div class="img-account-hello"></div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
     </body>
    );
 };
