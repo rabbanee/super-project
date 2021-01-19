@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Transition } from '@tailwindui/react';
+import ApiSource from "../data/api-source";
 
 const ProfileDropdown = () => {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
@@ -17,9 +18,11 @@ const ProfileDropdown = () => {
     return () => window.removeEventListener('click', handleOutsideClick);
   }, [isPanelOpen, container]);
 
-  useEffect(() =>{
-    
-  });
+  const handleLogout = (e: any) => {
+    e.preventDefault();
+    console.log('haiii');
+    // ApiSource.logout()
+  }
 
   return (
      <div ref={container}  className="pl-2 relative">
@@ -54,7 +57,7 @@ const ProfileDropdown = () => {
             aria-labelledby="user-menu">
               <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
               <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
-              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>
+              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={handleLogout}>Logout</a>
             </div>
           </Transition>
       </div>
