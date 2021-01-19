@@ -6,7 +6,7 @@ import { useState } from 'react';
 import SlideOvers from './SlideOvers';
 import Header from './Header';
 
-const LayoutWithSideBar = (props : any) => {
+const LayoutWithSidebar = (props : any) => {
   const [isSlideOversOpen, setIsSlideOversOpen] = useState(false);
   
   const handleSlideOvers = (isOpen: boolean) => setIsSlideOversOpen(isOpen);
@@ -34,4 +34,4 @@ const LayoutWithSideBar = (props : any) => {
   );
 };
 
-export default LayoutWithSideBar;
+export default LayoutWithSidebar;
