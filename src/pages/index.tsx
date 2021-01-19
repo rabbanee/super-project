@@ -15,7 +15,8 @@ import LayoutWithSideBar from '../components/LayoutWithSideBar';
 
   return (
     <LayoutWithSideBar title="Home">
-      <p className="dark:text-white text-black">hai</p>
+      <h1 className="dark:text-gray-200 text-black font-bold text-2xl">Dashboard</h1>
+      <p className="dark:text-gray-200 text-black">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus distinctio eius voluptatum temporibus repudiandae obcaecati soluta minus, perferendis beatae aliquid, rerum labore! Officiis fugit iusto nisi architecto explicabo laboriosam aliquam, quaerat nobis libero accusamus? Dolorum, libero esse! Eligendi minima placeat magnam officiis alias id, doloribus molestias reprehenderit quia tenetur autem fugit, fuga praesentium, dignissimos quisquam ex soluta. Corporis nulla neque beatae error consectetur assumenda atque amet dicta pariatur, sunt, unde maiores incidunt sapiente nesciunt explicabo, minima quo accusamus inventore ab omnis esse cum deserunt dolores rem. Alias consequatur iste sed expedita cupiditate ad sit maiores excepturi? Harum, ipsa alias.</p>
     </LayoutWithSideBar>
   );
 }

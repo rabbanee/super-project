@@ -29,7 +29,7 @@ const Login = () => {
     setError(null);
     setLoading(true);
     try {
-       response = await ApiSource.login(email, password);
+      response = await ApiSource.login(email, password);
     } catch (error) {
       if (error.response?.status === 401) {
         setError('Incorrect email or password');
@@ -39,8 +39,7 @@ const Login = () => {
       setLoading(false);
       return;
     }
-    console.log(response);
-
+    // console.log(response);
     await dispatch(login(response.data.success.token));
     router.replace('/');
     setLoading(false);

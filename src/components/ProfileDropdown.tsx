@@ -22,7 +22,7 @@ const ProfileDropdown = () => {
   });
 
   return (
-     <div ref={container}  className="ml-3 relative">
+     <div ref={container}  className="pl-2 relative">
         <div>
           <button className="max-w-xs bg-primary dark:bg-gray-900 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-offset-white dark:focus:ring-offset-gray-900 focus:ring-primary" id="user-menu" aria-haspopup="true" onClick={() => setIsPanelOpen(!isPanelOpen)}>
             <span className="sr-only">Open user menu</span>

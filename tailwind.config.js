@@ -8,6 +8,9 @@ module.exports = {
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
+      maxWidth: {
+        '8xl': '90rem',
+      },
       fontFamily: {
         sans: ['Alegreya Sans', ...defaultTheme.fontFamily.sans]
       },
