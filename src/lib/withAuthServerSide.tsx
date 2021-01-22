@@ -16,21 +16,12 @@ export function withAuthServerSideProps(getServerSidePropsFunc?: Function){
       let user = null;
       
       if(!tokenUnsignFromCookie) {
-        user = await getUser(tokenFromCookie);
-        if (user === null) {
-          CookieHelper.resetCookie(cookies);
-          context.res.writeHead(302, {
-            Location: '/login',
-          });
-          context.res.end();
-        } 
-
-        let userSignature = SignatureCookieHelper.signCookie(cookie, JSON.stringify(user));
-        let tokenSignature =  SignatureCookieHelper.signCookie(cookie, tokenFromCookie);
-        CookieHelper.setTokenCookie(cookies, tokenSignature);
-        CookieHelper.setUserCookie(cookies, userSignature);
+        CookieHelper.resetCookie(cookies);
+        context.res.writeHead(302, {
+          Location: '/login',
+        });
+        context.res.end();
       }
-     
       
       if (!userUnsignFromCookie && !user) {
         user = await getUser(tokenUnsignFromCookie);
@@ -48,11 +39,10 @@ export function withAuthServerSideProps(getServerSidePropsFunc?: Function){
       }
 
       if (!user) {
-        user = userUnsignFromCookie;
+        user = JSON.parse(userUnsignFromCookie);
       }
 
       if(getServerSidePropsFunc){
-        console.log(getServerSidePropsFunc);
           return {
             props: {
               user,
@@ -76,7 +66,7 @@ async function  getUser(token: string) {
    try {
      result = await ApiSource.getUser(token);
    } catch (error) {
-     console.log(error);
+     console.log('failed to getUser');
      return null;
    }
    return result.data;

@@ -1,4 +1,4 @@
-import { Transition } from '@tailwindui/react';
+import { Transition } from '@headlessui/react';
 
 const SlideOvers = (props: any) => {
   const { isOpen, setIsOpen } = props;

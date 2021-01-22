@@ -21,6 +21,12 @@ module.exports = {
         'primary-light': '#49AB91',
         'primary-lightest': '#54B69B',
       },
+      borderWidth: {
+        '3': '3px',
+      },
+      backgroundImage: theme => ({
+        'hola': "url('/images/hola.png')",
+      })
     },
   },
   variants: {

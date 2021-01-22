@@ -12,6 +12,7 @@ const Layout = (props) => {
         <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
         <link rel="manifest" href="/manifest.json" />
       </Head>
+      
       <main className={`dark:bg-gray-800 bg-gray-200 ${props.className && props.className}`}>
         {props.children}
       </main>

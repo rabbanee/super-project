@@ -1,49 +1,127 @@
 import * as Icon from './Icon';
+import { Transition } from '@headlessui/react';
+import { useEffect, useRef, useState } from 'react';
 
-const Sidebar = () => {
-  return(
-    <aside 
-    className="hidden lg:block bg-primary border-primary dark:bg-primary-dark dark:border-primary-dark overflow-y-auto max-w-sm min-h-screen fixed lg:w-64 z-10"
+const Mobile = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+     <div 
+      className={`fixed inset-0 overflow-hidden md:hidden z-20 container`}
     >
-      <div className="flex items-center mb-4 px-4 pt-2">
-        <img src="/images/icons/icon-512x512.png" alt="E-ZEEY's Icon" className="w-12 mr-3" />
-        <h1 className="text-3xl text-gray-50">E - Z E E Y</h1>
+      <div className="absolute inset-0 overflow-hidden md:hidden">
+        <Transition
+          show={isOpen}
+          enter="ease-in-out duration-500"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in-out duration-500"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+          className="absolute inset-0 bg-gray-500 bg-opacity-75" 
+          onClick={() => setIsOpen(!isOpen)}
+        >
+        </Transition>
+        <section className={`absolute inset-y-0 left-0 pr-16 	max-w-full flex`} aria-labelledby="slide-over-heading">
+          <Transition
+            show={isOpen}
+            enter="transform transition ease-in-out duration-500"
+            enterFrom="-translate-x-full"
+            enterTo="translate-x-0"
+            leave="transition"
+            leaveFrom="opacity-0"
+            leaveTo="opacity-0"
+            className="absolute top-14 right-6 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4" >
+            <button className="rounded text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white bg-white" onClick={() => setIsOpen(!isOpen)}>
+              <span className="sr-only"> { isOpen ?  'Close panel' : 'Open Panel'}</span>
+               {
+                isOpen ? <Icon.X className="h-8 w-8 text-primary"/> :
+              <Icon.MenuAlt1 className="h-8 w-8 text-primary"/>
+              }
+            </button>
+          </Transition>
+          <Transition
+            show={!isOpen}
+            enter="transform transition ease-in-out duration-500"
+            enterFrom="-translate-x-full"
+            enterTo="translate-x-0"
+            leave="transition"
+            leaveFrom="opacity-0"
+            leaveTo="opacity-0"
+            className="absolute top-14 right-6 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4" >
+            <button className="rounded text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white bg-white" onClick={() => setIsOpen(!isOpen)}>
+              <span className="sr-only">{ isOpen ?  'Close panel' : 'Open Panel'}l</span>
+              {
+                isOpen ? <Icon.X className="h-8 w-8 text-primary"/> :
+                <Icon.MenuAlt1 className="h-8 w-8 text-primary"/>
+              }
+            </button>
+          </Transition> 
+          <Transition
+            show={isOpen}
+            enter="transform transition ease-in-out duration-500"
+            enterFrom="-translate-x-full"
+            enterTo="translate-x-0"
+            leave="transform transition ease-in-out duration-500"
+            leaveFrom="translate-x-0"
+            leaveTo="-translate-x-full"
+            className="relative w-screen max-w-xs bg-white"
+          >
+            <aside className="h-full flex flex-col py-6 border-r border-white dark:bg-primary-darkest dark:border-primary-darkest shadow-md overflow-y-scrol max-w-xs">
+              <div className="flex items-start px-4 space-x-2 sm:px-5 sm:space-x-4">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" className="w-14 rounded-full border-primary	border-3" />
+                <div className="flex flex-col">
+                  <h2 className="text-2xl font-bold">Daffa</h2>
+                  <div className="flex space-x-2">
+                    <button className="bg-yellow-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-yellow-300">
+                      <Icon.PencilAltSolid className="h-5" />
+                    </button>
+                    <button className="bg-red-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-red-300">
+                      <Icon.LogoutSolid className="h-5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-6 relative flex-1 px-4 sm:px-6">
+              {/*  Replace with your content */}
+                <div className="absolute inset-0 px-4 sm:px-6">
+                  <div className="h-full border-2 border-dashed border-gray-200 " aria-hidden="true"></div>
+                </div>
+              {/*  /End replace */}
+              </div>
+            </aside>
+          </Transition>
+        </section>
       </div>
-      {/* <ul>
-        <li className="flex items-center dark:bg-primary-darkest text-gray-200 mx-3 mb-2 px-2 py-2 rounded cursor-pointer">
-          <Icon.home className="w-6 mr-2"/>
-          <a className="" href="#">Home</a>
-        </li>
-        <li className="flex items-center text-gray-200 hover:bg-primary-darkest mx-3 mb-2 px-2 py-2 rounded cursor-pointer">
-          <Icon.home className="w-6 mr-2"/>
-          <a className="" href="#">Home</a>
-        </li>
-      </ul> */}
-       <div>
-               <a className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-400 focus:text-gray-400 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Jadwal Pelajaran</a>
-               <a className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-400 focus:text-gray-400 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Mata Pelajaran</a>
-               <a className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-400 focus:text-gray-400 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Tugas</a>
-               <a className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-400 focus:text-gray-400 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Materi Pelajaran</a>
-              <div>
-                <button className="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:block hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                            <span className="text-lg">Penilaian Dropdown</span>
-                            <svg fill="currentColor" viewBox="0 0 20 20"  className="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                </button>
-                
-                            <div className="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-700">
-                              <a className="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Penilaian Materi</a>
-                              <a className="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Penilaian Prektek</a>
-                            </div>
-                        
-              </div>  
-               <a className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-400 focus:text-gray-400 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Halaqoh</a>
-               <a className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-400 focus:text-gray-400 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Setting</a>                         
-        </div>
-         <div>
-         <a className="text-white 900 ">Copyrigt@2021</a>
-        </div>
-    </aside>
-   );
+    </div>
+  );
 };
 
-export default Sidebar;
+const Desktop = (props: any) => {
+  const { user } = props;
+  return (
+    <aside className={`h-full flex flex-col py-6 border-r border-white dark:bg-primary-darkest dark:border-primary-darkest shadow-md overflow-y-scrol w-full ${props.className && props.className}`}>
+      <div className="flex items-start px-5 space-x-4">
+        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" className="w-14 rounded-full border-primary	border-3" />
+        <div className="flex flex-col">
+          <h2 className="text-2xl font-bold">{ user.name  }</h2>
+          <div className="flex space-x-2">
+            <button className="bg-yellow-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-yellow-300">
+              <Icon.PencilAltSolid className="h-5" />
+            </button>
+            <button className="bg-red-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-red-300">
+              <Icon.LogoutSolid className="h-5" />
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="mt-6 relative flex-1 px-4 sm:px-6">
+      {/*  Replace with your content */}
+        
+      {/*  /End replace */}
+      </div>
+    </aside>
+  );
+};
+
+export { Mobile, Desktop };

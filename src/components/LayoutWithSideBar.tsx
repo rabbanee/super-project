@@ -1,36 +1,23 @@
 import React from 'react';
 import Layout from './Layout';
 import "react-toggle/style.css";
-import Sidebar from './Sidebar';
+import * as Sidebar from './Sidebar';
 import { useState } from 'react';
-import SlideOvers from './SlideOvers';
-import Header from './Header';
 
 const LayoutWithSidebar = (props : any) => {
-  const [isSlideOversOpen, setIsSlideOversOpen] = useState(false);
-  
-  const handleSlideOvers = (isOpen: boolean) => setIsSlideOversOpen(isOpen);
 
   return (
-    <React.Fragment>
-      <div className="w-full max-w-8xl mx-auto">
-        <div className="lg:flex">
-          <Sidebar />
-          <div className="min-w-0 w-full flex-auto lg:static lg:max-h-full lg:overflow-visible">
-            <div className="w-full flex">
-              <Header setIsOpen={handleSlideOvers} isOpen={isSlideOversOpen}/>
-              <Layout
-                title={props.title} 
-                className="container py-4 px-3 mt-14 lg:ml-64 lg:px-7 min-h-screen lg:py-6"
-              >
-                { props.children }
-              </Layout>
-            </div>
-          </div>
-        </div>
+    <div className="bg-gray-200">
+      <div className="min-w-screen container  mx-auto min-h-screen md:flex md:px-7 md:space-x-1">
+        <Sidebar.Mobile />
+        <Sidebar.Desktop user={props.user}  className="md:mt-9 bg-white md:rounded-xl md:w-2/6 lg:w-1/5 hidden md:block max-w-xs"/>
+        <Layout
+          title={props.title} 
+          className="px-4 min-h-screen min-w-screen pt-9 md:w-4/6 lg:w-4/5">
+          { props.children }
+        </Layout>
       </div>
-      <SlideOvers setIsOpen={handleSlideOvers} isOpen={isSlideOversOpen} />
-    </React.Fragment>
+    </div>
   );
 };
 

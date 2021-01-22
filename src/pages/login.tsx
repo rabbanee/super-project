@@ -9,6 +9,7 @@ import { login } from '../redux/actions';
 import { withoutAuthServerSideProps } from '../lib/withoutAuthServerSide';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import axios from 'axios';
 
 const Login = () => {
   const [loading, setLoading]  = useState(false);
@@ -29,18 +30,15 @@ const Login = () => {
     setError(null);
     setLoading(true);
     try {
-      response = await ApiSource.login(email, password);
+      response = await axios.post('http://localhost:3000/api/login', { email, password });
     } catch (error) {
-      if (error.response?.status === 401) {
-        setError('Incorrect email or password');
-      } else {
-        setError('Please try again');
+      const { response } = error;
+      if (response.data.error) {
+        setError(response.data.message ?? 'Please try again');
       }
       setLoading(false);
       return;
     }
-    // console.log(response);
-    await dispatch(login(response.data.success.token));
     router.replace('/');
     setLoading(false);
   }
@@ -100,7 +98,7 @@ const Login = () => {
           </div>
         </form>
         <div className="bg-white px-0 py-3 text-center border border-gray-300 rounded-md">
-          Don't have an account? <Link href="/register"><a className=" text-primary-darkest hover:text-primary font-medium">Register</a></Link>
+          Don't have an account? <Link href="/register"><a className="text-primary-darkest hover:text-primary font-medium">Register</a></Link>
         </div>
       </div>
     </Layout>
