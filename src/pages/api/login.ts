@@ -8,6 +8,12 @@ export default async function handler(req: any, res: any) {
   if (req.method === 'POST') {
     const cookies = new Cookies(req, res);
     const { email, password  } = req.body;
+    
+    if (!email || !password) {
+      res.status(404).send('');
+      return;
+    }
+
     let response;
      try {
       response = await ApiSource.login(email, password);
