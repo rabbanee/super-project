@@ -11,9 +11,7 @@ export default async function handler(req: any, res: any) {
   } 
 
   const cookies = new Cookies(req, res);
-  // cookies.get('token');
   const token  = cookies.get('token');
-  console.log(token);
   
   if (!token) {
     res.status(404).send('');
