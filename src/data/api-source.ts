@@ -23,8 +23,6 @@ class ApiSource {
   }
 
   static async logout(token : string) {
-    console.log(token);
-    
     const data = null;
     return await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}logout`, data,  { 
       headers: {'Authorization': `Bearer ${token}`}
