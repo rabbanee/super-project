@@ -3,6 +3,8 @@ import { Transition } from '@headlessui/react';
 import { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import Router from 'next/router';
+import Link from 'next/link';
+import ActiveLink from './ActiveLink';
 
 const Mobile = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -70,7 +72,7 @@ const Mobile = (props: any) => {
             leaveTo="-translate-x-full"
             className="relative w-screen max-w-xs bg-white"
           >
-            <aside className="h-full flex flex-col py-6 border-r border-white dark:bg-primary-darkest dark:border-primary-darkest shadow-md overflow-y-scrol max-w-xs">
+            <aside className="h-full flex flex-col py-6 dark:bg-primary-darkest dark:border-primary-darkest shadow-md overflow-y-scrol max-w-xs">
               <div className="flex items-start px-4 space-x-2 sm:px-5 sm:space-x-4">
                 <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" className="w-14 rounded-full border-primary	border-3" />
                 <div className="flex flex-col">
@@ -85,9 +87,26 @@ const Mobile = (props: any) => {
                   </div>
                 </div>
               </div>
-              <div className="mt-6 relative flex-1 px-4 sm:px-6">
+              <div className="mt-6 relative flex-1">
               {/*  Replace with your content */}
-                
+              <ul className="w-full pt-2">
+                <li className="w-full">
+                  <ActiveLink href="/" activeClassName="bg-primary-light text-gray-50">
+                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+                      <Icon.Home className="h-6" /> 
+                      <span className="text-lg flex items-center">Home</span>
+                    </a>
+                  </ActiveLink>
+                </li>
+                <li className="w-full">
+                  <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
+                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+                      <Icon.Speakerphone className="h-6" /> 
+                      <span className="text-lg flex items-center">Announcement</span>
+                    </a>
+                  </ActiveLink>
+                </li>
+              </ul>
               {/*  /End replace */}
               </div>
             </aside>
@@ -101,7 +120,7 @@ const Mobile = (props: any) => {
 const Desktop = (props: any) => {
   const { user } = props;
   return (
-    <aside className={`h-full flex flex-col py-6 border-r border-white dark:bg-primary-darkest dark:border-primary-darkest shadow-md overflow-y-scrol w-full ${props.className && props.className}`}>
+    <aside className={`h-full flex flex-col py-6 dark:bg-primary-darkest dark:border-primary-darkest shadow-md overflow-y-scrol w-full ${props.className && props.className}`}>
       <div className="flex items-start px-5 space-x-4">
         <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" className="w-14 rounded-full border-primary	border-3" />
         <div className="flex flex-col">
@@ -114,20 +133,28 @@ const Desktop = (props: any) => {
               <Icon.LogoutSolid className="h-5" />
             </button>
           </div>
-          <div>
-          <button className="bg-red-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-red-300" herf="#">
-              <Icon.home className="h-5" />
-            </button>Home
-               <a className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Portfolio</a>
-               <a className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">About</a>
-               <a className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Contact</a>
-                   
-          </div>
         </div>
       </div>
-      <div className="mt-6 relative flex-1 px-4 sm:px-6">
+      <div className="mt-6 relative flex-1 border-t-2">
       {/*  Replace with your content */}
-        
+        <ul className="w-full pt-2">
+          <li className="w-full">
+            <ActiveLink href="/" activeClassName="bg-primary-light text-gray-50">
+              <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+                <Icon.Home className="h-6" /> 
+                <span className="text-lg flex items-center">Home</span>
+              </a>
+            </ActiveLink>
+          </li>
+          <li className="w-full">
+            <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
+              <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+                <Icon.Speakerphone className="h-6" /> 
+                <span className="text-lg flex items-center">Announcement</span>
+              </a>
+            </ActiveLink>
+          </li>
+        </ul>
       {/*  /End replace */}
       </div>
     </aside>
