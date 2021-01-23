@@ -36,8 +36,10 @@ const EditProfile = ({ user }: {user: any}) => {
                 <div className="mt-2 flex items-center">
                   {
                     image ? 
-                    <img src={image} alt="User" className="w-14 rounded-full" />  :  
-                    <span className="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
+                    <span className="inline-block h-14 w-14 overflow-hidden rounded-full">
+                      <img src={image} alt="User"  />
+                    </span>  :  
+                    <span className="inline-block h-14 w-14 rounded-full overflow-hidden bg-gray-100">
                       <Icon.UserCircle className="h-full w-full text-gray-300" />
                     </span>
                   }
