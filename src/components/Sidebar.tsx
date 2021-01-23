@@ -4,6 +4,7 @@ import { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import Router from 'next/router';
 import ActiveLink from './ActiveLink';
+import Link from 'next/link';
 
 const Mobile = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,35 +72,48 @@ const Mobile = (props: any) => {
             leaveTo="-translate-x-full"
             className="relative w-screen max-w-xs bg-white"
           >
-            <aside className="h-full flex flex-col py-6 dark:bg-primary-darkest dark:border-primary-darkest shadow-md overflow-y-scrol max-w-xs">
-              <div className="flex items-start px-4 space-x-2 sm:px-5 sm:space-x-4">
-                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" className="w-14 rounded-full border-primary	border-3" />
-                <div className="flex flex-col">
-                  <h2 className="text-2xl font-bold">{ user.name }</h2>
-                  <div className="flex space-x-2">
-                    <button className="bg-yellow-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-yellow-300">
-                      <Icon.PencilAltSolid className="h-5" />
-                    </button>
-                    <button className="bg-red-200 hover:bg-red-400  p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-red-300" onClick={logoutHandler}>
-                      <Icon.LogoutSolid className="h-5" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-6 relative flex-1">
-              {/*  Replace with your content */}
-              {
-                list()
-              }
-              {/*  /End replace */}
-              </div>
-            </aside>
+            {
+              _Sidebar(user)
+            }
           </Transition>
         </section>
       </div>
     </div>
   );
 };
+
+const _Sidebar  = (user: any, className?: string) => {
+ return (
+    <aside className={`h-full flex flex-col py-6 dark:bg-primary-darkest dark:border-primary-darkest shadow-md overflow-y-scrol w-full ${className && className}`}>
+      <div className="flex items-start px-5 space-x-4">
+        <span className="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100 border-primary	border-3">
+          <Icon.UserCircle className="h-full w-full text-gray-300" />
+        </span>
+        {/* <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" className="w-14 rounded-full border-primary	border-3" /> */}
+        <div className="flex flex-col">
+          <h2 className="text-2xl font-bold">{ user.name  }</h2>
+          <div className="flex space-x-2">
+            <Link href="edit-profile">
+              <a className="bg-yellow-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-yellow-300">
+                <Icon.PencilAltSolid className="h-5" />
+              </a>
+            </Link>
+            <button className="bg-red-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-red-300" onClick={logoutHandler}>
+              <Icon.LogoutSolid className="h-5" />
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="mt-6 relative flex-1 border-t-2">
+      {/*  Replace with your content */}
+       {
+         list()
+       }
+      {/*  /End replace */}
+      </div>
+    </aside>
+    );
+}
 
 const list = () => {
   return (
@@ -125,31 +139,9 @@ const list = () => {
 }
 
 const Desktop = (props: any) => {
-  const { user } = props;
+  const { user, className } = props;
   return (
-    <aside className={`h-full flex flex-col py-6 dark:bg-primary-darkest dark:border-primary-darkest shadow-md overflow-y-scrol w-full ${props.className && props.className}`}>
-      <div className="flex items-start px-5 space-x-4">
-        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" className="w-14 rounded-full border-primary	border-3" />
-        <div className="flex flex-col">
-          <h2 className="text-2xl font-bold">{ user.name  }</h2>
-          <div className="flex space-x-2">
-            <button className="bg-yellow-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-yellow-300">
-              <Icon.PencilAltSolid className="h-5" />
-            </button>
-            <button className="bg-red-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-red-300" onClick={logoutHandler}>
-              <Icon.LogoutSolid className="h-5" />
-            </button>
-          </div>
-        </div>
-      </div>
-      <div className="mt-6 relative flex-1 border-t-2">
-      {/*  Replace with your content */}
-       {
-         list()
-       }
-      {/*  /End replace */}
-      </div>
-    </aside>
+   _Sidebar(user, className)
   );
 };
 
