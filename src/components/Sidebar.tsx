@@ -88,31 +88,9 @@ const Mobile = (props: any) => {
               </div>
               <div className="mt-6 relative flex-1">
               {/*  Replace with your content */}
-<<<<<<< HEAD
-              <ul className="w-full pt-2">
-                <li className="w-full">
-                  <ActiveLink href="/" activeClassName="bg-primary-light text-gray-50">
-                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-                      <Icon.Home className="h-6" /> 
-                      <span className="text-lg flex items-center">Home</span>
-                    </a>
-                  </ActiveLink>
-                </li>
-                <li className="w-full">
-                  <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
-                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-                      <Icon.Speakerphone className="h-6" /> 
-                      <span className="text-lg flex items-center">Announcement</span>
-                    </a>
-                  </ActiveLink>
-                </li>
-               
-              </ul>
-=======
               {
                 list()
               }
->>>>>>> c91cd8ea922dcaaa0259479df1579dc1dbbc28e9
               {/*  /End replace */}
               </div>
             </aside>
@@ -166,85 +144,9 @@ const Desktop = (props: any) => {
       </div>
       <div className="mt-6 relative flex-1 border-t-2">
       {/*  Replace with your content */}
-<<<<<<< HEAD
-        <ul className="w-full pt-2">
-          <li className="w-full">
-            <ActiveLink href="/" activeClassName="bg-primary-light text-gray-50">
-              <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-                <Icon.Home className="h-6" /> 
-                <span className="text-lg flex items-center">Home</span>
-              </a>
-            </ActiveLink>
-          </li>
-          <li className="w-full">
-            <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
-              <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-                <Icon.Speakerphone className="h-6" /> 
-                <span className="text-lg flex items-center">Announcement</span>
-              </a>
-            </ActiveLink>
-          </li>
-          <li className="w-full">
-                  <ActiveLink href="/Jadwal Pelajaran" activeClassName="bg-primary-light text-gray-50">
-                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-                      <Icon.Calendar className="h-6" /> 
-                      <span className="text-lg flex items-center">Jadwal Pelajaran</span>
-                    </a>
-                  </ActiveLink>
-                </li>
-                <li className="w-full">
-                  <ActiveLink href="/Jadwal Pelajaran" activeClassName="bg-primary-light text-gray-50">
-                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-                      <Icon.Calendar className="h-6" /> 
-                      <span className="text-lg flex items-center">Jadwal Pelajaran</span>
-                    </a>
-                  </ActiveLink>
-                </li><li className="w-full">
-                  <ActiveLink href="/Jadwal Pelajaran" activeClassName="bg-primary-light text-gray-50">
-                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-                      <Icon.Calendar className="h-6" /> 
-                      <span className="text-lg flex items-center">Jadwal Pelajaran</span>
-                    </a>
-                  </ActiveLink>
-                </li>
-                <li className="w-full">
-                  <ActiveLink href="/Jadwal Pelajaran" activeClassName="bg-primary-light text-gray-50">
-                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-                      <Icon.Calendar className="h-6" /> 
-                      <span className="text-lg flex items-center">Jadwal Pelajaran</span>
-                    </a>
-                  </ActiveLink>
-                </li>
-                <li className="w-full">
-                  <ActiveLink href="/Jadwal Pelajaran" activeClassName="bg-primary-light text-gray-50">
-                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-                      <Icon.Calendar className="h-6" /> 
-                      <span className="text-lg flex items-center">Jadwal Pelajaran</span>
-                    </a>
-                  </ActiveLink>
-                </li>
-                <li className="w-full">
-                  <ActiveLink href="/Jadwal Pelajaran" activeClassName="bg-primary-light text-gray-50">
-                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-                      <Icon.Calendar className="h-6" /> 
-                      <span className="text-lg flex items-center">Jadwal Pelajaran</span>
-                    </a>
-                  </ActiveLink>
-                </li>
-                <li className="w-full">
-                  <ActiveLink href="/Jadwal Pelajaran" activeClassName="bg-primary-light text-gray-50">
-                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-                      <Icon.Calendar className="h-6" /> 
-                      <span className="text-lg flex items-center">Jadwal Pelajaran</span>
-                    </a>
-                  </ActiveLink>
-                </li>      
-        </ul>
-=======
        {
          list()
        }
->>>>>>> c91cd8ea922dcaaa0259479df1579dc1dbbc28e9
       {/*  /End replace */}
       </div>
     </aside>
