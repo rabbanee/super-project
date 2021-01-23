@@ -18,13 +18,16 @@ class ApiSource {
 
   static async getUser(token : string) {
     return await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}user`, { 
-      headers: {'Authorization' : `Bearer ${token}`}
+      headers: {'Authorization': `Bearer ${token}`}
     });
   }
 
   static async logout(token : string) {
-    return await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}logout`, { 
-      headers: {'Authorization' : `Bearer ${token}`}
+    console.log(token);
+    
+    const data = null;
+    return await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}logout`, data,  { 
+      headers: {'Authorization': `Bearer ${token}`}
     });
   }
 }
