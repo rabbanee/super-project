@@ -3,7 +3,6 @@ import { Transition } from '@headlessui/react';
 import { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import Router from 'next/router';
-import Link from 'next/link';
 import ActiveLink from './ActiveLink';
 
 const Mobile = (props: any) => {
@@ -81,7 +80,7 @@ const Mobile = (props: any) => {
                     <button className="bg-yellow-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-yellow-300">
                       <Icon.PencilAltSolid className="h-5" />
                     </button>
-                    <button className="bg-red-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-red-300" onClick={logoutHandler}>
+                    <button className="bg-red-200 hover:bg-red-400  p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-red-300" onClick={logoutHandler}>
                       <Icon.LogoutSolid className="h-5" />
                     </button>
                   </div>
@@ -89,6 +88,7 @@ const Mobile = (props: any) => {
               </div>
               <div className="mt-6 relative flex-1">
               {/*  Replace with your content */}
+<<<<<<< HEAD
               <ul className="w-full pt-2">
                 <li className="w-full">
                   <ActiveLink href="/" activeClassName="bg-primary-light text-gray-50">
@@ -108,6 +108,11 @@ const Mobile = (props: any) => {
                 </li>
                
               </ul>
+=======
+              {
+                list()
+              }
+>>>>>>> c91cd8ea922dcaaa0259479df1579dc1dbbc28e9
               {/*  /End replace */}
               </div>
             </aside>
@@ -117,6 +122,29 @@ const Mobile = (props: any) => {
     </div>
   );
 };
+
+const list = () => {
+  return (
+    <ul className="w-full pt-2">
+      <li className="w-full">
+        <ActiveLink href="/" activeClassName="bg-primary-light text-gray-50">
+          <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+            <Icon.Home className="h-6" /> 
+            <span className="text-lg flex items-center">Home</span>
+          </a>
+        </ActiveLink>
+      </li>
+      <li className="w-full">
+        <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
+          <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+            <Icon.Speakerphone className="h-6" /> 
+            <span className="text-lg flex items-center">Announcement</span>
+          </a>
+        </ActiveLink>
+      </li>
+    </ul>
+  );
+}
 
 const Desktop = (props: any) => {
   const { user } = props;
@@ -138,6 +166,7 @@ const Desktop = (props: any) => {
       </div>
       <div className="mt-6 relative flex-1 border-t-2">
       {/*  Replace with your content */}
+<<<<<<< HEAD
         <ul className="w-full pt-2">
           <li className="w-full">
             <ActiveLink href="/" activeClassName="bg-primary-light text-gray-50">
@@ -211,6 +240,11 @@ const Desktop = (props: any) => {
                   </ActiveLink>
                 </li>      
         </ul>
+=======
+       {
+         list()
+       }
+>>>>>>> c91cd8ea922dcaaa0259479df1579dc1dbbc28e9
       {/*  /End replace */}
       </div>
     </aside>
@@ -237,4 +271,4 @@ const logoutHandler = async (e: any) => {
   console.log(response);
 };
 
-export { Mobile, Desktop };
+export { Desktop, Mobile  };

@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from './Layout';
 import "react-toggle/style.css";
-import * as Sidebar from './Sidebar';
+import  * as Sidebar from './Sidebar';
 import { useState } from 'react';
 
 const LayoutWithSidebar = (props : any) => {
