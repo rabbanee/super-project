@@ -106,6 +106,7 @@ const Mobile = (props: any) => {
                     </a>
                   </ActiveLink>
                 </li>
+               
               </ul>
               {/*  /End replace */}
               </div>
@@ -154,6 +155,61 @@ const Desktop = (props: any) => {
               </a>
             </ActiveLink>
           </li>
+          <li className="w-full">
+                  <ActiveLink href="/Jadwal Pelajaran" activeClassName="bg-primary-light text-gray-50">
+                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+                      <Icon.Calendar className="h-6" /> 
+                      <span className="text-lg flex items-center">Jadwal Pelajaran</span>
+                    </a>
+                  </ActiveLink>
+                </li>
+                <li className="w-full">
+                  <ActiveLink href="/Jadwal Pelajaran" activeClassName="bg-primary-light text-gray-50">
+                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+                      <Icon.Calendar className="h-6" /> 
+                      <span className="text-lg flex items-center">Jadwal Pelajaran</span>
+                    </a>
+                  </ActiveLink>
+                </li><li className="w-full">
+                  <ActiveLink href="/Jadwal Pelajaran" activeClassName="bg-primary-light text-gray-50">
+                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+                      <Icon.Calendar className="h-6" /> 
+                      <span className="text-lg flex items-center">Jadwal Pelajaran</span>
+                    </a>
+                  </ActiveLink>
+                </li>
+                <li className="w-full">
+                  <ActiveLink href="/Jadwal Pelajaran" activeClassName="bg-primary-light text-gray-50">
+                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+                      <Icon.Calendar className="h-6" /> 
+                      <span className="text-lg flex items-center">Jadwal Pelajaran</span>
+                    </a>
+                  </ActiveLink>
+                </li>
+                <li className="w-full">
+                  <ActiveLink href="/Jadwal Pelajaran" activeClassName="bg-primary-light text-gray-50">
+                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+                      <Icon.Calendar className="h-6" /> 
+                      <span className="text-lg flex items-center">Jadwal Pelajaran</span>
+                    </a>
+                  </ActiveLink>
+                </li>
+                <li className="w-full">
+                  <ActiveLink href="/Jadwal Pelajaran" activeClassName="bg-primary-light text-gray-50">
+                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+                      <Icon.Calendar className="h-6" /> 
+                      <span className="text-lg flex items-center">Jadwal Pelajaran</span>
+                    </a>
+                  </ActiveLink>
+                </li>
+                <li className="w-full">
+                  <ActiveLink href="/Jadwal Pelajaran" activeClassName="bg-primary-light text-gray-50">
+                    <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+                      <Icon.Calendar className="h-6" /> 
+                      <span className="text-lg flex items-center">Jadwal Pelajaran</span>
+                    </a>
+                  </ActiveLink>
+                </li>      
         </ul>
       {/*  /End replace */}
       </div>
