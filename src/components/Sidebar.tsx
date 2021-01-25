@@ -120,6 +120,48 @@ const list = () => {
           </a>
         </ActiveLink>
       </li>
+      <li className="w-full">
+        <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
+          <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+            <Icon.Calendar className="h-6" /> 
+            <span className="text-lg flex items-center">Jadwal Pelajaran</span>
+          </a>
+        </ActiveLink>
+      </li>
+      <li className="w-full">
+        <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
+          <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+            <Icon.Book className="h-6" /> 
+            <span className="text-lg flex items-center">Homework</span>
+          </a>
+        </ActiveLink>
+      </li>
+      <li className="w-full">
+        <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
+          <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+            <Icon.Computer className="h-6" /> 
+            <span className="text-lg flex items-center">Online Exam</span>
+            <Icon.Dropdown className="h-6"/>
+          </a>
+        </ActiveLink>
+              
+      </li>
+      <li className="w-full">
+        <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
+          <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+            <Icon.News className="h-6" /> 
+            <span className="text-lg flex items-center">News</span>
+          </a>
+        </ActiveLink>
+      </li>
+      <li className="w-full">
+        <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
+          <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+            <Icon.Alquran className="h-6" /> 
+            <span className="text-lg flex items-center">Halaqoh Online</span>
+          </a>
+        </ActiveLink>
+      </li>
     </ul>
   );
 }
