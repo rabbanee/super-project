@@ -1,5 +1,5 @@
 import Cookies from 'cookies';
-import { CookieHelper } from '../utils/server/auth/cookie-helper';
+import { CookieHelper } from '../utils/auth/cookie-helper';
 let cookie = require('cookie-signature');
 
 export function withoutAuthServerSideProps(getServerSidePropsFunc?: Function){

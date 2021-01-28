@@ -1,30 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as Alert from '../components/Alert';
 import ApiSource from '../data/api-source';
 import * as Icon from '../components/Icon';
 import * as Button from '../components/Button';
 import { Listbox, Transition } from '@headlessui/react'
-import { useDispatch } from 'react-redux';
 import LayoutWithSidebar from '../components/LayoutWithSidebar';
 import { withAuthServerSideProps } from '../lib/withAuthServerSide';
-
-const roles = [
-  'Admin',
-  'Kepala Sekolah',
-  'Siswa',
-  'Wali Santri',
-];
+import { isAdmin } from '../utils/roles/isAdmin';
+import { redirectToHome } from '../utils/redirectToHome';
+import { listRoleName } from '../data/listRoleName';
+import { convertRoleNameToRoleNumber } from '../utils/roles/convertRoleNameToRoleNumber';
 
 const AddUser = ({ user }: { user: object }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [selectedRole, setSelectedRole] = useState(roles[0]);
+  const [selectedRole, setSelectedRole] = useState(listRoleName[0]);
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState({isShow: false, description: '', title: ''});
   const resetAlert = {isShow: false, description: '', title: ''};
-  const dispatch = useDispatch();
+
+  useEffect(() => {
+    
+  }, []);
 
   const handleRegister = async (e) => {
     let response;
@@ -44,14 +43,19 @@ const AddUser = ({ user }: { user: object }) => {
       return;
     }
 
+    let role = convertRoleNameToRoleNumber(selectedRole);
+    console.log(passwordConfirmation);
+
     try {
-      response = await ApiSource.register(name, email, password);
+      response = await ApiSource.register(name, email, role, password, passwordConfirmation);
     } catch (error) {
+      console.log(error.response);
+      
       setAlert({...resetAlert, isShow: true, description: 'Please try again.'});
       setIsLoading(false);
       return;
     }
-    console.log(response);
+    // console.log(response.data);
     // router.replace('/');
     setIsLoading(false);
   }
@@ -115,7 +119,7 @@ const AddUser = ({ user }: { user: object }) => {
                               static
                               className="max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5"
                            >
-                            {roles.map((role, i) => (
+                            {listRoleName.map((role, i) => (
                               <Listbox.Option key={i} value={role}>
                                 {({ selected, active }) => (
                                   <div
@@ -196,8 +200,12 @@ const AddUser = ({ user }: { user: object }) => {
 };
 
 export default AddUser;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: object)  {
-  
+
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: any)  {
+  if (!isAdmin(user.role)) {
+    redirectToHome(context);
+  }
+
   return {
     props: {
       user, 

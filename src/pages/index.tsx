@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { withAuthServerSideProps } from '../lib/withAuthServerSide';
 import LayoutWithSidebar from '../components/LayoutWithSidebar';
 
- function Home({ user }: {user: any}) {
+ function Home({ user }: {user: object}) {
   useEffect(() => {
     
   }, []);

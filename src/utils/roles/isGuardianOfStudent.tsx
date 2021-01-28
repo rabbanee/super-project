@@ -1,0 +1,1 @@
+export const isGuardianOfStudent = (role: number) => role === 5;

@@ -1,6 +1,8 @@
 import * as Icon from './Icon';
 import ActiveLink from './ActiveLink';
 import { useEffect, useState } from 'react';
+import { isAdmin } from '../utils/roles/isAdmin';
+import { isTeacher } from '../utils/roles/isTeacher';
 
 const _all = [
     {
@@ -13,17 +15,6 @@ const _all = [
       icon: <Icon.News className="h-6"/>,
       href: '/news'
     },
-    {
-      name: 'Lupa Password',
-      icon:  <Icon.News className="h-6"/>,
-      href: '/forgot-password'
-    },
-    {
-      name: 'Edit Profile',
-      icon: <Icon.News className="h-6"/>,
-      href: '/edit-profile'
-    },
-
 ];
 
 const _admin = [
@@ -34,43 +25,30 @@ const _admin = [
     href: '/add-user'
   },
   {
-    name: 'Register Akun (OTP)',
-    icon: <Icon.UserAdd className="h-6"/>,
-    href: '/'
-  },
-  {
-    name: 'Lupa Password',
-    icon:  <Icon.News className="h-6"/>,
-    href: '/forgot-password'
-  },
-  {
-    name: 'Edit Profile',
-    icon: <Icon.News className="h-6"/>,
-    href: '/edit-profile'
-  },
-  {
-    name: 'Rekap User',
-    icon: <Icon.UserAdd className="h-6"/>,
-    href: '/'
+    name: 'Rekap Pengguna',
+    icon: <Icon.UserGroup className="h-6"/>,
+    href: '/recap-user'
   },
   {
     name: 'Edit Hak Akses',
- 
-    href: '/' 
-  },
-  {
-    name: 'CRUD  Pengumuman',
-    icon:  <Icon.Speakerphone className="h-6"/>,
-    href: '/'
+    icon: <Icon.PencilAltSolid className="h-6"/>,
+    href: '/s' 
   },
   {
     name: 'Pengumuman',
     icon:  <Icon.Speakerphone className="h-6"/>,
-    href: '/'
-
+    href: '/announcement'
   }
 ];
 
+const _teacher = [
+  ..._all,
+  {
+    name: 'Kehadiran Siswa',
+    icon:  <Icon.ClipboardList className="h-6"/>,
+    href: '/student-attendance'
+  }
+];
 
 
 const List = (props: any) => {
@@ -78,10 +56,14 @@ const List = (props: any) => {
   const [items, setItems] = useState(_all);
   
   useEffect(() => {
-    if (role === 1) {
+    if (isAdmin(role)) {
       setItems(_admin);
-      console.log(items);
     }
+
+    if (isTeacher(role)) {
+      setItems(_teacher);
+    }
+
   }, []);
 
   return (

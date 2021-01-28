@@ -1,0 +1,1 @@
+export const isTeacher = (role: number) => role === 3;

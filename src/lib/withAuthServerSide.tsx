@@ -1,7 +1,7 @@
 import ApiSource from "../data/api-source";
 import Cookies from 'cookies'
-import { CookieHelper } from "../utils/server/auth/cookie-helper";
-import { SignatureCookieHelper } from "../utils/server/auth/signature-cookie-helper";
+import { CookieHelper } from "../utils/auth/cookie-helper";
+import { SignatureCookieHelper } from "../utils/auth/signature-cookie-helper";
 let cookie = require('cookie-signature');
 
 export function withAuthServerSideProps(getServerSidePropsFunc?: Function){

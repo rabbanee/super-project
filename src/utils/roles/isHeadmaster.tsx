@@ -1,0 +1,1 @@
+export const isHeadmaster = (role: number) => role === 2;

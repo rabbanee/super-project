@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import React from 'react';
 
-const Layout = (props) => {
+const Layout = (props : any) => {
   return (
     <React.Fragment>
       <Head>
-        <title>{props.title}</title>
+        <title>{props.title} &#8211; E-ZEEY</title>
         <meta name="theme-color" content="#439B84" />
         <link rel="icon" href="/svg/logo.svg"/>
         <link rel="preconnect" href="https://fonts.gstatic.com"/>

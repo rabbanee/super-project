@@ -99,9 +99,6 @@ const Login = () => {
             </Button.primary>
           </div>
         </form>
-        <div className="bg-white px-0 py-3 text-center border border-gray-300 rounded-md">
-          Don't have an account? <Link href="/register"><a className="text-primary-darkest hover:text-primary font-medium">Register</a></Link>
-        </div>
       </div>
     </Layout>
   );

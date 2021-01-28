@@ -1,8 +1,8 @@
 import ApiSource from "../../data/api-source";
-import { SignatureCookieHelper } from "../../utils/server/auth/signature-cookie-helper";
+import { SignatureCookieHelper } from "../../utils/auth/signature-cookie-helper";
 import cookieSignature from 'cookie-signature';
 import Cookies from 'cookies'
-import { CookieHelper } from "../../utils/server/auth/cookie-helper";
+import { CookieHelper } from "../../utils/auth/cookie-helper";
 
 export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') {
