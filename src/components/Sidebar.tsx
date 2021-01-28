@@ -5,6 +5,7 @@ import axios, { AxiosResponse } from 'axios';
 import Router from 'next/router';
 import ActiveLink from './ActiveLink';
 import Link from 'next/link';
+import List from './List';
 
 const Mobile = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -83,6 +84,7 @@ const Mobile = (props: any) => {
 };
 
 const _Sidebar  = (user: any, className?: string) => {
+  
  return (
     <aside className={`h-full flex flex-col py-6 dark:bg-primary-darkest dark:border-primary-darkest shadow-md overflow-y-scrol w-full ${className && className}`}>
       <div className="flex items-start px-5 space-x-4">
@@ -93,7 +95,7 @@ const _Sidebar  = (user: any, className?: string) => {
         <div className="flex flex-col">
           <h2 className="text-2xl font-bold">{ user.name  }</h2>
           <div className="flex space-x-2">
-            <Link href="edit-profile">
+            <Link href="/edit-profile">
               <a className="bg-yellow-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-yellow-300">
                 <Icon.PencilAltSolid className="h-5" />
               </a>
@@ -107,7 +109,7 @@ const _Sidebar  = (user: any, className?: string) => {
       <div className="mt-6 relative flex-1 border-t-2">
       {/*  Replace with your content */}
        {
-         list()
+         <List role={user.role}/>
        }
       {/*  /End replace */}
       </div>
@@ -115,70 +117,70 @@ const _Sidebar  = (user: any, className?: string) => {
     );
 }
 
-const list = () => {
-  return (
-    <ul className="w-full pt-2">
-      <li className="w-full">
-        <ActiveLink href="/" activeClassName="bg-primary-light text-gray-50">
-          <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-            <Icon.Home className="h-6" /> 
-            <span className="text-lg flex items-center">Home</span>
-          </a>
-        </ActiveLink>
-      </li>
-      <li className="w-full">
-        <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
-          <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-            <Icon.Speakerphone className="h-6" /> 
-            <span className="text-lg flex items-center">Announcement</span>
-          </a>
-        </ActiveLink>
-      </li>
-      <li className="w-full">
-        <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
-          <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-            <Icon.Calendar className="h-6" /> 
-            <span className="text-lg flex items-center">Jadwal Pelajaran</span>
-          </a>
-        </ActiveLink>
-      </li>
-      <li className="w-full">
-        <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
-          <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-            <Icon.Book className="h-6" /> 
-            <span className="text-lg flex items-center">Homework</span>
-          </a>
-        </ActiveLink>
-      </li>
-      <li className="w-full">
-        <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
-          <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-            <Icon.Computer className="h-6" /> 
-            <span className="text-lg flex items-center">Online Exam</span>
-            <Icon.Dropdown className="h-6"/>
-          </a>
-        </ActiveLink>
+// const list = () => {
+//   return (
+//     <ul className="w-full pt-2">
+//       <li className="w-full">
+//         <ActiveLink href="/" activeClassName="bg-primary-light text-gray-50">
+//           <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+//             <Icon.Home className="h-6" /> 
+//             <span className="text-lg flex items-center">Beranda</span>
+//           </a>
+//         </ActiveLink>
+//       </li>
+//       <li className="w-full">
+//         <ActiveLink href="/pengumuman" activeClassName="bg-primary-light text-gray-50">
+//           <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+//             <Icon.Speakerphone className="h-6" /> 
+//             <span className="text-lg flex items-center">Pengumuman</span>
+//           </a>
+//         </ActiveLink>
+//       </li>
+//       <li className="w-full">
+//         <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
+//           <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+//             <Icon.Calendar className="h-6" /> 
+//             <span className="text-lg flex items-center">Jadwal Pelajaran</span>
+//           </a>
+//         </ActiveLink>
+//       </li>
+//       <li className="w-full">
+//         <ActiveLink href="/tugas" activeClassName="bg-primary-light text-gray-50">
+//           <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+//             <Icon.Book className="h-6" /> 
+//             <span className="text-lg flex items-center">Tugas</span>
+//           </a>
+//         </ActiveLink>
+//       </li>
+//       <li className="w-full">
+//         <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
+//           <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+//             <Icon.Computer className="h-6" /> 
+//             <span className="text-lg flex items-center">Ujian Online</span>
+//             <Icon.Dropdown className="h-6"/>
+//           </a>
+//         </ActiveLink>
               
-      </li>
-      <li className="w-full">
-        <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
-          <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-            <Icon.News className="h-6" /> 
-            <span className="text-lg flex items-center">News</span>
-          </a>
-        </ActiveLink>
-      </li>
-      <li className="w-full">
-        <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
-          <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-            <Icon.Alquran className="h-6" /> 
-            <span className="text-lg flex items-center">Halaqoh Online</span>
-          </a>
-        </ActiveLink>
-      </li>
-    </ul>
-  );
-}
+//       </li>
+//       <li className="w-full">
+//         <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
+//           <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+//             <Icon.News className="h-6" /> 
+//             <span className="text-lg flex items-center">Berita</span>
+//           </a>
+//         </ActiveLink>
+//       </li>
+//       <li className="w-full">
+//         <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
+//           <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
+//             <Icon.Alquran className="h-6" /> 
+//             <span className="text-lg flex items-center">Halaqoh Online</span>
+//           </a>
+//         </ActiveLink>
+//       </li>
+//     </ul>
+//   );
+// }
 
 const Desktop = (props: any) => {
   const { user, className } = props;

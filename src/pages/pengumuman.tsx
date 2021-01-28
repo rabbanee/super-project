@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import { withAuthServerSideProps } from '../lib/withAuthServerSide';
 import LayoutWithSidebar from '../components/LayoutWithSidebar';
 
- function Announcement({ user }: {user: any}) {
+ function Pengumuman({ user }: {user: object}) {
   useEffect(() => {
     console.log(user);
     
   }, []);
 
   return (
-    <LayoutWithSidebar title="Announcement" user={user}>
+    <LayoutWithSidebar title="Pengumuman" user={user}>
       <div className="bg-white p-6 md:px-10 rounded-xl shadow-md relative overflow-hidden container mx-auto">
         <p>Hello Gaises</p>
       </div>
@@ -17,7 +17,7 @@ import LayoutWithSidebar from '../components/LayoutWithSidebar';
   );
 }
 
-export default Announcement;
+export default Pengumuman;
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: object)  {
   return {
     props: {
