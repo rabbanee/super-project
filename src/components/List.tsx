@@ -8,6 +8,22 @@ const _all = [
       icon: <Icon.Home className="h-6"/>,
       href: '/'
     },  
+    {
+      name: 'Berita',
+      icon: <Icon.News className="h-6"/>,
+      href: '/news'
+    },
+    {
+      name: 'Lupa Password',
+      icon:  <Icon.News className="h-6"/>,
+      href: '/forgot-password'
+    },
+    {
+      name: 'Edit Profile',
+      icon: <Icon.News className="h-6"/>,
+      href: '/edit-profile'
+    },
+
 ];
 
 const _admin = [
@@ -17,7 +33,45 @@ const _admin = [
     icon: <Icon.UserAdd className="h-6"/>,
     href: '/add-user'
   },
+  {
+    name: 'Register Akun (OTP)',
+    icon: <Icon.UserAdd className="h-6"/>,
+    href: '/'
+  },
+  {
+    name: 'Lupa Password',
+    icon:  <Icon.News className="h-6"/>,
+    href: '/forgot-password'
+  },
+  {
+    name: 'Edit Profile',
+    icon: <Icon.News className="h-6"/>,
+    href: '/edit-profile'
+  },
+  {
+    name: 'Rekap User',
+    icon: <Icon.UserAdd className="h-6"/>,
+    href: '/'
+  },
+  {
+    name: 'Edit Hak Akses',
+ 
+    href: '/' 
+  },
+  {
+    name: 'CRUD  Pengumuman',
+    icon:  <Icon.Speakerphone className="h-6"/>,
+    href: '/'
+  },
+  {
+    name: 'Pengumuman',
+    icon:  <Icon.Speakerphone className="h-6"/>,
+    href: '/'
+
+  }
 ];
+
+
 
 const List = (props: any) => {
   const { role } = props;
