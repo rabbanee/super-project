@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { withAuthServerSideProps } from '../lib/withAuthServerSide';
-import LayoutWithSidebar from '../components/LayoutWithSidebar';
+import LayoutWithSidebar from '../components/layouts/LayoutWithSidebar';
 
  function Pengumuman({ user }: {user: object}) {
   useEffect(() => {

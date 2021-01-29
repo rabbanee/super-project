@@ -1,10 +1,15 @@
+import { Listbox, Transition } from "@headlessui/react";
 import { useState } from "react";
+import { listGrade } from "../../data/listGrade";
+import * as Icon from '../elements/Icon';
+import Tab1 from "./Tab1";
 
-export const Tabs = ({ color }) => {
-  const [openTab, setOpenTab] = useState(1);
+
+export const Tabs = ({ color, openTab, setOpenTab }) => {
+
+
   return (
     <>
-      <h1 className="text-3xl font-bold	text-black mb-2">{`Kehadiran Siswa (${openTab === 1 ? 'Pengelolaan' : 'Laporan'})`}</h1>
       <div className="flex flex-wrap">
         <div className="w-full">
           <ul
@@ -50,19 +55,10 @@ export const Tabs = ({ color }) => {
               </a>
             </li>
           </ul>
-          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6">
-            <div className="px-4 py-5 flex-auto">
+          <div className=" flex flex-col min-w-0 break-words bg-white w-full h-96">
+            <div className="px-4 py-5 flex-auto min-h-full">
               <div className="tab-content tab-space">
-                <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                  <p>
-                    Collaboratively administrate empowered markets via
-                    plug-and-play networks. Dynamically procrastinate B2C users
-                    after installed base benefits.
-                    <br />
-                    <br /> Dramatically visualize customer directed convergence
-                    without revolutionary ROI.
-                  </p>
-                </div>
+                <Tab1 openTab={openTab} />
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                   <p>
                     Completely synergize resource taxing relationships via

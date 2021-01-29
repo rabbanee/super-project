@@ -1,4 +1,4 @@
-import * as Icon from './Icon';
+import * as Icon from '@elements/Icon';
 import { Transition } from '@headlessui/react';
 import { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';

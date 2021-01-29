@@ -1,8 +1,7 @@
 import React from 'react';
 import Layout from './Layout';
 import "react-toggle/style.css";
-import  * as Sidebar from './Sidebar';
-import { useState } from 'react';
+import  * as Sidebar from '../modules/Sidebar';
 
 const LayoutWithSidebar = (props : any) => {
 
@@ -13,7 +12,7 @@ const LayoutWithSidebar = (props : any) => {
         <Sidebar.Desktop user={props.user}  className="md:mt-9 bg-white md:rounded-xl md:w-2/6 lg:w-1/5 hidden md:block max-w-xs"/>
         <Layout
           title={props.title} 
-          className="px-4 min-h-screen min-w-screen pt-9 md:w-4/6 lg:w-4/5">
+          className="px-4 min-h-screen min-w-screen pt-9 md:w-4/6 lg:w-4/5 mb-10">
           { props.children }
         </Layout>
       </div>

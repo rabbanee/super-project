@@ -1,8 +1,8 @@
-import * as Icon from './Icon';
+import * as Icon from '../elements/Icon';
 import ActiveLink from './ActiveLink';
 import { useEffect, useState } from 'react';
-import { isAdmin } from '../utils/roles/isAdmin';
-import { isTeacher } from '../utils/roles/isTeacher';
+import { isAdmin } from '../../utils/roles/isAdmin';
+import { isTeacher } from '../../utils/roles/isTeacher';
 
 const _all = [
     {

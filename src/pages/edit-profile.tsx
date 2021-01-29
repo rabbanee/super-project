@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import * as Icon from '../components/Icon';
-import LayoutWithSidebar from '../components/LayoutWithSidebar';
+import * as Icon from '../components/elements/Icon';
+import LayoutWithSidebar from '../components/layouts/LayoutWithSidebar';
 import { withAuthServerSideProps } from '../lib/withAuthServerSide';
 
 const EditProfile = ({ user }: {user: any}) => {

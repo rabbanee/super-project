@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Layout from '../components/Layout';
-import * as Icon from '../components/Icon';
+import Layout from '../components/layouts/Layout';
+import * as Icon from '../components/elements/Icon';
 import ApiSource from '../data/api-source';
-import * as Button from '../components/Button';
-import * as Alert from '../components/Alert';
+import * as Button from '../components/elements/Button';
+import * as Alert from '../components/elements/Alert';
 import { useDispatch } from "react-redux";
 import { login } from '../redux/actions';
 import { withoutAuthServerSideProps } from '../lib/withoutAuthServerSide';

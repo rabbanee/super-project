@@ -160,5 +160,56 @@ const ClipboardList  = (props: any) => {
   );
 }
 
+const Selector  = (props: any) => {
+  return (
+  <svg
+    className={`${props.className && props.className}`}
+    viewBox="0 0 20 20"
+    fill="none"
+    stroke="currentColor"
+  >
+    <path
+      d="M7 7l3-3 3 3m0 6l-3 3-3-3"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+  );
+}
 
-export { loadingIndicatorButton, sun, moon, burger, Home, PencilAltSolid, LogoutSolid, X, MenuAlt1, UserCircle, Dropdown, Alquran, News, Computer, Book, Speakerphone, Calendar, UserAdd, UserGroup, ClipboardList };
+const Check  = (props: any) => {
+  return (
+  <svg
+    className={`${props.className && props.className}`}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 20 20"
+    fill="currentColor"
+  >
+    <path
+      fillRule="evenodd"
+      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+      clipRule="evenodd"
+    />
+  </svg>
+  );
+}
+
+const ChevronLeft  = (props: any) => {
+  return (
+  <svg className={`${props.className && props.className}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+  </svg>
+  );
+}
+
+const ChevronRight  = (props: any) => {
+  return (
+  <svg className={`${props.className && props.className}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+  </svg>
+  );
+}
+
+
+export { loadingIndicatorButton, sun, moon, burger, Home, PencilAltSolid, LogoutSolid, X, MenuAlt1, UserCircle, Dropdown, Alquran, News, Computer, Book, Speakerphone, Calendar, UserAdd, UserGroup, ClipboardList, Selector, Check, ChevronLeft, ChevronRight };
