@@ -100,6 +100,51 @@ const Tab1 = ({openTab}) => {
                     Status
                   </th>
                 </tr>
+                <tr>
+                  <td>
+                  <span>Iesha Natalie</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                  <span>Kang Iesha</span>
+                  </td>
+
+                  <td>
+                    <div className="skwp-form-check">
+                    <label className="skwp-form-check-label p" >
+                    <input checked className="skwp-form-check-input" id="p-9" type="radio" value="1">
+                    <span>Present</span>
+                    <span className="background"></span>
+                    </input>
+                    </label>
+                    <label className="skwp-form-check-label l" >
+                    <input className="skwp-form-check-input" name="status_1496" id="l-9" type="radio" value="3">
+                    <span>Late</span>
+                    <span className="background"></span>
+                    </input>
+                    </label>
+                    <label className="skwp-form-check-label a" >
+                    <input className="skwp-form-check-input" name="status_1496" id="a-9" type="radio" value="2">
+                    <span>Absent</span>
+                    <span className="background"></span>
+                    </input>
+                    </label>
+                    <label className="skwp-form-check-label s" >
+                    <input className="skwp-form-check-input" name="status_1496" id="s-9" type="radio" value="4">
+                    <span>Sick</span>
+                    <span className="background"></span>
+                    </input>
+                    </label>
+                    <label className="skwp-form-check-label i">
+                    <input className="skwp-form-check-input" name="status_1496" id="i-9" type="radio" value="5">
+                    <span>Permit</span>
+                    <span className="background"></span>
+                    </input>
+                    </label>
+                    </div>
+                  </td>
+               </tr>
               </thead>
             </table>
           </div>
