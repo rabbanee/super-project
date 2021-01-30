@@ -1,8 +1,8 @@
 import React, { useRef, useContext } from "react";
-import * as Icon from '../elements/Icon';
+import * as Icon from '@elements/Icon';
 
 import { Manager, Reference, Popper } from "react-popper";
-import { DatepickerCtx, useDatepickerCtx } from "../../lib/DatepickerContext";
+import { DatepickerCtx, useDatepickerCtx } from "@lib/DatepickerContext";
 
 const daysOfWeekNames = [
   "Minggu",

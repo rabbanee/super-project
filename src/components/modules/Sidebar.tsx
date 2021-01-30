@@ -3,9 +3,8 @@ import { Transition } from '@headlessui/react';
 import { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import Router from 'next/router';
-import ActiveLink from './ActiveLink';
 import Link from 'next/link';
-import List from './List';
+import List from '@modules/List';
 
 const Mobile = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,13 +1,6 @@
-import { Listbox, Transition } from "@headlessui/react";
-import { useState } from "react";
-import { listGrade } from "../../data/listGrade";
-import * as Icon from '../elements/Icon';
-import Tab1 from "./Tab1";
-
+import Tab1 from "@modules/Tab1";
 
 export const Tabs = ({ color, openTab, setOpenTab }) => {
-
-
   return (
     <>
       <div className="flex flex-wrap">
