@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import * as Alert from '../components/elements/Alert';
-import ApiSource from '../data/api-source';
-import * as Icon from '../components/elements/Icon';
-import * as Button from '../components/elements/Button';
+import * as Alert from '@elements/Alert';
+import ApiSource from '@data/api-source';
+import * as Icon from '@elements/Icon';
+import * as Button from '@elements/Button';
 import { Listbox, Transition } from '@headlessui/react'
-import LayoutWithSidebar from '../components/layouts/LayoutWithSidebar';
-import { withAuthServerSideProps } from '../lib/withAuthServerSide';
-import { isAdmin } from '../utils/roles/isAdmin';
-import { redirectToHome } from '../utils/redirectToHome';
-import { listRoleName } from '../data/listRoleName';
-import { convertRoleNameToRoleNumber } from '../utils/roles/convertRoleNameToRoleNumber';
+import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
+import { withAuthServerSideProps } from '@lib/withAuthServerSide';
+import { isAdmin } from '@utils/roles/isAdmin';
+import { redirectToHome } from '@utils/redirectToHome';
+import { listRoleName } from '@data/listRoleName';
+import { convertRoleNameToRoleNumber } from '@utils/roles/convertRoleNameToRoleNumber';
 
 const AddUser = ({ user }: { user: object }) => {
   const [name, setName] = useState('');

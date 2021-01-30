@@ -10,8 +10,8 @@ const Tab1 = ({openTab}) => {
   const [date, setDate] = useState(new Date());
 
   return (
-    <div>
-      <div className={`${openTab === 1 ? 'flex' : 'hidden' } space-x-6 items-end`} id="link1">
+    <div className={`${openTab !== 1 ? 'hidden' : '' }`}>
+      <div className={`flex space-x-6 items-end`} id="link1">
         <div>
           <Listbox value={selectedClass} onChange={setSelectedClass}>
           {({open}) => (
@@ -84,7 +84,7 @@ const Tab1 = ({openTab}) => {
           />
         </div>
         <div>
-          <Button.primary>View</Button.primary>
+          <Button.primary type="button">Lihat</Button.primary>
         </div>
       </div>
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 mt-2">

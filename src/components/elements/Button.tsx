@@ -2,7 +2,7 @@ const defaultClass: string = `group relative w-full flex justify-center py-2 px-
 const primary = (props: any) => {
   return (
       <button 
-      type="submit"
+      type={`${props.type ? props.type : 'submit'}`}
       className={`${defaultClass} bg-primary hover:bg-primary-darkest focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark ${props.className && props.className}`}
       disabled={props.disabled}>
         { props.children }      
