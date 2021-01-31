@@ -1,15 +1,16 @@
-import { useEffect, useState } from 'react';
-import * as Alert from '../components/elements/Alert';
-import ApiSource from '../data/api-source';
-import * as Icon from '../components/elements/Icon';
-import * as Button from '../components/elements/Button';
-import { Listbox, Transition } from '@headlessui/react'
-import LayoutWithSidebar from '../components/layouts/LayoutWithSidebar';
-import { withAuthServerSideProps } from '../lib/withAuthServerSide';
-import { isAdmin } from '../utils/roles/isAdmin';
-import { redirectToHome } from '../utils/redirectToHome';
-import { listRoleName } from '../data/listRoleName';
-import { convertRoleNameToRoleNumber } from '../utils/roles/convertRoleNameToRoleNumber';
+import { useState } from 'react';
+import * as Alert from '@elements/Alert';
+import ApiSource from '@data/api-source';
+import * as Icon from '@elements/Icon';
+import * as Button from '@elements/Button';
+import { Listbox, Transition } from '@headlessui/react';
+import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
+import { withAuthServerSideProps } from '@lib/withAuthServerSide';
+import { isAdmin } from '@utils/roles/isAdmin';
+import redirectToHome from '@utils/redirectToHome';
+import { listRoleName } from '@data/listRoleName';
+import { convertRoleNameToRoleNumber } from '@utils/roles/convertRoleNameToRoleNumber';
+import { AnyCnameRecord } from 'dns';
 
 const AddUser = ({ user }: { user: object }) => {
   const [name, setName] = useState('');
@@ -18,50 +19,47 @@ const AddUser = ({ user }: { user: object }) => {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [alert, setAlert] = useState({isShow: false, description: '', title: ''});
-  const resetAlert = {isShow: false, description: '', title: ''};
+  const [alert, setAlert] = useState({ isShow: false, description: '', title: '' });
+  const resetAlert = { isShow: false, description: '', title: '' };
 
-  useEffect(() => {
-    
-  }, []);
+  // useEffect(() => {
+      
+  // }, []);
 
   const handleRegister = async (e) => {
     let response;
     e.preventDefault();
     setIsLoading(true);
-    setAlert({...resetAlert});
+    setAlert({ ...resetAlert });
 
     if (password !== passwordConfirmation) {
-      setAlert({...resetAlert, isShow: true, description: 'Password must be equal with password confirmation.'});
-      setIsLoading(false);
-      return;
-    }
-    
-    if (password.length < 8) {
-      setAlert({...resetAlert, isShow: true, description: 'Password must be at least 8 characters.'});
+      setAlert({ ...resetAlert, isShow: true, description: 'Password must be equal with password confirmation.' });
       setIsLoading(false);
       return;
     }
 
-    let role = convertRoleNameToRoleNumber(selectedRole);
-    console.log(passwordConfirmation);
+    if (password.length < 8) {
+      setAlert({ ...resetAlert, isShow: true, description: 'Password must be at least 8 characters.' });
+      setIsLoading(false);
+      return;
+    }
+
+    const role = convertRoleNameToRoleNumber(selectedRole);
 
     try {
       response = await ApiSource.register(name, email, role, password, passwordConfirmation);
     } catch (error) {
-      console.log(error.response);
-      
-      setAlert({...resetAlert, isShow: true, description: 'Please try again.'});
+      setAlert({ ...resetAlert, isShow: true, description: 'Please try again.' });
       setIsLoading(false);
       return;
     }
     // console.log(response.data);
     // router.replace('/');
     setIsLoading(false);
-  }
+  };
 
   return (
-   <LayoutWithSidebar title="Tambahkan Pengguna" user={user}>
+    <LayoutWithSidebar title="Tambahkan Pengguna" user={user}>
       <form onSubmit={handleRegister}>
         <div className="shadow-md overflow-hidden rounded-xl container mx-auto">
           <div className="px-4 py-5 bg-white sm:p-6">
@@ -72,7 +70,7 @@ const AddUser = ({ user }: { user: object }) => {
             <div className="grid grid-cols-6 gap-4 mt-2">
               <div className="col-span-6 sm:col-span-6">
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nama</label>
-                <input id="name" name="name" type="text" autoComplete="name" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" onChange={(e) => setName(e.target.value)}   placeholder="Nama" />
+                <input id="name" name="name" type="text" autoComplete="name" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" onChange={(e) => setName(e.target.value)} placeholder="Nama" />
               </div>
 
               <div className="col-span-6 sm:col-span-6">
@@ -115,23 +113,23 @@ const AddUser = ({ user }: { user: object }) => {
                           leaveTo="opacity-0"
                           className="absolute mt-1 w-full rounded-md bg-white shadow-lg z-10"
                         >
-                           <Listbox.Options
-                              static
-                              className="max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5"
-                           >
+                          <Listbox.Options
+                            static
+                            className="max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5"
+                          >
                             {listRoleName.map((role, i) => (
                               <Listbox.Option key={i} value={role}>
                                 {({ selected, active }) => (
                                   <div
                                     className={`${
                                       active
-                                        ? "text-white bg-primary-darkest"
-                                        : "text-gray-900"
+                                        ? 'text-white bg-primary-darkest'
+                                        : 'text-gray-900'
                                     } cursor-default select-none relative py-2 pl-8 pr-4`}
                                   >
                                     <span
                                       className={`${
-                                        selected ? "font-semibold" : "font-normal"
+                                        selected ? 'font-semibold' : 'font-normal'
                                       } block truncate`}
                                     >
                                       {role}
@@ -139,7 +137,7 @@ const AddUser = ({ user }: { user: object }) => {
                                     {selected && (
                                       <span
                                         className={`${
-                                          active ? "text-white" : "text-primary-darkest"
+                                          active ? 'text-white' : 'text-primary-darkest'
                                         } absolute inset-y-0 left-0 flex items-center pl-1.5`}
                                       >
                                         <svg
@@ -167,7 +165,7 @@ const AddUser = ({ user }: { user: object }) => {
                   )}
                 </Listbox>
               </div>
-             
+
               <div className="col-span-6 sm:col-span-6">
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">Kata Sandi</label>
                 <input type="password" name="password" id="password" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" onChange={(e) => setPassword(e.target.value)} placeholder="Kata Sandi" />
@@ -180,23 +178,22 @@ const AddUser = ({ user }: { user: object }) => {
             </div>
           </div>
           <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-            <Button.primary  
+            <Button.Primary  
               className={`${isLoading && 'cursor-not-allowed'}`}
               disabled={isLoading}
-              >
+            >
                 {
                   isLoading && <Icon.loadingIndicatorButton /> 
                 }
                 {
                   isLoading ? 'Memproses' : 'Tambahkan'
                 }
-            </Button.primary>
+            </Button.Primary>
           </div>
         </div>
       </form>
-      {/* </div> */}
-   </LayoutWithSidebar>
-  );
+    </LayoutWithSidebar>
+   )
 };
 
 export default AddUser;
@@ -205,10 +202,9 @@ export const getServerSideProps = withAuthServerSideProps(function getServerSide
   if (!isAdmin(user.role)) {
     redirectToHome(context);
   }
-
   return {
     props: {
       user, 
-    }
+    },
   };
-});
+  });

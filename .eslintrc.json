@@ -5,7 +5,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb"
+        "airbnb",
+        "plugin:import/typescript"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -20,15 +21,33 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "react/prop-types": 0,
+        "import/no-unresolved": 0,
+        "prefer-arrow-callback": 0,
+        "jsx-a11y/label-has-associated-control": 0,
+        "react/react-in-jsx-scope": "off",
         "react/jsx-filename-extension": [
             1,
             {
                 "extensions": [
                     ".js",
-                    ".jsx"
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
                 ]
             }
-        ],
-        "react/react-in-jsx-scope": false
+        ]
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        }
     }
 }

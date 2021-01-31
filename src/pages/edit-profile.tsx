@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import * as Icon from '../components/elements/Icon';
-import LayoutWithSidebar from '../components/layouts/LayoutWithSidebar';
-import { withAuthServerSideProps } from '../lib/withAuthServerSide';
+import * as Icon from '@elements/Icon';
+import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
+import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 
 const EditProfile = ({ user }: {user: any}) => {
   const [image, setImage] = useState(null);

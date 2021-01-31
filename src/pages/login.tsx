@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import Layout from '../components/layouts/Layout';
-import * as Icon from '../components/elements/Icon';
-import ApiSource from '../data/api-source';
-import * as Button from '../components/elements/Button';
-import * as Alert from '../components/elements/Alert';
+import React, { useState } from 'react';
+import Layout from '@layouts/Layout';
+import * as Icon from '@elements/Icon';
+import * as Button from '@elements/Button';
+import * as Alert from '@elements/Alert';
 import { useDispatch } from "react-redux";
-import { login } from '../redux/actions';
-import { withoutAuthServerSideProps } from '../lib/withoutAuthServerSide';
+import { withoutAuthServerSideProps } from '@lib/withoutAuthServerSide';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import axios from 'axios';
@@ -19,10 +17,6 @@ const Login: React.FC = () => {
   const dispatch: Function = useDispatch();
   const router = useRouter();
 
-  useEffect(() => {
-    // console.log(cookie.get('token'));
-     
-  }, []);
 
   const handleLogin = async (e : any) => {
     e.preventDefault();
