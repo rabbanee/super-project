@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { Tabs } from '@modules/Tabs';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
-import { redirectToHome } from '@utils/redirectToHome';
+import redirectToHome from '@utils/redirectToHome';
 import { isTeacher } from '@utils/roles/isTeacher';
 
 const ManageAttendance = ({ user }: {user: object}) => {

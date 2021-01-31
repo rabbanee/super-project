@@ -8,7 +8,7 @@ import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
     
   }, []);
 
-  return (git 
+  return (
     <LayoutWithSidebar title="Pengumuman" user={user}>
       <div className="bg-white p-6 md:px-10 rounded-xl shadow-md relative overflow-hidden container mx-auto">
         <p>Hello Gaises</p>

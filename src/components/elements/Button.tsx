@@ -3,7 +3,7 @@ const defaultClass: string = 'group relative w-full flex justify-center py-2 px-
 const Primary = ({
   type, disabled, children, className,
 }
-  : { type?: any, disabled: boolean, children: any, className: string }) => (
+  : { type?: any, disabled?: boolean, children: any, className?: string }) => (
     <button
       type={type || 'submit'}
       className={`${defaultClass} bg-primary hover:bg-primary-darkest focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark ${className && className}`}

@@ -84,7 +84,7 @@ const Tab1 = ({openTab}) => {
           />
         </div>
         <div>
-          <Button.primary type="button">Lihat</Button.primary>
+          <Button.Primary type="button">Lihat</Button.Primary>
         </div>
       </div>
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 mt-2">
