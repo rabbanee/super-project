@@ -107,13 +107,170 @@ const Tab1 = ({openTab}) => {
                     <span>Kang ha</span>
                   </td>
                   <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <label className="border-2 bg-green-300 px-2 py-2 border-green-300">
+                      <input className=" checked:bg-transparent checked:border-transparent" type="radio" value="1"/>
+                      <span>Hadir</span>
+                      <span className="background"></span>
+                    </label>
+                    <label className="skwp-form-check-label l"  >
+                      <input className="skwp-form-check-input" name="status_1489" id="l-2" type="radio" value="3"/>
+                      <span>Telat</span>
+                      <span className="background"></span>
+                    </label>
+                    <label className="skwp-form-check-label a">
+                      <input className="skwp-form-check-input" name="status_1489" id="a-2" type="radio" value="2"/>
+                      <span>Absent</span>
+                      <span className="background"></span>
+                    </label>
+                    <label className="skwp-form-check-label i">
+                      <input className="skwp-form-check-input" name="status_1489" id="i-2" type="radio" value="5"/>
+                      <span>Izin</span>
+                      <span className="background"></span>
+                    </label>
+                  </td>
+               </tr>
+               
+               <tr>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <span>Kang </span>
+                  </td>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <label className="border-2 bg-green-300 px-2 py-2 border-green-300">
+                      <input className=" checked:bg-transparent checked:border-transparent" type="radio" value="1"/>
+                      <span>Hadir</span>
+                      <span className="background"></span>
+                    </label>
+                    <label className="skwp-form-check-label l"  >
+                      <input className="skwp-form-check-input" name="status_1489" id="l-2" type="radio" value="3"/>
+                      <span>Telat</span>
+                      <span className="background"></span>
+                    </label>
+                    <label className="skwp-form-check-label a">
+                      <input className="skwp-form-check-input" name="status_1489" id="a-2" type="radio" value="2"/>
+                      <span>Absent</span>
+                      <span className="background"></span>
+                    </label>
+                    <label className="skwp-form-check-label i">
+                      <input className="skwp-form-check-input" name="status_1489" id="i-2" type="radio" value="5"/>
+                      <span>Izin</span>
+                      <span className="background"></span>
+                    </label>
+                  </td>
+               </tr>
+               
+               <tr>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <span>Kang ha</span>
+                  </td>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <label className="border-2 bg-green-300 px-2 py-2 border-green-300">
+                      <input className=" checked:bg-transparent checked:border-transparent" type="radio" value="1"/>
+                      <span>Hadir</span>
+                      <span className="background"></span>
+                    </label>
+                    <label className="skwp-form-check-label l"  >
+                      <input className="skwp-form-check-input" name="status_1489" id="l-2" type="radio" value="3"/>
+                      <span>Telat</span>
+                      <span className="background"></span>
+                    </label>
+                    <label className="skwp-form-check-label a">
+                      <input className="skwp-form-check-input" name="status_1489" id="a-2" type="radio" value="2"/>
+                      <span>Absent</span>
+                      <span className="background"></span>
+                    </label>
+                    <label className="skwp-form-check-label i">
+                      <input className="skwp-form-check-input" name="status_1489" id="i-2" type="radio" value="5"/>
+                      <span>Izin</span>
+                      <span className="background"></span>
+                    </label>
+                  </td>
+               </tr>
+               
+               <tr>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <span>Kang ha</span>
+                  </td>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <label className="border-2 bg-green-300 px-2 py-2 border-green-300">
+                      <input className=" checked:bg-transparent checked:border-transparent" type="radio" value="1"/>
+                      <span>Hadir</span>
+                      <span className="background"></span>
+                    </label>
+                    <label className="skwp-form-check-label l"  >
+                      <input className="skwp-form-check-input" name="status_1489" id="l-2" type="radio" value="3"/>
+                      <span>Telat</span>
+                      <span className="background"></span>
+                    </label>
+                    <label className="skwp-form-check-label a">
+                      <input className="skwp-form-check-input" name="status_1489" id="a-2" type="radio" value="2"/>
+                      <span>Absent</span>
+                      <span className="background"></span>
+                    </label>
+                    <label className="skwp-form-check-label i">
+                      <input className="skwp-form-check-input" name="status_1489" id="i-2" type="radio" value="5"/>
+                      <span>Izin</span>
+                      <span className="background"></span>
+                    </label>
+                  </td>
+               </tr>
+               
+               <tr>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <span>Kang ha</span>
+                  </td>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <label className="border-2 bg-green-300 px-2 py-2 border-green-300">
+                      <input className=" checked:bg-transparent checked:border-transparent" type="radio" value="1"/>
+                      <span>Hadir</span>
+                      <span className="background"></span>
+                    </label>
+                    <label className="skwp-form-check-label l"  >
+                      <input className="skwp-form-check-input" name="status_1489" id="l-2" type="radio" value="3"/>
+                      <span>Telat</span>
+                      <span className="background"></span>
+                    </label>
+                    <label className="skwp-form-check-label a">
+                      <input className="skwp-form-check-input" name="status_1489" id="a-2" type="radio" value="2"/>
+                      <span>Absent</span>
+                      <span className="background"></span>
+                    </label>
+                    <label className="skwp-form-check-label i">
+                      <input className="skwp-form-check-input" name="status_1489" id="i-2" type="radio" value="5"/>
+                      <span>Izin</span>
+                      <span className="background"></span>
+                    </label>
+                  </td>
+               </tr>
+               
+               <tr>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <span>Kang ha</span>
+                  </td>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     <label className="border-2 bg-green-300 px-2 py-2 border-green-300">
                       <input className=" checked:bg-transparent checked:border-transparent" type="radio" value="1"/>
                       <span>Hadir</span>
                       <span className="background"></span>
                     </label>
+                    <label className="skwp-form-check-label l"  >
+                      <input className="skwp-form-check-input" name="status_1489" id="l-2" type="radio" value="3"/>
+                      <span>Telat</span>
+                      <span className="background"></span>
+                    </label>
+                    <label className="skwp-form-check-label a">
+                      <input className="skwp-form-check-input" name="status_1489" id="a-2" type="radio" value="2"/>
+                      <span>Absent</span>
+                      <span className="background"></span>
+                    </label>
+                    <label className="skwp-form-check-label i">
+                      <input className="skwp-form-check-input" name="status_1489" id="i-2" type="radio" value="5"/>
+                      <span>Izin</span>
+                      <span className="background"></span>
+                    </label>
+                    
                   </td>
                </tr>
+               
               
             </table>
           </div>
