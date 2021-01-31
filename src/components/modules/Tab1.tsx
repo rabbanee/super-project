@@ -100,11 +100,14 @@ const Tab1 = ({openTab}) => {
                     Status
                   </th>
                 </tr>
+              </thead>
+              
                 <tr>
                   <td>
                   <span>Iesha Natalie</span>
                   </td>
                 </tr>
+                
                 <tr>
                   <td>
                   <span>Kang Iesha</span>
@@ -145,7 +148,7 @@ const Tab1 = ({openTab}) => {
                     </div>
                   </td>
                </tr>
-              </thead>
+              
             </table>
           </div>
         </div>
