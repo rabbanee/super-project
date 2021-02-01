@@ -1,11 +1,12 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
+const plugin = require('tailwindcss/plugin');
 
 module.exports = {
   purge: [
     './src/**/*.html',
     './src/**/*.jsx',
   ],
-  darkMode: 'class', // or 'media' or 'class'
+  darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       maxWidth: {
@@ -31,9 +32,21 @@ module.exports = {
   },
   variants: {
     extend: {
-      backgroundColor: ['checked'],
-      borderColor: ['checked'],
+      backgroundColor: ['label-checked'],
+      textColor: ['label-checked']
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addVariant, e }) => {
+        addVariant('label-checked', ({ modifySelectors, separator }) => {
+            modifySelectors(
+                ({ className }) => {
+                  const eClassName = e(`label-checked${separator}${className}`); // escape class
+                  const yourSelector = 'input[type="radio"]'; // your input selector. Could be any
+                  return `${yourSelector}:checked ~ .${eClassName}`; // ~ - CSS selector for siblings
+                }
+            )
+        })
+    }),
+  ],
 }

@@ -5,7 +5,7 @@ import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import redirectToHome from '@utils/redirectToHome';
 import { isTeacher } from '@utils/roles/isTeacher';
 
-const ManageAttendance = ({ user }: {user: object}) => {
+const StudentAttendance = ({ user }: {user: object}) => {
   const [openTab, setOpenTab] = useState(1);
 
   return (
@@ -21,7 +21,7 @@ const ManageAttendance = ({ user }: {user: object}) => {
   );
 };
 
-export default ManageAttendance;
+export default StudentAttendance;
 
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: any)  {
   if (!isTeacher(user.role)) redirectToHome(context);

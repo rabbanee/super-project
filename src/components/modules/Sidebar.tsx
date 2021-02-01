@@ -83,7 +83,6 @@ const Mobile = (props: any) => {
 };
 
 const _Sidebar  = (user: any, className?: string) => {
-  
  return (
     <aside className={`h-full flex flex-col py-6 dark:bg-primary-darkest dark:border-primary-darkest shadow-md overflow-y-scrol w-full ${className && className}`}>
       <div className="flex items-start px-5 space-x-4">
@@ -115,71 +114,6 @@ const _Sidebar  = (user: any, className?: string) => {
     </aside>
     );
 }
-
-// const list = () => {
-//   return (
-//     <ul className="w-full pt-2">
-//       <li className="w-full">
-//         <ActiveLink href="/" activeClassName="bg-primary-light text-gray-50">
-//           <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-//             <Icon.Home className="h-6" /> 
-//             <span className="text-lg flex items-center">Beranda</span>
-//           </a>
-//         </ActiveLink>
-//       </li>
-//       <li className="w-full">
-//         <ActiveLink href="/pengumuman" activeClassName="bg-primary-light text-gray-50">
-//           <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-//             <Icon.Speakerphone className="h-6" /> 
-//             <span className="text-lg flex items-center">Pengumuman</span>
-//           </a>
-//         </ActiveLink>
-//       </li>
-//       <li className="w-full">
-//         <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
-//           <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-//             <Icon.Calendar className="h-6" /> 
-//             <span className="text-lg flex items-center">Jadwal Pelajaran</span>
-//           </a>
-//         </ActiveLink>
-//       </li>
-//       <li className="w-full">
-//         <ActiveLink href="/tugas" activeClassName="bg-primary-light text-gray-50">
-//           <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-//             <Icon.Book className="h-6" /> 
-//             <span className="text-lg flex items-center">Tugas</span>
-//           </a>
-//         </ActiveLink>
-//       </li>
-//       <li className="w-full">
-//         <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
-//           <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-//             <Icon.Computer className="h-6" /> 
-//             <span className="text-lg flex items-center">Ujian Online</span>
-//             <Icon.Dropdown className="h-6"/>
-//           </a>
-//         </ActiveLink>
-              
-//       </li>
-//       <li className="w-full">
-//         <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
-//           <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-//             <Icon.News className="h-6" /> 
-//             <span className="text-lg flex items-center">Berita</span>
-//           </a>
-//         </ActiveLink>
-//       </li>
-//       <li className="w-full">
-//         <ActiveLink href="/announcement" activeClassName="bg-primary-light text-gray-50">
-//           <a className="w-full hover:bg-primary-light hover:text-gray-50 flex px-7 items-stretch py-2 space-x-2">
-//             <Icon.Alquran className="h-6" /> 
-//             <span className="text-lg flex items-center">Halaqoh Online</span>
-//           </a>
-//         </ActiveLink>
-//       </li>
-//     </ul>
-//   );
-// }
 
 const Desktop = (props: any) => {
   const { user, className } = props;

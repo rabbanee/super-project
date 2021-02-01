@@ -80,7 +80,7 @@ const Login: React.FC = () => {
           </div>
 
           <div>
-            <Button.primary  
+            <Button.Primary  
             className={`${loading && 'cursor-not-allowed'}`}
             disabled={loading}
             >
@@ -88,9 +88,9 @@ const Login: React.FC = () => {
                 loading && <Icon.loadingIndicatorButton /> 
               }
               {
-                loading ? 'Processing' : 'Login'
+                loading ? 'Memproses' : 'Login'
               }
-            </Button.primary>
+            </Button.Primary>
           </div>
         </form>
       </div>
