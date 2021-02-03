@@ -1,81 +1,17 @@
-import { Listbox, Transition } from '@headlessui/react';
 import { useEffect, useState } from 'react';
-import { listGrade } from '@data/listGrade';
-import * as Icon from '@elements/Icon';
+import { listGrade } from '@data/grades';
 import { DatePicker } from '@modules/Datepicker';
 import * as Button from '@elements/Button';
+import ListBox from '@modules/ListBox';
+import { attendanceStatuses } from '@data/attendanceStatuses';
 
 const Tab1 = ({openTab}) => {
-  const [selectedClass, setSelectedClass] = useState(listGrade[0]);
   const [date, setDate] = useState(new Date());
 
   return (
     <div className={`${openTab !== 1 ? 'hidden' : '' }`}>
-      <div className={`flex space-x-6 items-end`} id="link1">
-        <div>
-          <Listbox value={selectedClass} onChange={setSelectedClass}>
-          {({open}) => (
-            <>
-              <Listbox.Label className="block text-sm leading-5 font-medium text-gray-700">
-                Kelas
-              </Listbox.Label>
-              <div className="relative w-20">
-                <span className="inline-block w-full rounded-md shadow-md">
-                  <Listbox.Button className="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-primary-dark focus:border-primary-dark transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                    <span className="block truncate">{selectedClass}</span>
-                    <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                      <Icon.Selector className="h-5 w-5 text-gray-400" />
-                    </span>
-                  </Listbox.Button>
-                </span>
-                <Transition
-                  show={open}
-                  leave="transition ease-in duration-100"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                  className="absolute mt-1 w-full rounded-md bg-white shadow-lg z-10"
-                >
-                  <Listbox.Options
-                    static
-                    className="max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5"
-                  >
-                    {listGrade.map((grade, i) => (
-                      <Listbox.Option key={i} value={grade}>
-                        {({ selected, active }) => (
-                          <div
-                            className={`${
-                              active
-                                ? "text-white bg-primary-darkest"
-                                : "text-gray-900"
-                            } cursor-default select-none relative py-2 pl-8 pr-4`}
-                          >
-                            <span
-                              className={`${
-                                selected ? "font-semibold" : "font-normal"
-                              } block truncate`}
-                            >
-                              {grade}
-                            </span>
-                            {selected && (
-                              <span
-                                className={`${
-                                  active ? "text-white" : "text-primary-darkest"
-                                } absolute inset-y-0 left-0 flex items-center pl-1.5`}
-                              >
-                                <Icon.Check className="h-5 w-5" />
-                              </span>
-                            )}
-                          </div>
-                        )}
-                      </Listbox.Option>
-                    ))}
-                  </Listbox.Options>
-                </Transition>
-              </div>
-            </>
-            )}
-          </Listbox>
-        </div>
+      <div className={`flex md:space-x-6 md:items-end flex-col items-start space-y-4 md:flex-row`} id="link1">
+        <ListBox items={listGrade} label="Kelas" />
         <div>
           <label htmlFor="date-picker" className="block text-sm leading-5 font-medium text-gray-700">Tanggal</label>
           <DatePicker
@@ -107,36 +43,16 @@ const Tab1 = ({openTab}) => {
                     <span>Kang ha</span>
                   </td>
                   <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex space-x-1">
-                      <div>
-                        <input className="hidden" type="radio" name="option" value="1" id="1"/>
-                        <label htmlFor="1" className="border label-checked:bg-green-500 px-2 py-2 border-green-500 label-checked:text-white rounded cursor-pointer">
-                          Hadir
-                        </label>
-                      </div>
-                      <div>
-                        <input className="hidden" type="radio" name="option" value="2" id="2"/>
-                        <label htmlFor="2" className="border label-checked:bg-yellow-500 px-2 py-2 border-yellow-500 label-checked:text-white rounded cursor-pointer">
-                          Telat
-                        </label>
-                      </div>
-                      <div>
-                        <input className="hidden" type="radio" name="option" value="3" id="3"/>
-                        <label htmlFor="3" className="border label-checked:bg-red-500 px-2 py-2 border-red-500 label-checked:text-white rounded cursor-pointer">
-                          Absen
-                        </label>
-                      </div>
-                      <div>
-                        <input className="hidden" type="radio" name="option" value="4" id="4"/>
-                        <label htmlFor="4" className="border label-checked:bg-yellow-600 px-2 py-2 border-yellow-600 label-checked:text-white rounded cursor-pointer">
-                          Sakit
-                        </label>
-                      </div>
-                      <div>
-                        <input className="hidden" type="radio" name="option" value="5" id="5"/>
-                        <label htmlFor="5" className="border label-checked:bg-gray-600 px-2 py-2 border-gray-600 label-checked:text-white rounded cursor-pointer">
-                          Izin
-                        </label>
-                      </div>
+                    {
+                      attendanceStatuses.map((attendanceStatus, index) => 
+                        <div key={index}>
+                          <input className="hidden" type="radio" name="option" value={`${index + 1}`} id={`${index + 1}`} defaultChecked={attendanceStatus.name === 'Hadir'}/>
+                          <label htmlFor={`${index + 1}`} className={`border label-checked:bg-${attendanceStatus.color} px-2 py-2 border-${attendanceStatus.color} label-checked:text-white rounded cursor-pointer`}>
+                            { attendanceStatus.name  }
+                          </label>
+                        </div>
+                      )
+                    }
                   </td>
                 </tr>
               </tbody>

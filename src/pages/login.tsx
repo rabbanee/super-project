@@ -43,7 +43,7 @@ const Login: React.FC = () => {
         <div>
           <img className="mx-auto h-28 w-auto" src="/images/icons/icon-512x512.png" alt="E-ZEEY"/>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-gray-100">
-            Login to your account
+            Masuk ke akun Anda
           </h2>
         </div>
         {
@@ -53,12 +53,12 @@ const Login: React.FC = () => {
           <input type="hidden" name="remember" value="true"/>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="email-address" className="sr-only">Email address</label>
-              <input id="email-address" name="email" onChange={(e) => setEmail(e.target.value)} type="email" autoComplete="email" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Email address"/>
+              <label htmlFor="email-address" className="sr-only">Email</label>
+              <input id="email-address" name="email" onChange={(e) => setEmail(e.target.value)} type="email" autoComplete="email" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Email"/>
             </div>
             <div>
-              <label htmlFor="password" className="sr-only">Password</label>
-              <input id="password" name="password" onChange={(e) => setPassword(e.target.value)} type="password" autoComplete="current-password" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Password"/>
+              <label htmlFor="password" className="sr-only">Kata Sandi</label>
+              <input id="password" name="password" onChange={(e) => setPassword(e.target.value)} type="password" autoComplete="current-password" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Kata Sandi"/>
             </div>
           </div>
 
@@ -66,14 +66,14 @@ const Login: React.FC = () => {
             <div className="flex items-center">
               <input id="remember_me" name="remember_me" type="checkbox" className="h-4 w-4 text-primary-darkest focus:ring-primary-dark border-gray-300 rounded"/>
               <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900 dark:text-gray-50">
-                Remember me
+                Ingat saya
               </label>
             </div>
 
             <div className="text-sm">
              <Link href="/forgot-password">
                 <a className="font-medium text-primary-darkest hover:text-primary">
-                  Forgot your password?
+                  Lupa kata sandi?
                 </a>
              </Link>
             </div>
@@ -88,7 +88,7 @@ const Login: React.FC = () => {
                 loading && <Icon.loadingIndicatorButton /> 
               }
               {
-                loading ? 'Memproses' : 'Login'
+                loading ? 'Memproses' : 'Masuk'
               }
             </Button.Primary>
           </div>

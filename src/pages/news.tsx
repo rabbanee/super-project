@@ -4,7 +4,6 @@ import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 
  function News({ user }: {user: object}) {
   useEffect(() => {
-    console.log(user);
     
   }, []);
 

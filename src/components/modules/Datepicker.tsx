@@ -1,6 +1,6 @@
 import React, { useRef, useContext } from "react";
 import * as Icon from '@elements/Icon';
-
+import { monthNames } from '@data/months';
 import { Manager, Reference, Popper } from "react-popper";
 import { DatepickerCtx, useDatepickerCtx } from "@lib/DatepickerContext";
 
@@ -12,21 +12,6 @@ const daysOfWeekNames = [
   "Kamis",
   "Jumat",
   "Sabtu",
-];
-
-const monthNames = [
-  "Januari",
-  "Februari",
-  "Maret",
-  "April",
-  "Mei",
-  "Juni",
-  "Juli",
-  "Agustus",
-  "September",
-  "Oktober",
-  "November",
-  "Desember",
 ];
 
 export const inputStyle = {
@@ -120,7 +105,7 @@ const Calendar: React.FC<CalendarProps> = React.forwardRef<
 
   return (
     <div
-      className="bg-white relative shadow-lg max-w-xs w-64 p-2 rounded-lg"
+      className="bg-white relative shadow-lg max-w-xs w-64 p-2 rounded-lg z-20"
       ref={ref}
       data-placement={props.placement}
       style={props.style}
