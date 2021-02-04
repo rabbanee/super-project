@@ -5,6 +5,7 @@ import '../styles/main.css';
 import { useEffect } from 'react';
 // import { useStore } from '../redux/store';
 import { RecoilRoot } from 'recoil';
+import Alerts from '@modules/Alerts';
 
 export default function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -16,6 +17,7 @@ export default function MyApp({ Component, pageProps }) {
     //   <Component {...pageProps} />
     // </Provider>
     <RecoilRoot>
+      <Alerts />
       <Component {...pageProps} />
     </RecoilRoot>
 

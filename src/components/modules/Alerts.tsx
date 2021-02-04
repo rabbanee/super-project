@@ -35,8 +35,8 @@ function Alert(props: AlertProps) {
   );
 }
 
-function InfoAlert(props: AlertProps) {
-  return <Alert {...props} type="info" icon={<Icon.Info className="w-6 h-6"/>} />;
+function SuccessAlert(props: AlertProps) {
+  return <Alert {...props} type="info" icon={<Icon.CheckCircle className="w-6 h-6"/>} />;
 }
 
 function ErrorAlert(props: AlertProps) {
@@ -49,12 +49,21 @@ function WarningAlert(props: AlertProps) {
 
 export function useAlert() {
   const [alert, setAlert] = useRecoilState<AlertState>(alertState);
+  
   const showAlert = (props) => {
     setAlert({
       ...alert,
       ...props,
     });
   };
+
+  const resetAlert = () => {
+     setAlert({
+      ...alert,
+      isOpen: false,
+    });
+  }
+
   useEffect(() => {
     if (alert?.isOpen && alert?.timeout) {
       setTimeout(() => {
@@ -64,14 +73,12 @@ export function useAlert() {
       }, alert?.timeout);
     }
   }, [alert?.isOpen, alert?.timeout]);
-  return { alert, showAlert };
+  return { alert, showAlert, resetAlert };
 }
 
 export default function Alerts() {
   const { alert, showAlert } = useAlert();
   const onClose = () => {
-    console.log('closed!');
-    
     showAlert({
       isOpen: false,
     });
@@ -87,8 +94,8 @@ export default function Alerts() {
       leaveTo="transform opacity-0 scale-95"
       className="fixed inset-x-0 top-0 w-2/3 md:w-1/3 mx-auto z-50"
     >
-      {alert.type === 'info' && (
-        <InfoAlert
+      {alert.type === 'success' && (
+        <SuccessAlert
           primary={alert.primary}
           secondary={alert.secondary}
           onClose={() => onClose()}

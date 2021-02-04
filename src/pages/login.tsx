@@ -2,33 +2,35 @@ import React, { useState } from 'react';
 import Layout from '@layouts/Layout';
 import * as Icon from '@elements/Icon';
 import * as Button from '@elements/Button';
-import * as Alert from '@elements/Alert';
-import { useDispatch } from "react-redux";
 import { withoutAuthServerSideProps } from '@lib/withoutAuthServerSide';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import axios from 'axios';
+import { useAlert } from '@modules/Alerts';
 
 const Login: React.FC = () => {
   const [loading, setLoading]  = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
-  const dispatch: Function = useDispatch();
   const router = useRouter();
-
+  const { showAlert, resetAlert } = useAlert();
 
   const handleLogin = async (e : any) => {
     e.preventDefault();
     let response : any;
-    setError(null);
+    resetAlert();
     setLoading(true);
     try {
-      response = await axios.post('http://localhost:3000/api/login', { email, password });
+      response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}api/login`, { email, password });
     } catch (error) {
       const { response } = error;
       if (response.data.error) {
-        setError(response.data.message ?? 'Please try again');
+        showAlert({
+          isOpen: true,
+          primary: 'Terjadi Kesalahan',
+          secondary: response.data.message || 'Mohon coba kembali :)',
+          type: 'error'
+        });
       }
       setLoading(false);
       return;
@@ -46,9 +48,6 @@ const Login: React.FC = () => {
             Masuk ke akun Anda
           </h2>
         </div>
-        {
-          error && <Alert.danger description={error}></Alert.danger>
-        }
         <form className="mt-8 space-y-6" onSubmit={handleLogin}>
           <input type="hidden" name="remember" value="true"/>
           <div className="rounded-md shadow-sm -space-y-px">
@@ -71,11 +70,11 @@ const Login: React.FC = () => {
             </div>
 
             <div className="text-sm">
-             <Link href="/forgot-password">
+            <Link href="/forgot-password">
                 <a className="font-medium text-primary-darkest hover:text-primary">
                   Lupa kata sandi?
                 </a>
-             </Link>
+            </Link>
             </div>
           </div>
 
