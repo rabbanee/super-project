@@ -139,6 +139,154 @@ const Tab1 = ({openTab}) => {
                       </div>
                   </td>
                 </tr>
+                <tr>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <span>Kang cut</span>
+                  </td>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex space-x-1">
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="1" id="1"/>
+                        <label htmlFor="1" className="border label-checked:bg-green-500 px-2 py-2 border-green-500 label-checked:text-white rounded cursor-pointer">
+                          Hadir
+                        </label>
+                      </div>
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="2" id="2"/>
+                        <label htmlFor="2" className="border label-checked:bg-yellow-500 px-2 py-2 border-yellow-500 label-checked:text-white rounded cursor-pointer">
+                          Telat
+                        </label>
+                      </div>
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="3" id="3"/>
+                        <label htmlFor="3" className="border label-checked:bg-red-500 px-2 py-2 border-red-500 label-checked:text-white rounded cursor-pointer">
+                          Absen
+                        </label>
+                      </div>
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="4" id="4"/>
+                        <label htmlFor="4" className="border label-checked:bg-yellow-600 px-2 py-2 border-yellow-600 label-checked:text-white rounded cursor-pointer">
+                          Sakit
+                        </label>
+                      </div>
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="5" id="5"/>
+                        <label htmlFor="5" className="border label-checked:bg-gray-600 px-2 py-2 border-gray-600 label-checked:text-white rounded cursor-pointer">
+                          Izin
+                        </label>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <span>Kang pred</span>
+                  </td>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex space-x-1">
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="1" id="1"/>
+                        <label htmlFor="1" className="border label-checked:bg-green-500 px-2 py-2 border-green-500 label-checked:text-white rounded cursor-pointer">
+                          Hadir
+                        </label>
+                      </div>
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="2" id="2"/>
+                        <label htmlFor="2" className="border label-checked:bg-yellow-500 px-2 py-2 border-yellow-500 label-checked:text-white rounded cursor-pointer">
+                          Telat
+                        </label>
+                      </div>
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="3" id="3"/>
+                        <label htmlFor="3" className="border label-checked:bg-red-500 px-2 py-2 border-red-500 label-checked:text-white rounded cursor-pointer">
+                          Absen
+                        </label>
+                      </div>
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="4" id="4"/>
+                        <label htmlFor="4" className="border label-checked:bg-yellow-600 px-2 py-2 border-yellow-600 label-checked:text-white rounded cursor-pointer">
+                          Sakit
+                        </label>
+                      </div>
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="5" id="5"/>
+                        <label htmlFor="5" className="border label-checked:bg-gray-600 px-2 py-2 border-gray-600 label-checked:text-white rounded cursor-pointer">
+                          Izin
+                        </label>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <span>Kang bungkus</span>
+                  </td>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex space-x-1">
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="1" id="1"/>
+                        <label htmlFor="1" className="border label-checked:bg-green-500 px-2 py-2 border-green-500 label-checked:text-white rounded cursor-pointer">
+                          Hadir
+                        </label>
+                      </div>
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="2" id="2"/>
+                        <label htmlFor="2" className="border label-checked:bg-yellow-500 px-2 py-2 border-yellow-500 label-checked:text-white rounded cursor-pointer">
+                          Telat
+                        </label>
+                      </div>
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="3" id="3"/>
+                        <label htmlFor="3" className="border label-checked:bg-red-500 px-2 py-2 border-red-500 label-checked:text-white rounded cursor-pointer">
+                          Absen
+                        </label>
+                      </div>
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="4" id="4"/>
+                        <label htmlFor="4" className="border label-checked:bg-yellow-600 px-2 py-2 border-yellow-600 label-checked:text-white rounded cursor-pointer">
+                          Sakit
+                        </label>
+                      </div>
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="5" id="5"/>
+                        <label htmlFor="5" className="border label-checked:bg-gray-600 px-2 py-2 border-gray-600 label-checked:text-white rounded cursor-pointer">
+                          Izin
+                        </label>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <span>Kang jet</span>
+                  </td>
+                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex space-x-1">
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="1" id="1"/>
+                        <label htmlFor="1" className="border label-checked:bg-green-500 px-2 py-2 border-green-500 label-checked:text-white rounded cursor-pointer">
+                          Hadir
+                        </label>
+                      </div>
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="2" id="2"/>
+                        <label htmlFor="2" className="border label-checked:bg-yellow-500 px-2 py-2 border-yellow-500 label-checked:text-white rounded cursor-pointer">
+                          Telat
+                        </label>
+                      </div>
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="3" id="3"/>
+                        <label htmlFor="3" className="border label-checked:bg-red-500 px-2 py-2 border-red-500 label-checked:text-white rounded cursor-pointer">
+                          Absen
+                        </label>
+                      </div>
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="4" id="4"/>
+                        <label htmlFor="4" className="border label-checked:bg-yellow-600 px-2 py-2 border-yellow-600 label-checked:text-white rounded cursor-pointer">
+                          Sakit
+                        </label>
+                      </div>
+                      <div>
+                        <input className="hidden" type="radio" name="option" value="5" id="5"/>
+                        <label htmlFor="5" className="border label-checked:bg-gray-600 px-2 py-2 border-gray-600 label-checked:text-white rounded cursor-pointer">
+                          Izin
+                        </label>
+                      </div>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
