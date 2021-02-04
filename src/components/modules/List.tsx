@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { isAdmin } from '@utils/roles/isAdmin';
 import { isTeacher } from '@utils/roles/isTeacher';
 import { isStudent} from '@utils/roles/isStudent';
+import { isHeadmaster} from '@utils/roles/isHeadmaster';
 
 const _all = [
     {
@@ -66,6 +67,15 @@ const _student = [
   },
 ];
 
+const _headmaster = [
+  ..._all,
+  {
+    name: 'Rekap Pengguna',
+    icon: <Icon.UserGroup className="h-6"/>,
+    href: '/recap-user'
+  },
+];
+
 const List = (props: any) => {
   const { role } = props;
   const [items, setItems] = useState(_all);
@@ -81,6 +91,10 @@ const List = (props: any) => {
 
     if (isStudent(role)) {
       setItems(_student);
+    }
+
+    if (isHeadmaster(role)) {
+      setItems(_headmaster);
     }
 
     
