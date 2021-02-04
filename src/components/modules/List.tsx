@@ -3,7 +3,7 @@ import ActiveLink from '@modules/ActiveLink';
 import { useEffect, useState } from 'react';
 import { isAdmin } from '@utils/roles/isAdmin';
 import { isTeacher } from '@utils/roles/isTeacher';
-import { isGuardianOfStudent} from '@utils/roles/isGuardianOfStudent';
+import { isStudent} from '@utils/roles/isStudent';
 
 const _all = [
     {
@@ -21,11 +21,7 @@ const _all = [
       icon:  <Icon.Speakerphone className="h-6"/>,
       href: '/announcement'
     },
-    {
-      name: 'Ujian',
-      icon: <Icon.ClipboardList  className="h-6"/>,
-      href: '/exam'
-    },
+ 
 ];
 
 const _admin = [
@@ -61,22 +57,12 @@ const _teacher = [
   }
 ];
 
-const _walisantri = [
+const _student = [
   ..._all,
   {
-    name: 'Beranda',
-    icon: <Icon.Home className="h-6"/>,
-    href: '/'
-  },  
-  {
-    name: 'Berita',
-    icon: <Icon.News className="h-6"/>,
-    href: '/news'
-  },
-  {
-    name: 'Pengumuman',
-    icon:  <Icon.Speakerphone className="h-6"/>,
-    href: '/announcement'
+    name: 'Ujian',
+    icon: <Icon.ClipboardList  className="h-6"/>,
+    href: '/exam'
   },
 ];
 
@@ -93,8 +79,8 @@ const List = (props: any) => {
       setItems(_teacher);
     }
 
-    if (isGuardianOfStudent(role)) {
-      setItems(_walisantri);
+    if (isStudent(role)) {
+      setItems(_student);
     }
 
     
