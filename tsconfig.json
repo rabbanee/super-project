@@ -3,6 +3,9 @@
     "target": "es5",
     "baseUrl": "src",
     "paths": {
+      "@atoms/*": [
+        "atoms/*"
+      ],
       "@elements/*": [
         "components/elements/*"
       ],

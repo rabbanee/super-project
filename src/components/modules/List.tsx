@@ -3,6 +3,7 @@ import ActiveLink from '@modules/ActiveLink';
 import { useEffect, useState } from 'react';
 import { isAdmin } from '@utils/roles/isAdmin';
 import { isTeacher } from '@utils/roles/isTeacher';
+import { isGuardianOfStudent } from '@utils/roles/isGuardianOfStudent';
 
 const _all = [
     {
@@ -63,7 +64,6 @@ const List = (props: any) => {
     if (isTeacher(role)) {
       setItems(_teacher);
     }
-
   }, []);
 
   return (

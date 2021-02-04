@@ -211,5 +211,51 @@ const ChevronRight  = (props: any) => {
   );
 }
 
+const Info  = (props: any) => {
+  return (
+  <svg className={`${props.className && props.className}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+  );
+}
 
-export { loadingIndicatorButton, sun, moon, burger, Home, PencilAltSolid, LogoutSolid, X, MenuAlt1, UserCircle, Dropdown, Alquran, News, Computer, Book, Speakerphone, Calendar, UserAdd, UserGroup, ClipboardList, Selector, Check, ChevronLeft, ChevronRight };
+const Error  = (props: any) => {
+  return (
+   <svg
+      className={`${props.className && props.className}`}
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      ></path>
+    </svg>
+  );
+}
+
+const Warning  = (props: any) => {
+  return (
+    <svg
+      className={`${props.className && props.className}`}
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+      ></path>
+    </svg>
+  );
+}
+
+
+export { loadingIndicatorButton, sun, moon, burger, Home, PencilAltSolid, LogoutSolid, X, MenuAlt1, UserCircle, Dropdown, Alquran, News, Computer, Book, Speakerphone, Calendar, UserAdd, UserGroup, ClipboardList, Selector, Check, ChevronLeft, ChevronRight, Info, Error, Warning };
