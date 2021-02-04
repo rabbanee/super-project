@@ -2,25 +2,27 @@ const initialState = {
   isOpen: false,
   title: '',
   description: '',
-  type: 'success',
+  type: '',
   timeout: 5000,
 };
 
 const alertReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SUCCESS':
+    case 'SHOW_ALERT':
       return {
         ...state,
-        
+        description: '',
+        ...action.alert,
+        isOpen: true,
       };
-    case 'ERROR':
+    case 'CLOSE_ALERT':
       return {
         ...state,
-        token,
-        isUserLoggedIn: true,
-        user,
+        isOpen: false,
       };
     default:
       return state;
   }
 }
+
+export default alertReducer;

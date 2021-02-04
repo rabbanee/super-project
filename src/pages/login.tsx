@@ -6,31 +6,31 @@ import { withoutAuthServerSideProps } from '@lib/withoutAuthServerSide';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import axios from 'axios';
-import { useAlert } from '@modules/Alerts';
+import { useDispatch } from 'react-redux';
+import { closeAlert, showAlert } from '@actions/index';
 
 const Login: React.FC = () => {
   const [loading, setLoading]  = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
-  const { showAlert, resetAlert } = useAlert();
+  const dispatch: Function = useDispatch();
 
   const handleLogin = async (e : any) => {
     e.preventDefault();
     let response : any;
-    resetAlert();
+    dispatch(closeAlert());
     setLoading(true);
     try {
       response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}api/login`, { email, password });
     } catch (error) {
       const { response } = error;
       if (response.data.error) {
-        showAlert({
-          isOpen: true,
-          primary: 'Terjadi Kesalahan',
-          secondary: response.data.message || 'Mohon coba kembali :)',
+        dispatch(showAlert({
+          title: 'Terjadi Kesalahan',
+          description: response.data.message || 'Mohon coba kembali :)',
           type: 'error'
-        });
+        }));
       }
       setLoading(false);
       return;

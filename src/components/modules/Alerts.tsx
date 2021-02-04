@@ -1,19 +1,19 @@
 import * as Icon from '@elements/Icon';
 import { Transition } from '@headlessui/react';
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { AlertState, alertState } from '@atoms/alert';
+import { useDispatch, useSelector } from "react-redux";
+import { closeAlert } from 'redux/actions';
 
 interface AlertProps {
   type?: string;
   icon?: React.ReactNode;
-  primary: string;
-  secondary?: string;
+  title: string;
+  description?: string;
   onClose?: Function;
 }
 
 function Alert(props: AlertProps) {
-  const { type, icon, primary, secondary, onClose } = props;
+  const { type, icon, title, description, onClose } = props;
   return (
     <div
       className={`relative border-t-4 rounded-b px-4 py-3 shadow-md my-2 alert-${type}`}
@@ -27,8 +27,8 @@ function Alert(props: AlertProps) {
       <div className="flex items-center">
         <div className="p-2 pr-4">{icon}</div>
         <div>
-          <p className="font-bold">{primary}</p>
-          <p className="text-sm">{secondary}</p>
+          <p className="font-bold">{title}</p>
+          <p className="text-sm">{description}</p>
         </div>
       </div>
     </div>
@@ -47,42 +47,18 @@ function WarningAlert(props: AlertProps) {
   return <Alert {...props} type="warning" icon={<Icon.Warning className="w-6 h-6"/>} />;
 }
 
-export function useAlert() {
-  const [alert, setAlert] = useRecoilState<AlertState>(alertState);
-  
-  const showAlert = (props) => {
-    setAlert({
-      ...alert,
-      ...props,
-    });
-  };
-
-  const resetAlert = () => {
-     setAlert({
-      ...alert,
-      isOpen: false,
-    });
-  }
+export default function Alerts() {
+  const dispatch: Function = useDispatch();
+  const alert = useSelector(state => state.alert);
 
   useEffect(() => {
     if (alert?.isOpen && alert?.timeout) {
       setTimeout(() => {
-        showAlert({
-          isOpen: false,
-        });
+       dispatch(closeAlert());
       }, alert?.timeout);
     }
   }, [alert?.isOpen, alert?.timeout]);
-  return { alert, showAlert, resetAlert };
-}
 
-export default function Alerts() {
-  const { alert, showAlert } = useAlert();
-  const onClose = () => {
-    showAlert({
-      isOpen: false,
-    });
-  };
   return (
     <Transition
       show={alert.isOpen}
@@ -96,23 +72,23 @@ export default function Alerts() {
     >
       {alert.type === 'success' && (
         <SuccessAlert
-          primary={alert.primary}
-          secondary={alert.secondary}
-          onClose={() => onClose()}
+          title={alert.title}
+          description={alert.description}
+          onClose={() => dispatch(closeAlert())}
         />
       )}
       {alert.type === 'error' && (
         <ErrorAlert
-          primary={alert.primary}
-          secondary={alert.secondary}
-          onClose={() => onClose()}
+          title={alert.title}
+          description={alert.description}
+          onClose={() => dispatch(closeAlert())}
         />
       )}
       {alert.type === 'warning' && (
         <WarningAlert
-          primary={alert.primary}
-          secondary={alert.secondary}
-          onClose={() => onClose()}
+          title={alert.title}
+          description={alert.description}
+          onClose={() => dispatch(closeAlert())}
         />
       )}
     </Transition>

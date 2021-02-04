@@ -1,34 +1,12 @@
-
-import cookie from 'js-cookie';
-import ApiSource from '../../data/api-source';
-
-export const auth = (type, token) => {
+export const showAlert = (alert) => {
   return {
-    type,
-    token
+    type: 'SHOW_ALERT',
+    alert,
   }
 }
 
-export const login =  (token) => {
-  return  (dispatch) => {
-    cookie.set('token', token, { 
-      sameSite: 'strict',
-    });
-    dispatch(auth('LOGIN', token));
+export const closeAlert = () => {
+  return {
+    type: 'CLOSE_ALERT'
   }
-}
-
-export const getUser =  (token) => {
- return  (dispatch) => {
-   let result;
-   try {
-     result = ApiSource.getUser(token);
-   } catch (error) {
-     console.log(error);
-     return;
-   }
-   console.log(result);
-  //  const user = result.data;
-  //  dispatch('SET_USER', auth(user));
- }
 }

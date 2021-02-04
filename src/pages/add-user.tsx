@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import * as Alert from '@elements/Alert';
+// import * as Alert from '@elements/Alert';
 import ApiSource from '@data/api-source';
 import * as Icon from '@elements/Icon';
 import * as Button from '@elements/Button';
@@ -10,7 +10,8 @@ import redirectToHome from '@utils/redirectToHome';
 import { roleNames } from '@data/roles';
 import { convertRoleNameToRoleNumber } from '@utils/roles/convertRoleNameToRoleNumber';
 import ListBox from '@modules/ListBox';
-import Alerts, { useAlert } from '@modules/Alerts';
+import { useDispatch } from "react-redux";
+import { closeAlert, showAlert } from 'redux/actions';
 
 const AddUser = ({ user }: { user: object }) => {
   const [name, setName] = useState('');
@@ -19,32 +20,28 @@ const AddUser = ({ user }: { user: object }) => {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { showAlert, resetAlert } = useAlert();
+  const dispatch: Function = useDispatch();
 
   const handleRegister = async (e) => {
     let response;
     e.preventDefault();
     setIsLoading(true);
-    resetAlert();
+    dispatch(closeAlert());
     if (password !== passwordConfirmation) {
-      showAlert({
-        isOpen: true,
-        primary: 'Kata sandi harus sama dengan konfirmasi kata sandi.',
-        secondary: '',
+      dispatch(showAlert({
+        title: 'Kata sandi harus sama dengan konfirmasi kata sandi',
         type: 'error',
-      });
+      }));
 
       setIsLoading(false);
       return;
     }
 
     if (password.length < 8) {
-      showAlert({
-        isOpen: true,
-        primary: 'Kata sandi minimal 8 karakter',
-        secondary: '',
+      dispatch(showAlert({
+        title: 'Kata sandi minimal 8 karakter',
         type: 'error',
-      });      
+      }));     
       setIsLoading(false);
       return;
     }
@@ -54,21 +51,19 @@ const AddUser = ({ user }: { user: object }) => {
     try {
       response = await ApiSource.register(name, email, role, password, passwordConfirmation);
     } catch (error) {
-      showAlert({
-        isOpen: true,
-        primary: 'Terjadi Kesalahan',
-        secondary: error.response.data.message || 'Mohon coba kembali :)',
+      dispatch(showAlert({
+        title: 'Terjadi Kesalahan',
+        description: error.response.data.message || 'Mohon coba kembali :)',
         type: 'error',
-      });     
+      })); 
       setIsLoading(false);
       return;
     }
-    showAlert({
-      isOpen: true,
-      primary: 'Berhasil menambahkan pengguna!',
-      secondary: '',
+    dispatch(showAlert({
+      title: 'Berhasil menambahkan pengguna!',
       type: 'success',
-    });    
+    })); 
+    
     setIsLoading(false);
   };
 

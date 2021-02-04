@@ -3,8 +3,14 @@
     "target": "es5",
     "baseUrl": "src",
     "paths": {
-      "@atoms/*": [
-        "atoms/*"
+      "@store/*": [
+        "redux/store/*"
+      ],
+      "@reducers/*": [
+        "redux/reducers/*"
+      ],
+      "@actions/*": [
+        "redux/actions/*"
       ],
       "@elements/*": [
         "components/elements/*"
