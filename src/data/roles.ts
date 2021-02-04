@@ -1,4 +1,4 @@
-export const listRoleName = [
+export const roleNames = [
   'Admin',
   'Kepala Sekolah',
   'Guru',

@@ -1,4 +1,5 @@
 import Tab1 from "@modules/Tab1";
+import Tab2 from "./Tab2";
 
 export const Tabs = ({ color, openTab, setOpenTab }) => {
   return (
@@ -48,21 +49,11 @@ export const Tabs = ({ color, openTab, setOpenTab }) => {
               </a>
             </li>
           </ul>
-          <div className=" flex flex-col min-w-0 break-words bg-white w-full h-96">
+          <div className="flex flex-col min-w-0 break-words bg-white w-full">
             <div className="px-4 py-5 flex-auto min-h-full">
-              <div className="tab-content tab-space">
+              <div>
                 <Tab1 openTab={openTab} />
-                <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                  <p>
-                    Completely synergize resource taxing relationships via
-                    premier niche markets. Professionally cultivate one-to-one
-                    customer service with robust ideas.
-                    <br />
-                    <br />
-                    Dynamically innovate resource-leveling customer service for
-                    state of the art customer service.
-                  </p>
-                </div>
+                <Tab2 openTab={openTab}/>
               </div>
             </div>
           </div>
