@@ -1,6 +1,6 @@
 import * as Icon from '@elements/Icon';
 
-export const _all = [
+export const all = [
   {
     name: 'Beranda',
     icon: <Icon.Home className="h-6"/>,
@@ -18,8 +18,8 @@ export const _all = [
   },
 ];
 
-export const _admin = [
-  ..._all,
+export const admin = [
+  ...all,
   {
     name: 'Tambahkan Pengguna',
     icon: <Icon.UserAdd className="h-6"/>,
@@ -37,8 +37,8 @@ export const _admin = [
   },
 ];
 
-export const _teacher = [
-  ..._all,
+export const teacher = [
+  ...all,
   {
     name: 'Kehadiran Siswa',
     icon:  <Icon.ClipboardList className="h-6"/>,
@@ -46,8 +46,8 @@ export const _teacher = [
   }
 ];
 
-export const _student = [
-  ..._all,
+export const student = [
+  ...all,
   {
     name: 'Ujian',
     icon: <Icon.ClipboardList  className="h-6"/>,
@@ -55,8 +55,8 @@ export const _student = [
   },
 ];
 
-export const _headmaster = [
-  ..._all,
+export const headmaster = [
+  ...all,
   {
     name: 'Rekap Pengguna',
     icon: <Icon.UserGroup className="h-6"/>,

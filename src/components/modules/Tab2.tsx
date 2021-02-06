@@ -5,7 +5,8 @@ import ListBox from '@modules/ListBox';
 import { monthNames } from '@data/months';
 import { rangeOfYears } from '@utils/rangeOfYears';
 import StatusPill from '@elements/StatusPill';
-import { attendanceStatuses } from '@data/attendanceStatuses';
+import { attendanceStatuses } from '@data/attendance-statuses';
+import { dummyUsers } from '@data/dummy-users';
 
 const Tab2 = ({ openTab }) => {
 
@@ -49,18 +50,22 @@ const Tab2 = ({ openTab }) => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <span>Kang ha</span>
-                  </td>
-                  {
-                    Array.apply(1, Array(30)).map((e, i) => 
-                      <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" key={i}>
-                        <StatusPill className={`bg-green-500`}/>
-                      </td>
-                    )
-                  }
-                </tr>
+               {
+                 dummyUsers.map((dummyUser, dummyUserIndex) => 
+                  <tr key={dummyUserIndex}>
+                    <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <span>{ dummyUser }</span>
+                    </td>
+                    {
+                      Array.apply(1, Array(30)).map((e, i) => 
+                        <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" key={i}>
+                          <StatusPill className={`bg-green-500`}/>
+                        </td>
+                      )
+                    }
+                  </tr>
+                 )
+               }
               </tbody>
             </table>
           </div>
