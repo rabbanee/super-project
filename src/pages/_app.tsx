@@ -8,7 +8,7 @@ import Alerts from '@modules/Alerts';
 
 export default function MyApp({ Component, pageProps }) {
   useEffect(() => {
-    // document.querySelector('html').classList.add(localStorage.getItem('theme'));
+    document.querySelector('html').classList.add(localStorage.getItem('theme'));
   }, []);
   const store = useStore(pageProps.initialReduxState);
   return (
