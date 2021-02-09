@@ -8,13 +8,13 @@ class ApiSource {
     });
   }
   
-  static async register(name : string, email : string, role: number,  password : string, cPassword: string) {
+  static async register(name : string, email : string, role: number,  password : string, passwordConfirmation: string) {
     return await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}register`, {
       name,
       email,
       role,
       password,
-      c_password: cPassword
+      password_confirmation: passwordConfirmation
     });
   }
 

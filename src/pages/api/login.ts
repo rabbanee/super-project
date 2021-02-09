@@ -13,10 +13,12 @@ export default async function handler(req: any, res: any) {
      try {
       response = await ApiSource.login(email, password);
     } catch (error) {
+      console.log(error.response.data);
       res.status(error.response.status).json(error.response.data);
       return;
     }
     let data = response.data.user_data;
+    
 
     const user = {
       name:  data.name,

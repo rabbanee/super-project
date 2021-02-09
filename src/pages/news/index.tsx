@@ -9,7 +9,7 @@ import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 
   return (
     <LayoutWithSidebar title="Berita" user={user}>
-      <div className="bg-white p-6 md:px-7 rounded-xl shadow-md relative overflow-hidden container mx-auto">
+      <div className="bg-white p-6 md:px-7 dark:bg-gray-700 rounded-xl shadow-md relative overflow-hidden container mx-auto">
         <h2 className="text-4xl font-bold	text-black mb-2">Berita</h2>
         <div className="grid w-full bg-white grid-cols-1 gap-y-6 lg:grid-cols-2 lg:gap-6">
           <div className="bg-white shadow-lg w-full rounded-t-lg rounded-b-lg">

@@ -121,9 +121,11 @@ const AddUser = ({ user }: { user: object }) => {
 export default AddUser;
 
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: any)  {
-  if (!isAdmin(user.role)) {
-    redirectToHome(context);
-  }
+  console.log(user);
+  
+  // if (!isAdmin(user.role)) {
+  //   redirectToHome(context);
+  // }
   return {
     props: {
       user, 

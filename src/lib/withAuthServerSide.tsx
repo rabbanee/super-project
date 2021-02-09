@@ -2,6 +2,7 @@ import ApiSource from "../data/api-source";
 import Cookies from 'cookies'
 import { CookieHelper } from "../utils/auth/cookie-helper";
 import { SignatureCookieHelper } from "../utils/auth/signature-cookie-helper";
+import { dummyUser } from "@data/dummy-user";
 let cookie = require('cookie-signature');
 
 export function withAuthServerSideProps(getServerSidePropsFunc?: Function){
@@ -15,32 +16,34 @@ export function withAuthServerSideProps(getServerSidePropsFunc?: Function){
       const tokenUnsignFromCookie = SignatureCookieHelper.unsignCookie(cookie, tokenFromCookie);
       let user = null;
       
-      if(!tokenUnsignFromCookie) {
-        CookieHelper.resetCookie(cookies);
-        context.res.writeHead(302, {
-          Location: '/login',
-        });
-        context.res.end();
-      }
+      // if(!tokenUnsignFromCookie) {
+      //   CookieHelper.resetCookie(cookies);
+      //   context.res.writeHead(302, {
+      //     Location: '/login',
+      //   });
+      //   context.res.end();
+      // }
       
-      if (!userUnsignFromCookie && !user) {
-        user = await getUser(tokenUnsignFromCookie);
-        // Set a signature cookie
-        let userSignature = SignatureCookieHelper.signCookie(cookie, JSON.stringify(user));
-        CookieHelper.setUserCookie(cookies, userSignature);
-      } 
+      // if (!userUnsignFromCookie && !user) {
+      //   user = await getUser(tokenUnsignFromCookie);
+      //   // Set a signature cookie
+      //   let userSignature = SignatureCookieHelper.signCookie(cookie, JSON.stringify(user));
+      //   CookieHelper.setUserCookie(cookies, userSignature);
+      // } 
       
-      if (!user && !userUnsignFromCookie) {
-        CookieHelper.resetCookie(cookies);
-        context.res.writeHead(302, {
-          Location: '/login',
-        });
-        context.res.end();
-      }
+      // if (!user && !userUnsignFromCookie) {
+      //   CookieHelper.resetCookie(cookies);
+      //   context.res.writeHead(302, {
+      //     Location: '/login',
+      //   });
+      //   context.res.end();
+      // }
 
-      if (!user) {
-        user = JSON.parse(userUnsignFromCookie);
-      }
+      // if (!user) {
+      //   user = JSON.parse(userUnsignFromCookie);
+      // }
+
+      user = dummyUser;
 
       if(getServerSidePropsFunc){
           return {

@@ -93,7 +93,7 @@ const _Sidebar  = (user: any, className?: string) => {
         </span>
         {/* <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" className="w-14 rounded-full border-primary	border-3" /> */}
         <div className="flex flex-col">
-          <h2 className="text-2xl font-bold">{ user.name  }</h2>
+          <h2 className="text-2xl font-bold dark:text-gray-100">{ user.name  }</h2>
           <div className="flex space-x-2">
             <Link href="/edit-profile">
               <a className="bg-yellow-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-yellow-300">

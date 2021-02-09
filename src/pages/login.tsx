@@ -24,11 +24,12 @@ const Login: React.FC = () => {
     try {
       response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}api/login`, { email, password });
     } catch (error) {
-      const { response } = error;
-      if (response.data.error) {
+      console.log(error.response.data);
+      const { data } = error.response;
+      if (data.message) {
         dispatch(showAlert({
-          title: 'Terjadi Kesalahan',
-          description: response.data.message || 'Mohon coba kembali :)',
+          title: data.message || 'Terjadi Kesalahan',
+          description: data.errors[Object.keys(data.errors)[0]] || 'Mohon coba kembali :)',
           type: 'error'
         }));
       }
@@ -70,11 +71,11 @@ const Login: React.FC = () => {
             </div>
 
             <div className="text-sm">
-            <Link href="/forgot-password">
+              <Link href="/forgot-password">
                 <a className="font-medium text-primary-darkest hover:text-primary">
                   Lupa kata sandi?
                 </a>
-            </Link>
+              </Link>
             </div>
           </div>
 
