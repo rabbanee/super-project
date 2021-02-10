@@ -1,8 +1,13 @@
 import { useEffect } from 'react';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
+import { User } from '@interface/User';
 
- function Pengumuman({ user }: {user: object}) {
+interface AnnouncementProps {
+  user: User
+}
+
+function Announcement({ user }: AnnouncementProps) {
   useEffect(() => {
     console.log(user);
     
@@ -17,8 +22,8 @@ import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
   );
 }
 
-export default Pengumuman;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: object)  {
+export default Announcement;
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
   return {
     props: {
       user, 

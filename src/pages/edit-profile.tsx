@@ -2,8 +2,13 @@ import { useState } from 'react';
 import * as Icon from '@elements/Icon';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
+import { User } from '@interface/User';
 
-const EditProfile = ({ user }: {user: any}) => {
+interface EditProfileProps {
+  user: User
+}
+
+const EditProfile = ({ user }: EditProfileProps) => {
   const [image, setImage] = useState(null);
 
   const imageHandler = (event: any) => setImage(URL.createObjectURL(event.target.files[0]));
@@ -70,7 +75,7 @@ const EditProfile = ({ user }: {user: any}) => {
 };
 
 export default EditProfile;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: object)  {
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
   return {
     props: {
       user, 

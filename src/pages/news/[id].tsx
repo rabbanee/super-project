@@ -1,7 +1,12 @@
+import { User } from '@interface/User';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 
-function ReadNews({ user }: {user: object}) {
+interface ReadNewsProps {
+  user: User
+}
+
+function ReadNews({ user }: ReadNewsProps) {
   return (
     <LayoutWithSidebar title="Berita" user={user}>
       <div className="bg-white p-6 md:px-7 rounded-xl shadow-md relative overflow-hidden container mx-auto">
@@ -18,7 +23,7 @@ function ReadNews({ user }: {user: object}) {
 
   
   export default ReadNews;
-  export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: object)  {
+  export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
     return {
       props: {
         user, 

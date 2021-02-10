@@ -5,8 +5,12 @@ import { Provider } from 'react-redux';
 import { useStore } from '../redux/store';
 import Alerts from '@modules/Alerts';
 
-export default function MyApp({ Component, pageProps }) {
- 
+interface MyAppProps {
+  Component: React.FC,
+  pageProps: any
+}
+
+export default function MyApp({ Component, pageProps }: MyAppProps) {
   const store = useStore(pageProps.initialReduxState);
   return (
     <Provider store={store}>

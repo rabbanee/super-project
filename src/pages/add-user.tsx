@@ -12,8 +12,14 @@ import { convertRoleNameToRoleNumber } from '@utils/roles/convertRoleNameToRoleN
 import ListBox from '@modules/ListBox';
 import { useDispatch } from "react-redux";
 import { closeAlert, showAlert } from 'redux/actions';
+import { thisPageFor } from '@utils/thisPageFor';
+import { User } from '@interface/User';
 
-const AddUser = ({ user }: { user: object }) => {
+interface AddUser {
+  user: User
+}
+
+const AddUser = ({ user }: User) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [selectedRole, setSelectedRole] = useState(roleNames[0]);
@@ -120,15 +126,16 @@ const AddUser = ({ user }: { user: object }) => {
 
 export default AddUser;
 
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: any)  {
-  console.log(user);
-  
-  // if (!isAdmin(user.role)) {
-  //   redirectToHome(context);
-  // }
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
+  thisPageFor({
+    currentRole: user.role, 
+    forRoles: [1],
+    context
+  });
+
   return {
     props: {
       user, 
     },
   };
-  });
+});

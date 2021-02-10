@@ -1,8 +1,13 @@
 import { useEffect } from 'react';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
+import { User } from '@interface/User';
 
- function Home({ user }: {user: any}) {
+interface HomeProps {
+  user: User,
+}
+
+function Home({ user }: HomeProps) {
   useEffect(() => {
     
   }, []);
@@ -49,7 +54,7 @@ import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 }
 
 export default Home;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: object)  {
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
   
   return {
     props: {

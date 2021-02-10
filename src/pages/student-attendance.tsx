@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { Tabs } from '@modules/Tabs';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
-import redirectToHome from '@utils/redirectToHome';
-import { isTeacher } from '@utils/roles/isTeacher';
+import { thisPageFor } from '@utils/thisPageFor';
+import { User } from '@interface/User';
 
-const StudentAttendance = ({ user }: {user: object}) => {
+interface StudentAttendanceProps {
+  user: User,
+}
+
+const StudentAttendance = ({ user }: StudentAttendanceProps) => {
   const [openTab, setOpenTab] = useState(1);
 
   return (
@@ -20,8 +24,12 @@ const StudentAttendance = ({ user }: {user: object}) => {
 
 export default StudentAttendance;
 
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: any)  {
-  if (!isTeacher(user.role)) redirectToHome(context);
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
+  thisPageFor({
+    currentRole: user.role,
+    forRoles: [3],
+    context
+  });
   
   return {
     props: {
