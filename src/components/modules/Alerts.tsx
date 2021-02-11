@@ -1,4 +1,5 @@
-import * as Icon from '@elements/Icon';
+import * as OutlineIcon from '@elements/Icon/Outline';
+import * as SolidIcon from '@elements/Icon/Solid';
 import { Transition } from '@headlessui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +22,7 @@ function Alert(props: AlertProps) {
     >
       <div className="absolute top-0 right-0 p-2">
         <div className="cursor-pointer" title="Close" onClick={() => onClose()}>
-          <Icon.X className="w-6 h-6" />
+          <SolidIcon.X className="w-6 h-6" />
         </div>
       </div>
       <div className="flex items-center">
@@ -36,15 +37,15 @@ function Alert(props: AlertProps) {
 }
 
 function SuccessAlert(props: AlertProps) {
-  return <Alert {...props} type="info" icon={<Icon.CheckCircle className="w-6 h-6"/>} />;
+  return <Alert {...props} type="info" icon={<OutlineIcon.CheckCircle className="w-6 h-6"/>} />;
 }
 
 function ErrorAlert(props: AlertProps) {
-  return <Alert {...props} type="error" icon={<Icon.Error className="w-6 h-6"/>} />;
+  return <Alert {...props} type="error" icon={<OutlineIcon.Exclamation className="w-6 h-6"/>} />;
 }
 
 function WarningAlert(props: AlertProps) {
-  return <Alert {...props} type="warning" icon={<Icon.Warning className="w-6 h-6"/>} />;
+  return <Alert {...props} type="warning" icon={<OutlineIcon.Exclamation className="w-6 h-6"/>} />;
 }
 
 export default function Alerts() {

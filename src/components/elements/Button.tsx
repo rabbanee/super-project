@@ -1,19 +1,37 @@
-/* eslint-disable react/button-has-type */
-const defaultClass: string = 'group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none';
-const Primary = ({
-  type, disabled, children, className,
+interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  type?: "button" | "submit" | "reset",
+  disabled?: boolean,
 }
-  : { type?: any, disabled?: boolean, children: any, className?: string }) => (
+
+const defaultClass: string = 'py-2 px-4 text-sm font-medium rounded-md focus:outline-none';
+
+export const Primary = ({ children, ...props }: ButtonProps) => (
+  <button
+    {...props}
+    className={`${defaultClass} bg-primary hover:bg-primary-darkest text-white focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark border border-transparent ${props.className && props.className}`}
+  >
+    { children }
+  </button>
+);
+
+export const Danger = ({ children, ...props }: ButtonProps) => {
+  return (
     <button
-      type={type || 'submit'}
-      className={`${defaultClass} bg-primary hover:bg-primary-darkest focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark ${className && className}`}
-      disabled={disabled}
+      {...props}
+      className={`${defaultClass} bg-red-600 hover:bg-red-700 text-white focus:ring-2 focus:ring-offset-2 focus:ring-red-500 border border-transparent ${props.className && props.className}`}
     >
       { children }
     </button>
-);
+  );
+};
 
-export {
-  // eslint-disable-next-line import/prefer-default-export
-  Primary,
+export const Secondary = ({ children, ...props }: ButtonProps) => {
+  return (
+    <button
+      {...props}
+      className={`${defaultClass} bg-white hover:bg-gray-50 text-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-primary border border-gray-300 ${props.className && props.className}`}
+    >
+      { children }
+    </button>
+  );
 };

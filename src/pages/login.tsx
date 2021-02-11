@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Layout from '@layouts/Layout';
-import * as Icon from '@elements/Icon';
+import * as OutlineIcon from '@elements/Icon/Outline';
 import * as Button from '@elements/Button';
 import { withoutAuthServerSideProps } from '@lib/withoutAuthServerSide';
 import { useRouter } from 'next/router';
@@ -26,13 +26,21 @@ const Login: React.FC = () => {
     } catch (error) {
       console.log(error.response.data);
       const { data } = error.response;
-      if (data.message) {
+      if (data.errors) {
         dispatch(showAlert({
           title: data.message || 'Terjadi Kesalahan',
           description: data.errors[Object.keys(data.errors)[0]] || 'Mohon coba kembali :)',
           type: 'error'
         }));
       }
+
+      if (data.error) {
+        dispatch(showAlert({
+          title: data.message || 'Terjadi Kesalahan',
+          type: 'error'
+        }));
+      }
+
       setLoading(false);
       return;
     }
@@ -81,11 +89,11 @@ const Login: React.FC = () => {
 
           <div>
             <Button.Primary  
-            className={`${loading && 'cursor-not-allowed'}`}
+            className={`${loading && 'cursor-not-allowed'} group relative w-full flex justify-center`}
             disabled={loading}
             >
               {
-                loading && <Icon.loadingIndicatorButton /> 
+                loading && <OutlineIcon.Circle className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"  /> 
               }
               {
                 loading ? 'Memproses' : 'Masuk'

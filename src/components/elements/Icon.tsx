@@ -7,22 +7,6 @@ const loadingIndicatorButton = () => {
   );
 };
 
-const sun = () => {
-  return (
-    <span className="flex items-center relative justify-center w-full h-full">
-      ☀
-    </span>
-  );
-};
-
-const moon = () => {
-  return (
-    <span className="flex items-center relative justify-center w-full h-full">
-      🌙
-    </span>
-  );
-};
-
 const burger = () => {
   return (
     <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -58,11 +42,11 @@ const LogoutSolid = (props: any) => {
 
 const X = (props: any) => {
   return (
-  <svg className={`${props.className && props.className}`}  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+    <svg className={`${props.className && props.className}`}  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+      <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
   </svg>
   );
-}
+};
 
 const MenuAlt1 = (props: any) => {
   return (
@@ -109,6 +93,7 @@ const News = (props: any) => {
   <svg className={`${props.className && props.className}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
   </svg>
+  
   );
 }
 
@@ -133,6 +118,7 @@ const UserCircle = (props: any) => {
     <svg className={`${props.className && props.className}`} fill="currentColor" viewBox="0 0 24 24">
       <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
     </svg>
+    
   );
 }
 
@@ -211,15 +197,17 @@ const ChevronRight  = (props: any) => {
   );
 }
 
+// information-circle
 const Info  = (props: any) => {
   return (
   <svg className={`${props.className && props.className}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
   </svg>
+  
   );
 }
 
-const Error  = (props: any) => {
+const Exclamation  = (props: any) => {
   return (
    <svg
       className={`${props.className && props.className}`}
@@ -266,4 +254,4 @@ const CheckCircle  = (props: any) => {
 }
 
 
-export { loadingIndicatorButton, sun, moon, burger, Home, PencilAltSolid, LogoutSolid, X, MenuAlt1, UserCircle, Dropdown, Alquran, News, Computer, Book, Speakerphone, Calendar, UserAdd, UserGroup, ClipboardList, Selector, Check, ChevronLeft, ChevronRight, Info, Error, Warning, CheckCircle };
+// export { loadingIndicatorButton, burger, Home, PencilAltSolid, LogoutSolid, X, MenuAlt1, UserCircle, Dropdown, Alquran, News, Computer, Book, Speakerphone, Calendar, UserAdd, UserGroup, ClipboardList, Selector, Check, ChevronLeft, ChevronRight, Info, Exclamation, Warning, CheckCircle };

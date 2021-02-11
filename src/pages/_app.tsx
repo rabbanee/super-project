@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import 'tailwindcss/tailwind.css';
 import '../styles/main.css';
 import { Provider } from 'react-redux';
 import { useStore } from '../redux/store';
