@@ -68,7 +68,11 @@ function Announcement({ user }: AnnouncementProps) {
                 <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
                   Tambahkan Pengumuman
                 </h3>
-                <div className="mt-4 flex flex-col space-y-3">
+                <div className="mt-4 flex flex-col space-y-3">   
+                  <div className="col-span-6 sm:col-span-6">
+                    <label htmlFor="tanggal" className="block text-sm font-medium text-gray-700">Tanggal</label>
+                    <input type="password" name="password" id="password" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Tanggal" />
+                  </div>
                   <div>
                     <ListBox items={dummySubjects} label="Mata Pelajaran" selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
                   </div>
