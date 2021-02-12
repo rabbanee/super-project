@@ -1,12 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { User } from '@interface/User';
 import * as Button from '@elements/Button';
 import Modal from '@elements/Modal';
-import { DatePicker } from '@modules/Datepicker';
-// import { CKEditor } from '@ckeditor/ckeditor5-react'
-// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import dynamic from 'next/dynamic'
 
 import ListBox from '@modules/ListBox';
@@ -18,7 +15,7 @@ interface AnnouncementProps {
 }
 
 const Editor = dynamic(
-  () => import('@elements/Editor'),
+  () => import('@modules/Editor'),
   { ssr: false }
 )
 

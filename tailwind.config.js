@@ -32,7 +32,7 @@ module.exports = {
   },
   variants: {
     extend: {
-      backgroundColor: ['label-checked'],
+      backgroundColor: ['label-checked', 'even'],
       textColor: ['label-checked']
     },
   },

@@ -1,5 +1,5 @@
 export const dummyUser = {
-  name: 'Admin',
-  role: 1,
-  email: 'who@admin.com'
+  name: 'Guru',
+  role: 3,
+  email: 'who@guru.com'
 };

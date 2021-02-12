@@ -49,7 +49,7 @@ const Tab2 = ({ openTab }) => {
                   }
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="bg-white divide-y divide-gray-200">
                {
                  dummyUsers.map((dummyUser, dummyUserIndex) => 
                   <tr key={dummyUserIndex}>

@@ -1,5 +1,5 @@
 import React, { useRef, useContext } from "react";
-import * as Icon from '@elements/Icon';
+import * as OutlineIcon from '@elements/Icon/Outline';
 import { monthNames } from '@data/months';
 import { Manager, Reference, Popper } from "react-popper";
 import { DatepickerCtx, useDatepickerCtx } from "@lib/DatepickerContext";
@@ -42,7 +42,7 @@ export const RawDatePicker: React.FC<{
           {({ ref }) => (
             <div className="flex shadow-md" ref={ref}>
               <input
-                className="border rounded-l px-3 outline-none focus:border-primary-darkest flex-grow"
+                className="border rounded-l px-3 outline-none focus:border-primary-darkest `flex-grow`"
                 type="text"
                 style={inputStyle}
                 onFocus={(e) => ctxValue.showCalendar()}
@@ -54,7 +54,7 @@ export const RawDatePicker: React.FC<{
                 className="bg-gray-300 rounded-r flex items-center justify-center text-sm font-semibold text-gray-700 px-2 focus:outline-none"
                 onClick={(e) => ctxValue.toggleCalendar()}
               >
-                <Icon.Calendar className="h-6 w-6" />
+                <OutlineIcon.Calendar className="h-6 w-6" />
               </button>
             </div>
           )}
@@ -162,7 +162,7 @@ const DateSelection: React.FC<{}> = (props) => {
       }}
     >
       <button className={buttonClassName} onClick={(e) => prevMonth()}>
-        <Icon.ChevronLeft className="h-6 w-6" />
+        <OutlineIcon.ChevronLeft className="h-6 w-6" />
       </button>
 
       <button
@@ -182,7 +182,7 @@ const DateSelection: React.FC<{}> = (props) => {
       </button>
 
       <button className={buttonClassName} onClick={(e) => nextMonth()}>
-        <Icon.ChevronRight className="h-6 w-6" />
+        <OutlineIcon.ChevronRight className="h-6 w-6" />
       </button>
 
       {daysOfWeekNames.map((day) => (
@@ -290,9 +290,9 @@ const CalButton: React.FC<{
   let children = null;
 
   if (props.chevron && props.chevron === "left")
-    children = <Icon.ChevronLeft className="h-6 w-6" />;
+    children = <OutlineIcon.ChevronLeft className="h-6 w-6" />;
   else if (props.chevron && props.chevron === "right")
-    children = <Icon.ChevronRight className="h-6 w-6" />;
+    children = <OutlineIcon.ChevronRight className="h-6 w-6" />;
   else children = props.children;
 
   return (
