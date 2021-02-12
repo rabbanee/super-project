@@ -1,19 +1,18 @@
-import { listGrade } from '@data/grades';
-import React, { useState } from 'react';
+import grades from '@data/grades';
+import React from 'react';
 import * as Button from '@elements/Button';
 import ListBox from '@modules/ListBox';
 import { monthNames } from '@data/months';
 import { rangeOfYears } from '@utils/rangeOfYears';
 import StatusPill from '@elements/StatusPill';
-import { attendanceStatuses } from '@data/attendance-statuses';
-import { dummyUsers } from '@data/dummy-users';
+import attendanceStatuses from '@data/attendance-statuses';
+import dummyStudents from '@data/dummies/students';
 
 const Tab2 = ({ openTab }) => {
-
   return (
     <div className={openTab === 2 ? "block" : "hidden"} id="link2">
       <div className={`flex md:space-x-6 md:items-end flex-col items-start space-y-3 md:flex-row`} id="link1">
-        <ListBox items={listGrade} label="Kelas"/>
+        <ListBox items={grades} label="Kelas"/>
         <ListBox items={monthNames} label="Bulan" className="w-40"/>
         <ListBox items={rangeOfYears(2020)} label="Tahun" className="w-40"/>
         <div>
@@ -51,7 +50,7 @@ const Tab2 = ({ openTab }) => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                {
-                 dummyUsers.map((dummyUser, dummyUserIndex) => 
+                 dummyStudents.map((dummyUser, dummyUserIndex) => 
                   <tr key={dummyUserIndex}>
                     <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       <span>{ dummyUser }</span>

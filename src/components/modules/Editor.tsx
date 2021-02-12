@@ -16,14 +16,13 @@ const Editor = () => {
       <CKEditor
         editor={ClassicEditor}
         data=''
-
-        onReady={editor => {
+        onReady={(editor: any) => {
+          console.log('Editor is ready to use!', editor)
           editor.plugins.get( 'FileRepository' ).createUploadAdapter = (loader) => {
             // Configure the URL to the upload script in your back-end here!
             return new MyUploadAdapter(loader);
           };
           // You can store the "editor" and use when it is needed.
-          console.log('Editor is ready to use!', editor)
         }}
         onChange={(event, editor) => {
           const data = editor.getData()

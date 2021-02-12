@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import { listGrade } from '@data/grades';
+import { useState } from 'react';
+import grades from '@data/grades';
 import { DatePicker } from '@modules/Datepicker';
 import * as Button from '@elements/Button';
 import ListBox from '@modules/ListBox';
-import { attendanceStatuses } from '@data/attendance-statuses';
-import { dummyUsers } from '@data/dummy-users';
+import attendanceStatuses from '@data/attendance-statuses';
+import dummyStudents from '@data/dummies/students';
 
 const Tab1 = ({openTab}) => {
   const [date, setDate] = useState(new Date());
@@ -12,7 +12,7 @@ const Tab1 = ({openTab}) => {
   return (
     <div className={`${openTab !== 1 ? 'hidden' : '' }`}>
       <div className={`flex md:space-x-6 md:items-end flex-col items-start space-y-4 md:flex-row`} id="link1">
-        <ListBox items={listGrade} label="Kelas" />
+        <ListBox items={grades} label="Kelas" />
         <div>
           <label htmlFor="date-picker" className="block text-sm leading-5 font-medium text-gray-700">Tanggal</label>
           <DatePicker
@@ -40,7 +40,7 @@ const Tab1 = ({openTab}) => {
               </thead>
               <tbody>
                {
-                 dummyUsers.map((dummyUser, dummyUserIndex) => 
+                 dummyStudents.map((dummyUser, dummyUserIndex) => 
                   <tr key={dummyUserIndex} className="even:bg-gray-50">
                     <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       <span>{ dummyUser }</span>

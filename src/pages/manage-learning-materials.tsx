@@ -1,45 +1,103 @@
+import dummySubjects from '@data/dummies/subjects';
 import { User } from '@interface/User';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
+import ListBox from '@modules/ListBox';
+import { useRef, useState } from 'react';
+import * as Button from '@elements/Button';
+import * as OutlineIcon from '@elements/Icon/Outline';
+import dummyChapters from '@data/dummies/chapters';
+import Modal from '@elements/Modal';
+import ModalBody from '@elements/ModalBody';
+import ModalFooter from '@elements/ModalFooter';
 
 interface ManageLearningMaterialsProps {
   user: User
 }
 
 function ManageLearningMaterials({ user }:ManageLearningMaterialsProps) {   
+  const [selectedSubject, setSelectedSubject] = useState(dummySubjects[0]);
+  const [selectedChapter, setSelectedChapter] = useState(dummyChapters[0]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isModalShow, setIsModalShow] = useState(false);
+  const chapterNameRef = useRef();
+
+  const createChapterHandler = (e: any) => {
+    e.preventDefault();
+    setIsLoading(true);
+    console.log('clicked!');
+    console.log(chapterNameRef.current);
+    setIsLoading(false);
+
+  };
+
   return (
-    <LayoutWithSidebar title="Managelearningmaterials" user={user}>
+    <LayoutWithSidebar title="Kelola Materi Pembelajaran" user={user}>
+      <div className="flex items-end flex-col mb-2">
+        <Button.Primary onClick={() => setIsModalShow(true)}>Tambah Bab</Button.Primary>
+      </div>
       <form>
-        <div className="shadow-md overflow-hidden rounded-xl container mx-auto">
-          <div className="px-4 py-5 bg-white sm:p-6">
-            <h2 className="text-4xl font-bold	text-black mb-2">Tambahkan Pengguna</h2>
+        <div className="shadow-md container mx-auto rounded-xl">
+          <div className="px-4 py-5 bg-white sm:p-6 rounded-t-xl">
+            <h2 className="text-4xl font-bold	text-black mb-2">Tambah/Edit Materi Pembelajaran</h2>
             <div className="grid grid-cols-6 gap-4 mt-2">
               <div className="col-span-6 sm:col-span-6">
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nama</label>
-                <input id="name" name="name" type="text" autoComplete="name" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Nama" />
+                <label htmlFor="order_of_the_material" className="block text-sm font-medium text-gray-700">Urutan Materi</label>
+                <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Urutan Materi" />
               </div>
-
               <div className="col-span-6 sm:col-span-6">
-                <label htmlFor="email_address" className="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" name="email_address" id="email_address" autoComplete="email" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm"placeholder="Email" />
+                <ListBox items={dummySubjects} label="Mata Pelajaran" selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
               </div>
-
               <div className="col-span-6 sm:col-span-6">
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">Kata Sandi</label>
-                <input type="password" name="password" id="password" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm"placeholder="Kata Sandi" />
-              </div>
-              
-              <div className="col-span-6 sm:col-span-6">
-                <label htmlFor="password-confirmation" className="block text-sm font-medium text-gray-700">Konfirmasi Kata Sandi</label>
-                <input type="password" name="password-confirmation" id="password-confirmation" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Konfirmasi Kata Sandi" />
+                <ListBox items={dummyChapters} label="Bab" selectedItem={selectedChapter} setSelectedItem={setSelectedChapter}/>
               </div>
             </div>
           </div>
-          <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-            
+          <div className="px-4 py-3 bg-gray-50 text-right sm:px-6 rounded-b-xl">
+            <Button.Primary  
+              className={`${isLoading && 'cursor-not-allowed'}`}
+              disabled={isLoading}
+            >
+                {
+                  isLoading && <OutlineIcon.Circle className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" /> 
+                }
+                {
+                  isLoading ? 'Memproses' : 'Simpan'
+                }
+            </Button.Primary>
           </div>
         </div>
       </form>
+      <Modal isShow={isModalShow} setIsShow={setIsModalShow}>
+        <form onSubmit={createChapterHandler}>
+          <ModalBody>
+            <div className="sm:flex sm:items-start">
+              <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+                  Tambahkan Bab
+                </h3>
+                <div className="mt-4 flex flex-col space-y-3">   
+                  <div>
+                    <ListBox items={dummySubjects} label="Mata Pelajaran" selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
+                  </div>
+                  <div>
+                     <label htmlFor="chapter" className="block text-sm font-medium text-gray-700">Nama Bab</label>
+                     <input id="chapter" name="chapter" type="text" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" ref={chapterNameRef} placeholder="Nama Bab" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button.Primary className="w-full inline-flex justify-center shadow-sm text-base font-medium sm:ml-3 sm:w-auto sm:text-sm">
+              Tambahkan Bab
+            </Button.Primary>
+            <Button.Secondary type="button" className="mt-3 w-full inline-flex justify-center shadow-sm text-base font-medium sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => setIsModalShow(false)}>
+              Batal
+            </Button.Secondary>
+          </ModalFooter>
+        </form>
+      </Modal>
     </LayoutWithSidebar>
   );
 };

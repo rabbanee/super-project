@@ -7,8 +7,10 @@ import Modal from '@elements/Modal';
 import dynamic from 'next/dynamic'
 
 import ListBox from '@modules/ListBox';
-import dummySubjects from '@data/dummySubjects';
-import { listGrade } from '@data/grades';
+import dummySubjects from '@data/dummies/subjects';
+import grades from '@data/grades';
+import ModalBody from '@elements/ModalBody';
+import ModalFooter from '@elements/ModalFooter';
 
 interface AnnouncementProps {
   user: User
@@ -23,7 +25,7 @@ function Announcement({ user }: AnnouncementProps) {
   const [isModalShow, setIsModalShow] = useState(false);
   const [date, setDate] = useState(new Date());
   const [selectedSubject, setSelectedSubject] = useState(dummySubjects[0]);
-  const [selectedGrade, setSelectedGrade] = useState(listGrade[0]);
+  const [selectedGrade, setSelectedGrade] = useState(grades[0]);
 
 
   const announcementHandler = (e) => {
@@ -59,22 +61,18 @@ function Announcement({ user }: AnnouncementProps) {
       </div>
       <Modal isShow={isModalShow} setIsShow={setIsModalShow}>
         <form onSubmit={announcementHandler}>
-          <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 sm:px-4 sm:pt-5 h-100 rounded-lg">
+          <ModalBody>
             <div className="sm:flex sm:items-start">
               <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
                 <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
                   Tambahkan Pengumuman
                 </h3>
                 <div className="mt-4 flex flex-col space-y-3">   
-                  <div className="col-span-6 sm:col-span-6">
-                    <label htmlFor="tanggal" className="block text-sm font-medium text-gray-700">Tanggal</label>
-                    <input type="password" name="password" id="password" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Tanggal" />
-                  </div>
                   <div>
                     <ListBox items={dummySubjects} label="Mata Pelajaran" selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
                   </div>
                   <div>
-                    <ListBox items={listGrade} label="Kelas" selectedItem={selectedGrade} setSelectedItem={setSelectedGrade}/>
+                    <ListBox items={grades} label="Kelas" selectedItem={selectedGrade} setSelectedItem={setSelectedGrade}/>
                   </div>
                   <div>
                     <Editor />
@@ -82,15 +80,15 @@ function Announcement({ user }: AnnouncementProps) {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="bg-gray-50 px-4 py-3 sm:px-4 sm:flex sm:flex-row-reverse rounded-lg">
+          </ModalBody>
+          <ModalFooter>
             <Button.Primary className="w-full inline-flex justify-center shadow-sm text-base font-medium sm:ml-3 sm:w-auto sm:text-sm">
               Tambahkan Pengumuman
             </Button.Primary>
             <Button.Secondary type="button" className="mt-3 w-full inline-flex justify-center shadow-sm text-base font-medium sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => setIsModalShow(false)}>
               Batal
             </Button.Secondary>
-          </div>
+          </ModalFooter>
         </form>
       </Modal>
     </LayoutWithSidebar>

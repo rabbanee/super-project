@@ -1,4 +1,4 @@
-export const attendanceStatuses = [
+const attendanceStatuses = [
   {
     name: 'Hadir',
     color: 'green-500'
@@ -20,3 +20,5 @@ export const attendanceStatuses = [
     color: 'gray-600'
   },
 ];
+
+export default attendanceStatuses;

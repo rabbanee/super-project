@@ -1,5 +1,7 @@
-export const listGrade = [
+const grades = [
   'X',
   'XI',
   'XII',
 ];
+
+export default grades;
