@@ -1,7 +1,7 @@
 import { useState } from 'react';
 // import * as Alert from '@elements/Alert';
 import ApiSource from '@data/api-source';
-import * as Icon from '@elements/Icon';
+import * as OutlineIcon from '@elements/Icon/Outline';
 import * as Button from '@elements/Button';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
@@ -19,7 +19,7 @@ interface AddUser {
   user: User
 }
 
-const AddUser = ({ user }: User) => {
+const AddUser = ({ user }: AddUser) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [selectedRole, setSelectedRole] = useState(roleNames[0]);
@@ -111,7 +111,7 @@ const AddUser = ({ user }: User) => {
               disabled={isLoading}
             >
                 {
-                  isLoading && <Icon.loadingIndicatorButton /> 
+                  isLoading && <OutlineIcon.Circle className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" /> 
                 }
                 {
                   isLoading ? 'Memproses' : 'Tambahkan'

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import * as Icon from '@elements/Icon';
+import * as SolidIcon from '@elements/Icon/Solid';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import { User } from '@interface/User';
@@ -45,7 +45,7 @@ const EditProfile = ({ user }: EditProfileProps) => {
                       <img src={image} alt="User"  />
                     </span>  :  
                     <span className="inline-block h-14 w-14 rounded-full overflow-hidden bg-gray-100">
-                      <Icon.UserCircle className="h-full w-full text-gray-300" />
+                      <SolidIcon.UserCircle className="h-full w-full text-gray-300" />
                     </span>
                   }
                    <div className="flex text-sm text-gray-600 ml-2">
