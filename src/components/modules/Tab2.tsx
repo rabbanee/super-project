@@ -7,6 +7,9 @@ import { rangeOfYears } from '@utils/rangeOfYears';
 import StatusPill from '@elements/StatusPill';
 import attendanceStatuses from '@data/attendance-statuses';
 import dummyStudents from '@data/dummies/students';
+import Table from '@elements/Table';
+import Th from '@elements/Th';
+import Td from '@elements/Td';
 
 const Tab2 = ({ openTab }) => {
   return (
@@ -30,46 +33,40 @@ const Tab2 = ({ openTab }) => {
           )
         }
       </ul>
-      <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 mt-2">
-        <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-          <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th scope="col" className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Siswa
-                  </th>
-                  {
-                    Array.apply(1, Array(30)).map((e, i) => 
-                      <th key={i} scope="col" className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        {i+1}
-                      </th>
-                    )
-                  }
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-               {
-                 dummyStudents.map((dummyUser, dummyUserIndex) => 
-                  <tr key={dummyUserIndex}>
-                    <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      <span>{ dummyUser }</span>
-                    </td>
-                    {
-                      Array.apply(1, Array(30)).map((e, i) => 
-                        <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" key={i}>
-                          <StatusPill className={`bg-green-500`}/>
-                        </td>
-                      )
-                    }
-                  </tr>
-                 )
-               }
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+      <Table color="gray-200">
+        <thead className="bg-gray-50">
+          <tr>
+            <Th className="text-gray-500">
+              Siswa
+            </Th>
+            {
+              Array.apply(1, Array(30)).map((e, i) => 
+                <Th className="text-gray-500" key={i}>
+                  {i+1}
+                </Th>
+              )
+            }
+          </tr>
+        </thead>
+        <tbody className="bg-white divide-y divide-gray-200">
+          {
+            dummyStudents.map((dummyUser, dummyUserIndex) => 
+            <tr key={dummyUserIndex}>
+              <Td>
+                <span>{ dummyUser }</span>
+              </Td>
+              {
+                Array.apply(1, Array(30)).map((e, i) => 
+                  <Td key={i}>
+                    <StatusPill className={`bg-green-500`}/>
+                  </Td>
+                )
+              }
+            </tr>
+            )
+          }
+        </tbody>
+      </Table>
     </div>
   );
 };
