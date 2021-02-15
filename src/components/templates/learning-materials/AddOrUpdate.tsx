@@ -5,19 +5,27 @@ import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import ListBox from '@modules/ListBox';
 import { useRef, useState } from 'react';
 import * as Button from '@elements/Button';
-import * as OutlineIcon from '@elements/Icon/Outline';
+import * as OutlineIcon from '@elements/icon/Outline';
+import * as SolidIcon from '@elements/icon/Solid';
 import dummyChapters from '@data/dummies/chapters';
 import Modal from '@elements/Modal';
 import ModalBody from '@elements/ModalBody';
 import ModalFooter from '@elements/ModalFooter';
+import BodyContainer from '@elements/container/Body';
+import Container from '@elements/container/Index';
+import FooterContainer from '@elements/container/Footer';
+import learningMaterials from '@data/learning-materials';
+import LearningMaterial from '@interface/LearningMaterial';
 
-interface ManageLearningMaterialsProps {
-  user: User
+interface AddOrUpdateLearningMaterialsProps {
+  user: User,
+  title: string,
+  learningMaterial?: LearningMaterial,
 }
 
-function ManageLearningMaterials({ user }: ManageLearningMaterialsProps) {   
-  const [selectedSubject, setSelectedSubject] = useState(dummySubjects[0]);
-  const [selectedChapter, setSelectedChapter] = useState(dummyChapters[0]);
+function AddOrUpdateLearningMaterials({ user, title, learningMaterial }: AddOrUpdateLearningMaterialsProps) {   
+  const [selectedSubject, setSelectedSubject] = useState(() => learningMaterial?.subject ?? dummySubjects[0]);
+  const [selectedChapter, setSelectedChapter] = useState(() => learningMaterial?.chapter ??dummyChapters[0]);
   const [isLoading, setIsLoading] = useState(false);
   const [isModalShow, setIsModalShow] = useState(false);
   const chapterNameRef = useRef();
@@ -32,18 +40,21 @@ function ManageLearningMaterials({ user }: ManageLearningMaterialsProps) {
   };
 
   return (
-    <LayoutWithSidebar title="Materi Pembelajaran" user={user}>
-      <div className="flex items-end flex-col mb-2">
-        <Button.Primary onClick={() => setIsModalShow(true)}>Tambah Bab</Button.Primary>
-      </div>
+    <LayoutWithSidebar title={title} user={user}>
       <form>
-        <div className="shadow-md container mx-auto rounded-xl">
-          <div className="px-4 py-5 bg-white sm:p-6 rounded-t-xl">
-            <h2 className="text-4xl font-bold	text-black mb-2">Tambah/Edit Materi Pembelajaran</h2>
+        <Container>
+          <BodyContainer className="px-4 py-5 bg-white sm:p-6 rounded-t-xl">
+            <div className="flex justify-between mb-2">
+              <h2 className="text-4xl font-bold	text-black mb-2">{title}</h2>
+              <Button.Primary type="button" onClick={() => setIsModalShow(true)} className="inline-flex items-center">
+                <SolidIcon.Plus className="-ml-1 mr-1 h-5 w-5" />
+                Tambah Bab
+              </Button.Primary>
+            </div>
             <div className="grid grid-cols-6 gap-4 mt-2">
               <div className="col-span-6 sm:col-span-6">
                 <label htmlFor="order_of_the_material" className="block text-sm font-medium text-gray-700">Urutan Materi</label>
-                <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Urutan Materi" />
+                <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Urutan Materi" defaultValue={learningMaterial?.order ?? ''}/>
               </div>
               <div className="col-span-6 sm:col-span-6">
                 <ListBox items={dummySubjects} label="Mata Pelajaran" selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
@@ -52,21 +63,21 @@ function ManageLearningMaterials({ user }: ManageLearningMaterialsProps) {
                 <ListBox items={dummyChapters} label="Bab" selectedItem={selectedChapter} setSelectedItem={setSelectedChapter}/>
               </div>
             </div>
-          </div>
-          <div className="px-4 py-3 bg-gray-50 text-right sm:px-6 rounded-b-xl">
+          </BodyContainer>
+          <FooterContainer className="flex justify-end">
             <Button.Primary  
-              className={`${isLoading && 'cursor-not-allowed'}`}
+              className={`${isLoading && 'cursor-not-allowed'} inline-flex items-center`}
               disabled={isLoading}
             >
                 {
                   isLoading && <OutlineIcon.Circle className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" /> 
                 }
                 {
-                  isLoading ? 'Memproses' : 'Simpan'
+                  isLoading ? 'Memproses' : <><SolidIcon.Save className="-ml-1 mr-1 h-5 w-5" /> Simpan</>
                 }
             </Button.Primary>
-          </div>
-        </div>
+          </FooterContainer>
+        </Container>
       </form>
       <Modal isShow={isModalShow} setIsShow={setIsModalShow}>
         <form onSubmit={createChapterHandler}>
@@ -102,11 +113,4 @@ function ManageLearningMaterials({ user }: ManageLearningMaterialsProps) {
   );
 };
 
-export default ManageLearningMaterials;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
-  return {
-    props: {
-      user, 
-    }
-  };
-});
+export default AddOrUpdateLearningMaterials;

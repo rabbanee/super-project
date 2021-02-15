@@ -1,5 +1,5 @@
 import React, { useRef, useContext } from "react";
-import * as OutlineIcon from '@elements/Icon/Outline';
+import * as OutlineIcon from '@elements/icon/Outline';
 import { monthNames } from '@data/months';
 import { Manager, Reference, Popper } from "react-popper";
 import { DatepickerCtx, useDatepickerCtx } from "@lib/DatepickerContext";

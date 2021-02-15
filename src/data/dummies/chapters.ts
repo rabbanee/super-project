@@ -3,6 +3,8 @@ const dummyChapters = [
   'PBO',
   'Gerund',
   'GLB',
+  'Aljabar',
+  'Vektor',
 ];
 
 export default dummyChapters;

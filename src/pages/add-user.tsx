@@ -1,12 +1,9 @@
 import { useState } from 'react';
-// import * as Alert from '@elements/Alert';
 import ApiSource from '@data/api-source';
-import * as OutlineIcon from '@elements/Icon/Outline';
+import * as OutlineIcon from '@elements/icon/Outline';
 import * as Button from '@elements/Button';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
-import { isAdmin } from '@utils/roles/isAdmin';
-import redirectToHome from '@utils/redirectToHome';
 import { roleNames } from '@data/roles';
 import { convertRoleNameToRoleNumber } from '@utils/roles/convertRoleNameToRoleNumber';
 import ListBox from '@modules/ListBox';
@@ -14,6 +11,9 @@ import { useDispatch } from "react-redux";
 import { closeAlert, showAlert } from 'redux/actions';
 import { thisPageFor } from '@utils/thisPageFor';
 import { User } from '@interface/User';
+import Container from '@elements/container/Index';
+import BodyContainer from '@elements/container/Body';
+import FooterContainer from '@elements/container/Footer';
 
 interface AddUser {
   user: User
@@ -76,8 +76,8 @@ const AddUser = ({ user }: AddUser) => {
   return (
     <LayoutWithSidebar title="Tambahkan Pengguna" user={user}>
       <form onSubmit={handleRegister}>
-        <div className="shadow-md overflow-hidden rounded-xl container mx-auto">
-          <div className="px-4 py-5 bg-white sm:p-6">
+        <Container>
+          <BodyContainer>
             <h2 className="text-4xl font-bold	text-black mb-2">Tambahkan Pengguna</h2>
             <div className="grid grid-cols-6 gap-4 mt-2">
               <div className="col-span-6 sm:col-span-6">
@@ -104,8 +104,8 @@ const AddUser = ({ user }: AddUser) => {
                 <input type="password" name="password-confirmation" id="password-confirmation" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" onChange={(e) => setPasswordConfirmation(e.target.value)} placeholder="Konfirmasi Kata Sandi" />
               </div>
             </div>
-          </div>
-          <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+          </BodyContainer>
+          <FooterContainer>
             <Button.Primary  
               className={`${isLoading && 'cursor-not-allowed'}`}
               disabled={isLoading}
@@ -117,8 +117,8 @@ const AddUser = ({ user }: AddUser) => {
                   isLoading ? 'Memproses' : 'Tambahkan'
                 }
             </Button.Primary>
-          </div>
-        </div>
+          </FooterContainer>
+        </Container>
       </form>
     </LayoutWithSidebar>
   )

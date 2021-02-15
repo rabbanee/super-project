@@ -1,5 +1,5 @@
-import * as SolidIcon from '@elements/Icon/Solid';
-import * as OutlineIcon from '@elements/Icon/Outline';
+import * as SolidIcon from '@elements/icon/Solid';
+import * as OutlineIcon from '@elements/icon/Outline';
 
 export const all = [
   {
@@ -48,7 +48,7 @@ export const teacher = [
   {
     name: 'Materi Pembelajaran',
     icon:  <OutlineIcon.Collection className="h-6"/>,
-    href: '/manage-learning-materials'
+    href: '/learning-materials'
   },
 ];
 

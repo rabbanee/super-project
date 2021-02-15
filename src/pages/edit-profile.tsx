@@ -1,8 +1,11 @@
 import { useState } from 'react';
-import * as SolidIcon from '@elements/Icon/Solid';
+import * as SolidIcon from '@elements/icon/Solid';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import { User } from '@interface/User';
+import Container from '@elements/container/Index';
+import BodyContainer from '@elements/container/Body';
+import FooterContainer from '@elements/container/Footer';
 
 interface EditProfileProps {
   user: User
@@ -21,8 +24,8 @@ const EditProfile = ({ user }: EditProfileProps) => {
    <LayoutWithSidebar title="Edit Profile" user={user}>
       {/* <div className="bg-white p-6 md:px-10 rounded-xl shadow-md relative overflow-hidden container mx-auto"> */}
       <form onSubmit={editHandler}>
-        <div className="shadow-md overflow-hidden rounded-xl container mx-auto">
-          <div className="px-4 py-5 bg-white sm:p-6">
+        <Container>
+          <BodyContainer>
             <div className="grid grid-cols-6 gap-6">
               <div className="col-span-6 sm:col-span-6">
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nama</label>
@@ -61,13 +64,13 @@ const EditProfile = ({ user }: EditProfileProps) => {
               </div>
 
             </div>
-          </div>
-          <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+          </BodyContainer>
+          <FooterContainer>
             <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-darkest focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
               Simpan
             </button>
-          </div>
-        </div>
+          </FooterContainer>
+        </Container>
       </form>
       {/* </div> */}
    </LayoutWithSidebar>
