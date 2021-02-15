@@ -44,7 +44,12 @@ export const teacher = [
     name: 'Kehadiran Siswa',
     icon:  <OutlineIcon.ClipboardList className="h-6"/>,
     href: '/student-attendance'
-  }
+  },
+  {
+    name: 'Materi Pembelajaran',
+    icon:  <OutlineIcon.Collection className="h-6"/>,
+    href: '/manage-learning-materials'
+  },
 ];
 
 export const student = [

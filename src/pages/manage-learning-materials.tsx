@@ -15,7 +15,7 @@ interface ManageLearningMaterialsProps {
   user: User
 }
 
-function ManageLearningMaterials({ user }:ManageLearningMaterialsProps) {   
+function ManageLearningMaterials({ user }: ManageLearningMaterialsProps) {   
   const [selectedSubject, setSelectedSubject] = useState(dummySubjects[0]);
   const [selectedChapter, setSelectedChapter] = useState(dummyChapters[0]);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +32,7 @@ function ManageLearningMaterials({ user }:ManageLearningMaterialsProps) {
   };
 
   return (
-    <LayoutWithSidebar title="Kelola Materi Pembelajaran" user={user}>
+    <LayoutWithSidebar title="Materi Pembelajaran" user={user}>
       <div className="flex items-end flex-col mb-2">
         <Button.Primary onClick={() => setIsModalShow(true)}>Tambah Bab</Button.Primary>
       </div>
