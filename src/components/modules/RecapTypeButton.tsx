@@ -8,15 +8,15 @@ interface RecapTypeButtonProps {
 
 const RecapTypeButton = ({ recapTypes, setActiveRecapType, activeRecapType }: RecapTypeButtonProps) => {
   return (
-    <div className="flex space-x-2">
+    <>
       {
         recapTypes.map((recapType, recapTypeIndex) => 
           recapTypeIndex === activeRecapType ?
-          <Button.Primary>{recapType}</Button.Primary> :
-          <Button.Secondary onClick={() => setActiveRecapType(recapTypeIndex)}>{recapType}</Button.Secondary>
+          <Button.Primary key={recapTypeIndex}>{recapType}</Button.Primary> :
+          <Button.Secondary key={recapTypeIndex} onClick={() => setActiveRecapType(recapTypeIndex)}>{recapType}</Button.Secondary>
         )
       }
-    </div>
+    </>
   );
 };
 

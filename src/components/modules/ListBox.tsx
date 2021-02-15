@@ -3,17 +3,27 @@ import React, { useState } from 'react';
 import * as OutlineIcon from '@elements/Icon/Outline';
 import * as SolidIcon from '@elements/Icon/Solid';
 
-const ListBox = ({ items, label, className, selectedItem, setSelectedItem}: 
-  { items: Array<any>, label: String, className?: String, selectedItem?: any, setSelectedItem?: any }) => {
+interface ListBoxProps {
+  items: Array<any>, 
+  label?: String, 
+  className?: String, 
+  selectedItem?: any, 
+  setSelectedItem?: any, 
+}
+
+const ListBox = ({ items, label, className, selectedItem, setSelectedItem}: ListBoxProps) => {
   const [selected, setSelected] = useState(items[0]);
   return (
     <div>
       <Listbox value={selectedItem || selected} onChange={setSelectedItem || setSelected}>
       {({open}) => (
         <>
-          <Listbox.Label className="block text-sm leading-5 font-medium text-gray-700">
-            { label }
-          </Listbox.Label>
+          {
+            label && 
+            <Listbox.Label className="block text-sm leading-5 font-medium text-gray-700">
+              { label }
+            </Listbox.Label>
+          }
           <div className={`${className && className} relative min-w-20`}>
             <span className="inline-block w-full rounded-md shadow-md">
               <Listbox.Button className="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-primary-dark focus:border-primary-dark transition ease-in-out duration-150 sm:text-sm sm:leading-5">

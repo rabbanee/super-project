@@ -91,7 +91,7 @@ const AddUser = ({ user }: AddUser) => {
               </div>
 
               <div className="col-span-6 sm:col-span-6">
-                <ListBox items={roleNames} label="Role" selectedItem={selectedRole} setSelectedItem={setSelectedRole}/>
+                <ListBox items={roleNames} label="Rol" selectedItem={selectedRole} setSelectedItem={setSelectedRole}/>
               </div>
 
               <div className="col-span-6 sm:col-span-6">
