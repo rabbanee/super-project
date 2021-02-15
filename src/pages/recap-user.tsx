@@ -11,6 +11,8 @@ import recapTypes from "@data/recap-types";
 import ListBox from "@modules/ListBox";
 import showEntries from "@data/show-entries";
 import * as SolidIcon from '@elements/Icon/Solid';
+import Pagination from "@modules/Pagination";
+import InputWithIcon from "@modules/InputWithIcon";
 
 interface RecapUserProps {
   user: User,
@@ -34,14 +36,7 @@ const RecapUser = ({ user }: RecapUserProps) => {
               <ListBox items={showEntries} selectedItem={selectedShowEntry} setSelectedItem={setSelectedShowEntry} />
               <span>data</span>
             </div>
-            <div className="relative text-gray-600 focus-within:text-gray-100">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span className="text-gray-500 sm:text-sm">
-                  <SolidIcon.Search className="text-gray-500 w-5 h-5" />
-                </span>
-              </div>
-              <input type="text" name="q" className="py-2 text-sm text-gray-500 bg-gray-200 rounded-md pl-10 pr-2 focus:outline-none focus:bg-gray-100 focus:text-gray-900" placeholder="Pencarian" autoComplete="off" />
-            </div>
+            <InputWithIcon Icon={<SolidIcon.Search className="text-gray-500 w-5 h-5" />}/>
           </div>
           <Table color="primary-darkest" className="rounded-b-xl rounded-t-xl">
             <thead className="bg-primary">
@@ -73,6 +68,7 @@ const RecapUser = ({ user }: RecapUserProps) => {
               </tr>
             </tbody>
           </Table>
+          <Pagination />
         </div>
         <div className="px-4 py-3 bg-gray-50 text-right sm:px-6 rounded-b-xl">
         </div>
