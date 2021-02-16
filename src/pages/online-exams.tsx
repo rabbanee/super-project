@@ -16,9 +16,11 @@ const OnlineExams = ({ user }: OnlineExamsProps) => {
     <LayoutWithSidebar user={user} title="Rekap Pengguna">
       <div className="shadow-md container mx-auto rounded-xl">
         <div className="px-4 py-5 bg-white sm:p-6 rounded-t-xl">
-          <h2 className="text-3xl font-bold	text-black mb-2"></h2>
-          <div className="flex space-x-2 justify-end">
-            {/* <RecapTypeButton recapTypes={recapTypes} activeRecapType={activeRecapType} setActiveRecapType={setActiveRecapType} /> */}
+        <h2 className="text-4xl font-bold	text-black mb-2">Online Exams </h2>
+        <div className="date-excerpt single skwp-news-meta">
+          <span className="thedate">X</span>
+          <span className="month">-</span>
+          <span className="year">A</span>
           </div>
           <div className="flex justify-between space-y-3">
             <div className="flex justify-center items-center space-x-1">
@@ -39,19 +41,22 @@ const OnlineExams = ({ user }: OnlineExamsProps) => {
             <thead className="bg-primary">
               <tr>
                 <Th className="text-center">
-                  No
+                  Title
                 </Th>
                 <Th className="text-center">
-                  Nama
+                  Subject
                 </Th>
                 <Th className="text-center">
-                  E-mail
+                  Date Start
                 </Th>
                 <Th className="text-center">
-                  Rol
+                  Date End
                 </Th>
                 <Th className="text-center">
-                  Dibuat pada
+                  Teacher
+                </Th>
+                <Th className="text-center">
+                  Status
                 </Th>
               </tr>
             </thead>
@@ -62,7 +67,23 @@ const OnlineExams = ({ user }: OnlineExamsProps) => {
                 <Td className="text-center">daffa@rabbanee.com</Td>
                 <Td className="text-center">Admin</Td>
                 <Td className="text-center">22 Agustus 2020</Td>
+                <button className="shadow-md container mx-auto rounded-xl ">sudah</button>
               </tr>
+              <tr>
+                <Td className="text-center">1</Td>
+                <Td className="text-center">Daffa</Td>
+                <Td className="text-center">daffa@rabbanee.com</Td>
+                <Td className="text-center">Admin</Td>
+                <Td className="text-center">22 Agustus 2020</Td>
+              </tr>
+              <tr>
+                <Td className="text-center">1</Td>
+                <Td className="text-center">Daffa</Td>
+                <Td className="text-center">daffa@rabbanee.com</Td>
+                <Td className="text-center">Admin</Td>
+                <Td className="text-center">22 Agustus 2020</Td>
+              </tr>
+              
             </tbody>
           </Table>
         </div>
