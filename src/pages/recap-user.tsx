@@ -4,15 +4,17 @@ import Th from "@elements/Th";
 import { User } from "@interface/User";
 import LayoutWithSidebar from "@layouts/LayoutWithSidebar";
 import { withAuthServerSideProps } from "@lib/withAuthServerSide";
-import * as Button from '@elements/Button';
 import { useState } from "react";
 import RecapTypeButton from "@modules/RecapTypeButton";
 import recapTypes from "@data/recap-types";
 import ListBox from "@modules/ListBox";
 import showEntries from "@data/show-entries";
-import * as SolidIcon from '@elements/Icon/Solid';
+import * as SolidIcon from '@elements/icon/Solid';
 import Pagination from "@modules/Pagination";
 import InputWithIcon from "@modules/InputWithIcon";
+import { thisPageFor } from "@utils/thisPageFor";
+import Container from "@elements/container/Index";
+import ContainerBody from "@elements/container/Body";
 
 interface RecapUserProps {
   user: User,
@@ -24,8 +26,8 @@ const RecapUser = ({ user }: RecapUserProps) => {
 
   return (
     <LayoutWithSidebar user={user} title="Rekap Pengguna">
-      <div className="shadow-md container mx-auto rounded-xl">
-        <div className="px-4 py-5 bg-white sm:p-6 rounded-t-xl">
+      <Container>
+        <ContainerBody className="rounded-b-xl">
           <h2 className="text-3xl font-bold	text-black mb-2">{ recapTypes[activeRecapType] }</h2>
           <div className="flex space-x-2 justify-end">
             <RecapTypeButton recapTypes={recapTypes} activeRecapType={activeRecapType} setActiveRecapType={setActiveRecapType} />
@@ -69,16 +71,19 @@ const RecapUser = ({ user }: RecapUserProps) => {
             </tbody>
           </Table>
           <Pagination />
-        </div>
-        <div className="px-4 py-3 bg-gray-50 text-right sm:px-6 rounded-b-xl">
-        </div>
-      </div>
+        </ContainerBody>
+      </Container>
     </LayoutWithSidebar>
   );
 };
 
 export default RecapUser;
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
+  // thisPageFor({
+  //   currentRole: user.role, 
+  //   forRoles: [1],
+  //   context
+  // });
   return {
     props: {
       user, 
