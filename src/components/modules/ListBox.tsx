@@ -1,7 +1,7 @@
 import { Listbox, Transition } from '@headlessui/react';
 import React, { useState } from 'react';
-import * as OutlineIcon from '@elements/Icon/Outline';
-import * as SolidIcon from '@elements/Icon/Solid';
+import * as OutlineIcon from '@elements/icon/Outline';
+import * as SolidIcon from '@elements/icon/Solid';
 
 interface ListBoxProps {
   items: Array<any>, 

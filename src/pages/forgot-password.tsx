@@ -1,7 +1,7 @@
 import Layout from "@layouts/Layout";
 import { useState } from "react";
 import * as Button from '@elements/Button';
-import * as Icon from '@elements/Icon';
+import * as Icon from '@elements/icon';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState(null);
