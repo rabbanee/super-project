@@ -36,12 +36,12 @@ const Tab2 = ({ openTab }) => {
       <Table color="gray-200">
         <thead className="bg-gray-50">
           <tr>
-            <Th className="text-gray-500 text-xs uppercase">
+            <Th className="text-gray-500">
               Siswa
             </Th>
             {
               Array.apply(1, Array(30)).map((e, i) => 
-                <Th className="text-gray-500 text-xs uppercase" key={i}>
+                <Th className="text-gray-500" key={i}>
                   {i+1}
                 </Th>
               )
@@ -52,12 +52,12 @@ const Tab2 = ({ openTab }) => {
           {
             dummyStudents.map((dummyUser, dummyUserIndex) => 
             <tr key={dummyUserIndex}>
-              <Td className="text-xs uppercase">
+              <Td>
                 <span>{ dummyUser }</span>
               </Td>
               {
                 Array.apply(1, Array(30)).map((e, i) => 
-                  <Td className="text-xs uppercase" key={i}>
+                  <Td key={i}>
                     <StatusPill className={`bg-green-500`}/>
                   </Td>
                 )

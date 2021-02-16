@@ -1,5 +1,5 @@
-import * as OutlineIcon from '@elements/icon/Outline';
-import * as SolidIcon from '@elements/icon/Solid';
+import * as OutlineIcon from '@elements/Icon/Outline';
+import * as SolidIcon from '@elements/Icon/Solid';
 import { Transition } from '@headlessui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";

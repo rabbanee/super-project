@@ -30,10 +30,10 @@ const Tab1 = ({openTab}) => {
       <Table color="gray-200">
         <thead className="bg-gray-50">
           <tr>
-            <Th className="text-gray-500 text-xs uppercase">
+            <Th className="text-gray-500">
               Siswa
             </Th>
-            <Th className="text-gray-500 text-xs uppercase">
+            <Th className="text-gray-500">
               Status
             </Th>
           </tr>
@@ -42,10 +42,10 @@ const Tab1 = ({openTab}) => {
           {
             dummyStudents.map((dummyUser, dummyUserIndex) => 
             <tr key={dummyUserIndex} className="even:bg-gray-50">
-              <Td className="text-xs uppercase">
+              <Td>
                 <span>{ dummyUser }</span>
               </Td>
-              <Td className="flex space-x-1 text-xs uppercase">
+              <Td className="flex space-x-1">
                 {
                   attendanceStatuses.map((attendanceStatus, attendanceStatusIndex) => 
                     <div key={attendanceStatusIndex}>

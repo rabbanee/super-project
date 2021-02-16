@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Layout from '@layouts/Layout';
-import * as OutlineIcon from '@elements/icon/Outline';
+import * as OutlineIcon from '@elements/Icon/Outline';
 import * as Button from '@elements/Button';
 import { withoutAuthServerSideProps } from '@lib/withoutAuthServerSide';
 import { useRouter } from 'next/router';
