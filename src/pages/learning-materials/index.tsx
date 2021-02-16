@@ -107,7 +107,7 @@ const LearningMaterials = ({ user }: LearningMaterialsProps) => {
                       <Td className="text-center">{ learningMaterialIndex += 1 }</Td>
                       <Td className="text-center">{ learningMaterial.subject }</Td>
                       <Td className="text-center">{ learningMaterial.chapter }</Td>
-                      <Td className="text-center">{ learningMaterial.material }</Td>
+                      <Td className="text-center truncate">{ learningMaterial.material }</Td>
                       <Td className="text-center">{ learningMaterial.updatedAt }</Td>
                       <Td className="text-center flex justify-center space-x-2">
                         <Link href={`learning-materials/update/${learningMaterial.id}`}>
