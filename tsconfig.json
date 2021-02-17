@@ -21,6 +21,9 @@
       "@modules/*": [
         "components/modules/*"
       ],
+      "@templates/*": [
+        "components/templates/*"
+      ],
       "@utils/*": [
         "utils/*"
       ],

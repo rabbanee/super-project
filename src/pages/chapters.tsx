@@ -18,13 +18,14 @@ import AddOrEditChapterModal from '@modules/AddOrEditChapterModal';
 import dummySubjects from '@data/dummies/subjects';
 import dummyChapters from '@data/dummies/chapters';
 import ConfirmationModal from '@modules/ConfirmationModal';
+import { thisPageFor } from '@utils/thisPageFor';
 
 
 interface ChapterProps {
   user: User,
 }
 
-const Chapter = ({ user }: ChapterProps) => {
+const Chapters = ({ user }: ChapterProps) => {
   const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
   const [isEditChapterModalShow, setIsEditChapterModalShow] = useState(false);
@@ -50,17 +51,11 @@ const Chapter = ({ user }: ChapterProps) => {
     <>
       <AddOrEditChapterModal isModalShow={isEditChapterModalShow} setIsModalShow={setIsEditChapterModalShow} chapterNameRef={chapterNameRef} onSubmit={editChapterHandler} selectedSubject={selectedSubject} setSelectedSubject={setSelectedSubject} chapterData={selectedChapterData} />
       <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Bab" description="Apakah Anda yakin ingin menghapus? Jika dihapus maka akan terhapus selamanya." confirmText="Hapus" />
-      <LayoutWithSidebar title="BAB" user={user}>
+      <LayoutWithSidebar title="Bab" user={user}>
         <Container>
           <ContainerBody className="rounded-b-xl space-y-2">
             <div className="flex justify-between">
-              <h2 className="text-3xl font-bold	text-black mb-2"> List BAB </h2>
-              <Link href="/learning-materials/add">
-                <Button.Primary type="button" className="inline-flex items-center">
-                  <SolidIcon.Plus className="-ml-1 mr-1 h-5 w-5" /> 
-                  Tambah BAB
-                </Button.Primary>
-              </Link>
+              <h2 className="text-3xl font-bold	text-black mb-2">Bab</h2>
             </div>
             <div className="flex justify-between space-y-3">
               <div className="flex justify-center items-center self-end space-x-1">
@@ -90,7 +85,7 @@ const Chapter = ({ user }: ChapterProps) => {
               <tbody>
                 {
                   dummyChapters.map((chapterName, chapterNameIndex) => 
-                    <tr>
+                    <tr key={chapterNameIndex}>
                       <Td className="text-center">
                         { chapterNameIndex + 1 }
                       </Td>
@@ -123,8 +118,13 @@ const Chapter = ({ user }: ChapterProps) => {
   );
 };
 
-export default Chapter;
+export default Chapters;
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
+  thisPageFor({
+    context,
+    currentRole: user.role,
+    forRoles: [3]
+  });
   return {
     props: {
       user, 

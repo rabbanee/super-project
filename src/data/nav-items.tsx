@@ -47,8 +47,18 @@ export const teacher = [
   },
   {
     name: 'Materi Pembelajaran',
-    icon:  <OutlineIcon.Collection className="h-6"/>,
+    icon:  <OutlineIcon.DocumentText className="h-6"/>,
     href: '/learning-materials'
+  },
+  {
+    name: 'Bab',
+    icon:  <OutlineIcon.Collection className="h-6"/>,
+    href: '/chapters'
+  },
+  {
+    name: 'Ujian',
+    icon:  <OutlineIcon.Puzzle className="h-6"/>,
+    href: '/exams'
   },
 ];
 
@@ -56,8 +66,8 @@ export const student = [
   ...all,
   {
     name: 'Ujian',
-    icon: <OutlineIcon.ClipboardList  className="h-6"/>,
-    href: '/exam'
+    icon: <OutlineIcon.Puzzle className="h-6"/>,
+    href: '/exams'
   },
 ];
 

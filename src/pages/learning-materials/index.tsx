@@ -38,10 +38,10 @@ const LearningMaterials = ({ user }: LearningMaterialsProps) => {
             <div className="flex justify-between">
               <h2 className="text-3xl font-bold	text-black mb-2">Materi Pembelajaran</h2>
               <Link href="/learning-materials/add">
-                <Button.Primary type="button" className="inline-flex items-center">
+                <a className="btn btn-primary inline-flex items-center">
                   <SolidIcon.Plus className="-ml-1 mr-1 h-5 w-5" /> 
                   Tambah Materi Pembelajaran
-                </Button.Primary>
+                </a>
               </Link>
             </div>
             <div className="flex justify-between space-y-3">
@@ -85,11 +85,11 @@ const LearningMaterials = ({ user }: LearningMaterialsProps) => {
                       <Td className="text-center truncate">{ learningMaterial.material }</Td>
                       <Td className="text-center">{ learningMaterial.updatedAt }</Td>
                       <Td className="text-center flex justify-center space-x-2">
-                        <Link href={`learning-materials/update/${learningMaterial.id}`}>
-                          <Button.Primary type="button" className="inline-flex items-center">
+                        <Link href={`/learning-materials/update/${learningMaterial.id}`} passHref>
+                          <a className="btn btn-primary inline-flex items-center">
                             <SolidIcon.Pencil className="-ml-1 mr-1 h-5 w-5" />
                             Ubah
-                          </Button.Primary>
+                          </a>
                         </Link>
                         <Button.Danger onClick={() => setIsConfirmationModalShow(true)} type="button" className="inline-flex items-center">
                           <SolidIcon.Trash className="-ml-1 mr-1 h-5 w-5" /> 
