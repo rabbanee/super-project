@@ -1,5 +1,5 @@
 import * as Button from '@elements/Button';
-import * as SolidIcon from '@elements/Icon/Solid';
+import * as SolidIcon from '@elements/icon/Solid';
 
 const Pagination = () => {
   return (
