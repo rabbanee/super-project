@@ -4,7 +4,7 @@ const learningMaterials = [
     order: 2,
     subject: 'Matematika',
     chapter: 'Aljabar',
-    material: '2+2 = 2x2',
+    material: 'Kesamaan Formasi',
     updatedAt: '22 Mei 2020',
   },
   {
@@ -12,7 +12,7 @@ const learningMaterials = [
     order: 1,
     subject: 'Fisika',
     chapter: 'Vektor',
-    material: '(1i + 1j + 1k) + (1i + 1j + 1k) = 2i + 2j + 2k',
+    material: 'Analisis Vektor',
     updatedAt: '22 Mei 2020',
   },
 ];

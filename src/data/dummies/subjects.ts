@@ -1,8 +1,8 @@
 const dummySubjects = [
-  'Bahasa Inggris',
-  'Bahasa Indonesia',
-  'Fisika',
   'Matematika',
+  'Pemrograman',
+  'Bahasa Inggris',
+  'Fisika',
 ];
 
 export default dummySubjects;

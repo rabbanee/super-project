@@ -10,37 +10,55 @@ import ListBox from '@modules/ListBox';
 import InputWithIcon from '@modules/InputWithIcon';
 import * as SolidIcon from '@elements/icon/Solid';
 import showEntries from '@data/show-entries';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Pagination from '@modules/Pagination';
 import * as Button from '@elements/Button';
-import Modal from '@elements/Modal';
-import ModalBody from '@elements/ModalBody';
-import ModalFooter from '@elements/ModalFooter';
-import * as OutlineIcon from '@elements/icon/Outline';
 import Link from 'next/link';
-import learningMaterials from '@data/learning-materials';
+import AddOrEditChapterModal from '@modules/AddOrEditChapterModal';
+import dummySubjects from '@data/dummies/subjects';
+import dummyChapters from '@data/dummies/chapters';
 import ConfirmationModal from '@modules/ConfirmationModal';
 
-interface LearningMaterialsProps {
-  user: User
+
+interface ChapterProps {
+  user: User,
 }
 
-const LearningMaterials = ({ user }: LearningMaterialsProps) => {
+const Chapter = ({ user }: ChapterProps) => {
   const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
+  const [isEditChapterModalShow, setIsEditChapterModalShow] = useState(false);
+  const chapterNameRef = useRef();
+  const [selectedSubject, setSelectedSubject] = useState(dummySubjects[0]);
+  const [selectedChapterData, setSelectedChapterData] = useState(null);
+
+  const editChapterModalHandler = (chapterName: string, subjectName: string) => {
+    setIsEditChapterModalShow(true);
+    setSelectedChapterData({
+      chapterName,
+      subjectName
+    });
+    setSelectedSubject(subjectName);
+  }
+
+  const editChapterHandler = (e: any) => {
+    e.preventDefault();
+    console.log('clicked!');
+  };
 
   return (
     <>
-      <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Materi Pembelajaran" description="Apakah Anda yakin ingin menghapus materi pembelajaran ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
-      <LayoutWithSidebar title="Materi Pembelajaran" user={user}>
+      <AddOrEditChapterModal isModalShow={isEditChapterModalShow} setIsModalShow={setIsEditChapterModalShow} chapterNameRef={chapterNameRef} onSubmit={editChapterHandler} selectedSubject={selectedSubject} setSelectedSubject={setSelectedSubject} chapterData={selectedChapterData} />
+      <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Bab" description="Apakah Anda yakin ingin menghapus? Jika dihapus maka akan terhapus selamanya." confirmText="Hapus" />
+      <LayoutWithSidebar title="BAB" user={user}>
         <Container>
           <ContainerBody className="rounded-b-xl space-y-2">
             <div className="flex justify-between">
-              <h2 className="text-3xl font-bold	text-black mb-2">Materi Pembelajaran</h2>
+              <h2 className="text-3xl font-bold	text-black mb-2"> List BAB </h2>
               <Link href="/learning-materials/add">
                 <Button.Primary type="button" className="inline-flex items-center">
                   <SolidIcon.Plus className="-ml-1 mr-1 h-5 w-5" /> 
-                  Tambah Materi Pembelajaran
+                  Tambah BAB
                 </Button.Primary>
               </Link>
             </div>
@@ -65,38 +83,34 @@ const LearningMaterials = ({ user }: LearningMaterialsProps) => {
                     Bab
                   </Th>
                   <Th className="text-center">
-                    Materi
-                  </Th>
-                  <Th className="text-center">
-                    Di-update pada
-                  </Th>
-                  <Th className="text-center">
                     Aksi
                   </Th>
                 </tr>
               </thead>
               <tbody>
                 {
-                  learningMaterials.map((learningMaterial, learningMaterialIndex) => 
-                    <tr key={learningMaterial.id}>
-                      <Td className="text-center">{ learningMaterialIndex += 1 }</Td>
-                      <Td className="text-center">{ learningMaterial.subject }</Td>
-                      <Td className="text-center">{ learningMaterial.chapter }</Td>
-                      <Td className="text-center truncate">{ learningMaterial.material }</Td>
-                      <Td className="text-center">{ learningMaterial.updatedAt }</Td>
-                      <Td className="text-center flex justify-center space-x-2">
-                        <Link href={`learning-materials/update/${learningMaterial.id}`}>
-                          <Button.Primary type="button" className="inline-flex items-center">
-                            <SolidIcon.Pencil className="-ml-1 mr-1 h-5 w-5" />
-                            Ubah
-                          </Button.Primary>
-                        </Link>
+                  dummyChapters.map((chapterName, chapterNameIndex) => 
+                    <tr>
+                      <Td className="text-center">
+                        { chapterNameIndex + 1 }
+                      </Td>
+                      <Td className="text-center">
+                        { dummySubjects[chapterNameIndex] }
+                      </Td>
+                      <Td className="text-center">
+                        { chapterName }
+                      </Td>
+                      <Td className="text-center">
+                        <Button.Primary onClick={() => editChapterModalHandler(chapterName, dummySubjects[chapterNameIndex])} type="button" className="inline-flex items-center mr-1.5">
+                          <SolidIcon.Pencil className="-ml-1 mr-1 h-5 w-5" />
+                          Ubah
+                        </Button.Primary>
                         <Button.Danger onClick={() => setIsConfirmationModalShow(true)} type="button" className="inline-flex items-center">
                           <SolidIcon.Trash className="-ml-1 mr-1 h-5 w-5" /> 
                           Hapus
                         </Button.Danger>
                       </Td>
-                    </tr>
+                    </tr>  
                   )
                 }
               </tbody>
@@ -109,7 +123,7 @@ const LearningMaterials = ({ user }: LearningMaterialsProps) => {
   );
 };
 
-export default LearningMaterials;
+export default Chapter;
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
   return {
     props: {
