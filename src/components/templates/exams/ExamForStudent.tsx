@@ -11,6 +11,7 @@ import Pagination from '@modules/Pagination';
 import React, { useEffect, useState } from 'react';
 import * as SolidIcon from '@elements/icon/Solid';
 import * as Button from '@elements/Button';
+import Link from 'next/link';
 
 const ExamForStudent = ({ user }) => {
   const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
@@ -96,9 +97,9 @@ const ExamForStudent = ({ user }) => {
                   <span className="bg-red-100 p-2 rounded text-red-400">Sudah berakhir</span>
                 </Td>
                 <Td className="text-sm whitespace-nowrap text-black">
-                  <Button.Primary>
-                    Lihat Hasil
-                  </Button.Primary>
+                  <Link href="/exam-result">
+                    <a className="btn btn-primary">Lihat Hasil</a>
+                  </Link>
                 </Td>
               </tr>
             </tbody>
