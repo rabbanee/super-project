@@ -10,6 +10,7 @@ import ListBox from '@modules/ListBox';
 import Pagination from '@modules/Pagination';
 import React, { useEffect, useState } from 'react';
 import * as SolidIcon from '@elements/icon/Solid';
+import * as Button from '@elements/Button';
 
 const ExamForStudent = ({ user }) => {
   const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
@@ -35,34 +36,70 @@ const ExamForStudent = ({ user }) => {
           <Table color="primary-darkest" className="rounded-b-xl rounded-t-xl">
             <thead className="bg-primary">
               <tr>
-                <Th className="text-center">
+                <Th className="text-xs uppercase">
                   Judul
                 </Th>
-                <Th className="text-center">
+                <Th className="text-xs uppercase">
                   Pelajaran
                 </Th>
-                <Th className="text-center">
+                <Th className="text-xs uppercase">
                   Tanggal Mulai
                 </Th>
-                <Th className="text-center">
+                <Th className="text-xs uppercase">
                   Tanggal Selesai
                 </Th>
-                <Th className="text-center">
+                <Th className="text-xs uppercase">
                   Guru
                 </Th>
-                <Th className="text-center">
+                <Th className="text-xs uppercase">
                   Status
+                </Th>
+                <Th className="text-xs uppercase">
+                  Aksi
                 </Th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <Td className="text-center">Tes Evaluasi - Mekanika</Td>
-                <Td className="text-center">Fisika</Td>
-                <Td className="text-center">05/01/2020 07:00</Td>
-                <Td className="text-center">08/31/2023 23:00</Td>
-                <Td className="text-center">Sabda</Td>
-                <Td className="text-center"><button className="shadow-md container mx-auto rounded-xl ">sudah</button></Td>
+                <Td className="text-sm whitespace-nowrap text-black">Tes Evaluasi - Mekanika</Td>
+                <Td className="text-sm whitespace-nowrap text-black">Fisika</Td>
+                <Td className="text-sm whitespace-nowrap text-black">05/01/2020 07:00</Td>
+                <Td className="text-sm whitespace-nowrap text-black">08/31/2023 23:00</Td>
+                <Td className="text-sm whitespace-nowrap text-black">Sabda</Td>
+                <Td className="text-sm whitespace-nowrap text-black">
+                  <span className="bg-blue-100 p-2 rounded text-blue-400">Belum dimulai</span>
+                </Td>
+                <Td className="text-sm whitespace-nowrap text-black">
+                  <Button.Primary disabled={true} className="cursor-not-allowed opacity-80">Ikut Ujian</Button.Primary>
+                </Td>
+              </tr>
+              <tr>
+                <Td className="text-sm whitespace-nowrap text-black">Tes Evaluasi - Matriks</Td>
+                <Td className="text-sm whitespace-nowrap text-black">Matematika</Td>
+                <Td className="text-sm whitespace-nowrap text-black">05/01/2020 07:00</Td>
+                <Td className="text-sm whitespace-nowrap text-black">08/31/2023 23:00</Td>
+                <Td className="text-sm whitespace-nowrap text-black">Sabda</Td>
+                <Td className="text-sm whitespace-nowrap text-black">
+                  <span className="bg-green-100 p-2 rounded text-green-400">Sedang dimulai</span>
+                </Td>
+                <Td className="text-sm whitespace-nowrap text-black">
+                  <Button.Primary>Ikut Ujian</Button.Primary>
+                </Td>
+              </tr>
+              <tr>
+                <Td className="text-sm whitespace-nowrap text-black">Tes Evaluasi - Atom</Td>
+                <Td className="text-sm whitespace-nowrap text-black">Kimia</Td>
+                <Td className="text-sm whitespace-nowrap text-black">05/01/2020 07:00</Td>
+                <Td className="text-sm whitespace-nowrap text-black">08/31/2023 23:00</Td>
+                <Td className="text-sm whitespace-nowrap text-black">Sabda</Td>
+                <Td className="text-sm whitespace-nowrap text-black">
+                  <span className="bg-red-100 p-2 rounded text-red-400">Sudah berakhir</span>
+                </Td>
+                <Td className="text-sm whitespace-nowrap text-black">
+                  <Button.Primary>
+                    Lihat Hasil
+                  </Button.Primary>
+                </Td>
               </tr>
             </tbody>
           </Table>
