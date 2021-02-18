@@ -22,6 +22,10 @@ import * as Button from '@elements/Button';
 import { monthNames } from '@data/months';
 import { rangeOfYears } from '@utils/rangeOfYears';
 import StatusPill from '@elements/StatusPill';
+import * as SolidIcon from '@elements/icon/Solid';
+import Link from 'next/link';
+import ConfirmationModal from '@modules/ConfirmationModal';
+import showEntries from '@data/show-entries';
 
 interface StudentAttendanceProps {
   user: User,
@@ -30,8 +34,13 @@ interface StudentAttendanceProps {
 const StudentAttendance = ({ user }: StudentAttendanceProps) => {
   const [openedTab, setOpenedTab] = useState(1);
   const [date, setDate] = useState(new Date());
+  const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
+  const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
+
 
   return (
+    <>
+    <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Ujian" description="Apakah Anda yakin ingin menghapus ujian ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" /> 
     <LayoutWithSidebar title="Kehadiran Siswa" user={user}>
       <Container className="relative">
        <ContainerBody className="rounded-b-xl">
@@ -102,7 +111,15 @@ const StudentAttendance = ({ user }: StudentAttendanceProps) => {
                   <ListBox items={monthNames} label="Bulan" className="w-40"/>
                   <ListBox items={rangeOfYears(2020)} label="Tahun" className="w-40"/>
                   <div>
-                    <Button.Primary type="button">Lihat</Button.Primary>
+                    <Button.Primary type="button">
+                      Lihat
+                    </Button.Primary>
+                  </div>
+                  <div>
+                  <Button.Danger onClick={() => setIsConfirmationModalShow(true)} type="button" className="inline-flex items-center">
+                      <SolidIcon.Trash className="-ml-1 mr-1 h-5 w-5" /> 
+                      Hapus
+                    </Button.Danger>
                   </div>
                 </div>
                 <h2 className="text-2xl font-bold my-3">Februari 2020</h2>
@@ -156,6 +173,7 @@ const StudentAttendance = ({ user }: StudentAttendanceProps) => {
        </ContainerBody>
       </Container>
     </LayoutWithSidebar>
+  </>
   );
 };
 

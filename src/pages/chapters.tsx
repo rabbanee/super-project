@@ -56,6 +56,12 @@ const Chapters = ({ user }: ChapterProps) => {
           <ContainerBody className="rounded-b-xl space-y-2">
             <div className="flex justify-between">
               <h2 className="text-3xl font-bold	text-black mb-2">Bab</h2>
+              <Link href="/learning-materials/add">
+                <a className="btn btn-primary inline-flex items-center">
+                  <SolidIcon.Plus className="-ml-1 mr-1 h-5 w-5" /> 
+                  Tambah Bab
+                </a>
+              </Link>
             </div>
             <div className="flex justify-between space-y-3">
               <div className="flex justify-center items-center self-end space-x-1">
