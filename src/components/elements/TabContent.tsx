@@ -14,7 +14,7 @@ const TabContent = ({ children, openedTab, thisTab }: TabContentProps) => {
       </div>
     );
   } else {
-    return '';
+    return <span></span>;
   }
 };
 

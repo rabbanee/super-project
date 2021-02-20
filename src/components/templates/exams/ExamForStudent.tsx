@@ -84,7 +84,9 @@ const ExamForStudent = ({ user }) => {
                   <span className="bg-green-100 p-2 rounded text-green-400">Sedang dimulai</span>
                 </Td>
                 <Td className="text-sm whitespace-nowrap text-black">
-                  <Button.Primary>Ikut Ujian</Button.Primary>
+                  <Link href="/exams/room/1">
+                    <a className="btn btn-primary">Ikut Ujian</a>
+                  </Link>
                 </Td>
               </tr>
               <tr>
@@ -97,7 +99,7 @@ const ExamForStudent = ({ user }) => {
                   <span className="bg-red-100 p-2 rounded text-red-400">Sudah berakhir</span>
                 </Td>
                 <Td className="text-sm whitespace-nowrap text-black">
-                  <Link href="/exam-result">
+                  <Link href="/exams/result/1">
                     <a className="btn btn-primary">Lihat Hasil</a>
                   </Link>
                 </Td>

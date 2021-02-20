@@ -40,7 +40,7 @@ const StudentAttendance = ({ user }: StudentAttendanceProps) => {
 
   return (
     <>
-    <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Ujian" description="Apakah Anda yakin ingin menghapus ujian ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" /> 
+    <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Kehadiran Siswa" description="Apakah Anda yakin ingin menghapus kehadiran siswa ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" /> 
     <LayoutWithSidebar title="Kehadiran Siswa" user={user}>
       <Container className="relative">
        <ContainerBody className="rounded-b-xl">
@@ -115,14 +115,14 @@ const StudentAttendance = ({ user }: StudentAttendanceProps) => {
                       Lihat
                     </Button.Primary>
                   </div>
-                  <div>
-                  <Button.Danger onClick={() => setIsConfirmationModalShow(true)} type="button" className="inline-flex items-center">
-                      <SolidIcon.Trash className="-ml-1 mr-1 h-5 w-5" /> 
-                      Hapus
-                    </Button.Danger>
-                  </div>
                 </div>
-                <h2 className="text-2xl font-bold my-3">Februari 2020</h2>
+                <div className="flex justify-between items-baseline">
+                  <h2 className="text-2xl font-bold my-3">Februari 2020</h2>
+                  <Button.Danger onClick={() => setIsConfirmationModalShow(true)} type="button" className="inline-flex items-center">
+                    <SolidIcon.Trash className="-ml-1 mr-1 h-5 w-5" /> 
+                    Hapus
+                  </Button.Danger>
+                </div>
                 <ul className="flex md:space-x-2 mb-3 flex-wrap">
                   {
                     attendanceStatuses.map((attendanceStatus, i) => 
