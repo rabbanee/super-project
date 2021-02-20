@@ -47,19 +47,148 @@ const EditAccessRights = ({ user }: EditAccessRightsProps) => {
             <thead className="bg-primary">
               <tr>
                 <Th className="text-center">
-                  No
+                   Main
                 </Th>
                 <Th className="text-center">
-                  Mata Pelajaran
+                  CRUD
                 </Th>
                 <Th className="text-center">
-                  Bab
+                  Rekap
                 </Th>
                 <Th className="text-center">
-                  Aksi
+                  Edit
+                </Th>
+                <Th className="text-center">
+                  Tambahan
                 </Th>
               </tr>
             </thead>
+            <tbody>
+                {
+                    <tr>
+                      <Td className="text-center">
+                        <Button.Primary >
+                          Login
+                        </Button.Primary>
+                      </Td>
+                      <Td className="text-center">
+                        <Button.Primary >
+                          Absensi Kehadiran Siswa
+                        </Button.Primary>
+                      </Td>
+                      <Td className="text-center">
+                        <Button.Primary >
+                           User
+                        </Button.Primary>
+                      </Td>
+                      <Td className="text-center">
+                        <Button.Primary >
+                           Profile
+                        </Button.Primary>
+                      </Td>
+                      <Td className="text-center">
+                        <Button.Primary >
+                           Ujian
+                        </Button.Primary>
+                      </Td>
+                     
+                    </tr>  
+                }
+                {
+                   <tr>
+                   <Td className="text-center">
+                     <Button.Primary >
+                       Register
+                     </Button.Primary>
+                   </Td>
+                   <Td className="text-center">
+                     <Button.Primary >
+                       Materi Pelajaran
+                     </Button.Primary>
+                   </Td>
+                   <Td className="text-center">
+                     <Button.Primary >
+                      Absensi Siswa
+                     </Button.Primary>
+                   </Td>
+                   <Td className="text-center">
+                     <Button.Primary >
+                       Hak Akses  
+                     </Button.Primary>
+                   </Td>
+                   <Td className="text-center">
+                     <Button.Primary >
+                       Pengumuman
+                     </Button.Primary>
+                   </Td>
+                 </tr>  
+                }
+                {
+                   <tr>
+                   <Td className="text-center">
+                     <Button.Primary >
+                       Forgot Password
+                     </Button.Primary>
+                   </Td>
+                   <Td className="text-center">
+                     <Button.Primary >
+                       Bab
+                     </Button.Primary>
+                   </Td>
+                 </tr>  
+                }
+                {
+                   <tr>
+                   <Td className="text-center">
+                    
+                   </Td>
+                   <Td className="text-center">
+                     <Button.Primary >
+                       Ujian
+                     </Button.Primary>
+                   </Td>
+                 </tr>  
+                }
+                {
+                   <tr>
+                   <Td className="text-center">
+                     
+                   </Td>
+                   <Td className="text-center">
+                     <Button.Primary >
+                      Nilai      
+                     </Button.Primary>
+                   </Td>
+                 </tr>  
+                }
+                {
+                   <tr>
+                   <Td className="text-center">
+                    
+                   </Td>
+                   <Td className="text-center">
+                     <Button.Primary >
+                       Nilai Sikap
+                     </Button.Primary>
+                   </Td>
+                 </tr>  
+                }
+                {
+                   <tr>
+                   <Td className="text-center">
+                     
+                   </Td>
+                   <Td className="text-center">
+                     <Button.Primary >
+                       Pengumuman
+                     </Button.Primary>
+                   </Td>
+                 </tr>  
+                }
+                {
+                  
+                }
+              </tbody>
           </Table>
           <Pagination />
         </ContainerBody>
