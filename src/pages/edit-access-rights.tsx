@@ -74,6 +74,12 @@ export const getServerSideProps = withAuthServerSideProps(function getServerSide
   thisPageFor({
     context,
     currentRole: user.role,
-    forRoles: [3]
+    forRoles: [1]
   }); 
+
+  return {
+    props: {
+      user, 
+    }
+  };
 });
