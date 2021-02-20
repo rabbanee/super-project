@@ -1,6 +1,6 @@
 const dummyUser = {
-  name: 'admin',
-  role: 1,
+  name: 'siswa',
+  role: 4,
   email: 'who@siswa.com'
 };
 
