@@ -32,8 +32,9 @@ module.exports = {
   },
   variants: {
     extend: {
-      backgroundColor: ['label-checked', 'even'],
-      textColor: ['label-checked']
+      backgroundColor: ['label-checked', 'after-label-checked', 'even'],
+      textColor: ['label-checked', 'after-label-checked'],
+      borderColor: ['after-label-checked'],
     },
   },
   plugins: [
@@ -44,6 +45,17 @@ module.exports = {
                   const eClassName = e(`label-checked${separator}${className}`); // escape class
                   const yourSelector = 'input[type="radio"]'; // your input selector. Could be any
                   return `${yourSelector}:checked ~ .${eClassName}`; // ~ - CSS selector for siblings
+                }
+            )
+        })
+    }),
+    plugin(({ addVariant, e }) => {
+        addVariant('after-label-checked', ({ modifySelectors, separator }) => {
+            modifySelectors(
+                ({ className }) => {
+                  const eClassName = e(`after-label-checked${separator}${className}`); // escape class
+                  const yourSelector = 'input[type="radio"]'; // your input selector. Could be any
+                  return `${yourSelector}:checked ~ label .${eClassName}`; // ~ - CSS selector for siblings
                 }
             )
         })

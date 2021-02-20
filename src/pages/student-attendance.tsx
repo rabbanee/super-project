@@ -182,7 +182,7 @@ export default StudentAttendance;
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
   thisPageFor({
     currentRole: user.role,
-    forRoles: [3],
+    forRoles: [3,4],
     context
   });
   
