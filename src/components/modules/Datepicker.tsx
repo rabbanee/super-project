@@ -15,7 +15,7 @@ const daysOfWeekNames = [
 ];
 
 export const inputStyle = {
-  paddingTop: "0.375rem",
+  paddingTop: "0.375rem", 
   paddingBottom: "0.375rem",
 };
 
@@ -42,7 +42,7 @@ export const RawDatePicker: React.FC<{
           {({ ref }) => (
             <div className="flex shadow-md" ref={ref}>
               <input
-                className="border rounded-l px-3 outline-none focus:border-primary-darkest `flex-grow`"
+                className="border rounded-l px-3 outline-none focus:border-primary-darkest flex-grow"
                 type="text"
                 style={inputStyle}
                 onFocus={(e) => ctxValue.showCalendar()}
@@ -52,6 +52,7 @@ export const RawDatePicker: React.FC<{
               />
               <button
                 className="bg-gray-300 rounded-r flex items-center justify-center text-sm font-semibold text-gray-700 px-2 focus:outline-none"
+                type="button"
                 onClick={(e) => ctxValue.toggleCalendar()}
               >
                 <OutlineIcon.Calendar className="h-6 w-6" />

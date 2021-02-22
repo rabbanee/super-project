@@ -19,7 +19,6 @@
     "js-cookie": "^2.2.1",
     "next": "10.0.4",
     "postcss": "^8.2.2",
-    "pretty-ms": "^7.0.1",
     "react": "17.0.1",
     "react-countdown": "^2.3.1",
     "react-dom": "17.0.1",

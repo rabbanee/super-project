@@ -4,23 +4,17 @@ import * as OutlineIcon from '@elements/icon/Outline';
 import Option from '@elements/exam/Option';
 import Quiz from '@interface/Quiz';
 import ExamInterface from '@interface/Exam';
-import ExamPanel from '@elements/exam/ExamPanel';
 import ExamQuestionMap from '@elements/exam/ExamQuestionMap';
 
 interface ExamProps {
   exam: ExamInterface,
   answers: Array<any>,
   setAnswers: Function,
-  currentQuiz: Quiz,
-  setCurrentQuiz: Function,
-  selectedOptionKey: string,
-  setSelectedOptionKey: Function,
   examDuration: number,
-  setExamDuration: Function,
+  // setExamDuration: Function,
 }
 
-const Exam = ({ exam, answers, setAnswers, currentQuiz, setCurrentQuiz, selectedOptionKey, setSelectedOptionKey, examDuration, setExamDuration }: ExamProps) => {
-
+const Exam = ({ exam, answers, setAnswers, examDuration }: ExamProps) => {
 
   const optionHandler = (key: string, quiz: Quiz) => {
     const filteredAnswers = answers.filter((answer) => answer.quizId !== quiz.id);
@@ -66,7 +60,7 @@ const Exam = ({ exam, answers, setAnswers, currentQuiz, setCurrentQuiz, selected
                   <ul>
                     {
                       Object.keys(quiz.options).map(key => 
-                        <Option key={`${key}-${quiz.id}`} option={quiz.options[key]} quizId={quiz.id} label={key} onClick={() => optionHandler(key, quiz)} checked={selectedOptionKey === `${key}-${quiz.id}`} />
+                        <Option key={`${key}-${quiz.id}`} option={quiz.options[key]} quizId={quiz.id} label={key} onClick={() => optionHandler(key, quiz)} />
                       )
                     }
                   </ul>

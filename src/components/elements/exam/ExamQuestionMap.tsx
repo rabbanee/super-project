@@ -1,5 +1,5 @@
 import Quiz from '@interface/Quiz';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-scroll'
 import * as OutlineIcon from '@elements/icon/Outline';
 import Countdown from 'react-countdown';
@@ -12,6 +12,8 @@ interface ExamQuestionMapProps {
 }
 
 const ExamQuestionMap = ({ quizzes, answers, examDuration }: ExamQuestionMapProps) => {
+  let [date, setDate] = useState(Date.now() + convertMinutesToMilliseconds(examDuration));
+
   return (
    <div className="bg-white w-1/4 p-6 rounded-md max-h-96 sticky top-0">
       <div className="flex flex-col space-y-2 border-b border-gray-200 pb-3">
@@ -23,7 +25,7 @@ const ExamQuestionMap = ({ quizzes, answers, examDuration }: ExamQuestionMapProp
             <OutlineIcon.Clock className="h-6 w-6 text-gray-500" />
             <p>
               <Countdown 
-                date={Date.now() + convertMinutesToMilliseconds(examDuration)}
+                date={date}
                 daysInHours={true}
               />
             </p>
@@ -44,7 +46,7 @@ const ExamQuestionMap = ({ quizzes, answers, examDuration }: ExamQuestionMapProp
         {
          quizzes.map((quiz, quizIndex) => 
          <Link to={`quizId-${quiz.id}`} spy={true} smooth={true} key={quizIndex} className={`w-12 focus:outline-none relative h-12 border-2 border-gray-200 rounded-full ${answers.find((answer) => answer.quizId === quiz.id)  && 'bg-gray-200'} items-center justify-center flex cursor-pointer`}>
-             { quizIndex + 1 }
+            { quizIndex + 1 }
           </Link>
           )
         }

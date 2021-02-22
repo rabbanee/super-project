@@ -34,7 +34,7 @@ export const admin = [
   {
     name: 'Edit Hak Akses',
     icon: <SolidIcon.PencilAlt className="h-6"/>,
-    href: '/s' 
+    href: '/edit-access-rights' 
   },
 ];
 

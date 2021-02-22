@@ -5,7 +5,7 @@ interface TabItemProps {
   openedTab: number,
   thisTab: number,
   setOpenedTab: Function,
-  href: string,
+  href?: string,
   color: string,
 }
 
@@ -24,7 +24,7 @@ const TabItem = ({ children, openedTab, thisTab, setOpenedTab, href, color }: Ta
           setOpenedTab(thisTab);
         }}
         data-toggle="tab"
-        href={href}
+        href={href ?? ''}
         role="tabitem"
       >
         { children  }

@@ -73,8 +73,8 @@ const ExamForTeacher = ({ user }) => {
                   <Td className="text-center">05/01/2020 07:00</Td>
                   <Td className="text-center">08/31/2023 23:00</Td>
                   <Td className="text-center flex justify-center space-x-2">
-                    <Link href="/">
-                      <a href="" className="btn btn-primary inline-flex items-center">
+                    <Link href="/exams/room/1">
+                      <a className="btn btn-primary inline-flex items-center">
                         <SolidIcon.Eye className="-ml-1 mr-1 h-5 w-5" />
                         Lihat
                       </a>
