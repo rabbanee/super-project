@@ -1,7 +1,7 @@
 const dummyUser = {
-  name: 'siswa',
-  role: 4,
-  email: 'who@siswa.com'
+  name: 'guru',
+  role: 3,
+  email: 'who@guru.com'
 };
 
 export default dummyUser;

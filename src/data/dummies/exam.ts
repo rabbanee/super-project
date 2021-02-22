@@ -1,7 +1,8 @@
-const dummyExam = {
-  maxDuration: 50,
+import Exam from "@interface/Exam";
+const dummyExam: Exam = {
+  maxDuration: 60,
   totalQuestions: 4,
-  currentDuration: 50,
+  currentDuration: 60,
   quizzes: [
     {
       id: 1,
