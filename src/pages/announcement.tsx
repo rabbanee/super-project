@@ -5,7 +5,6 @@ import { User } from '@interface/User';
 import * as Button from '@elements/Button';
 import Modal from '@elements/Modal';
 import dynamic from 'next/dynamic'
-
 import ListBox from '@modules/ListBox';
 import dummySubjects from '@data/dummies/subjects';
 import grades from '@data/grades';
