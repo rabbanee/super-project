@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Layout from './Layout';
 import "react-toggle/style.css";
 import  * as Sidebar from '../modules/Sidebar';
+import { User } from '@interface/User';
 
-const LayoutWithSidebar = (props : any) => {
+interface LayoutWithSidebarProps {
+  user: User,
+  title: string,
+  children: ReactNode,
+}
+
+const LayoutWithSidebar = ({ ...props }: LayoutWithSidebarProps) => {
 
   return (
     <div className="bg-gray-200 dark:bg-gray-800">
-      <div className="min-w-screen container  mx-auto min-h-screen md:flex md:px-7 md:space-x-1 max-w-8xl">
+      <div className="min-w-screen container mx-auto min-h-screen md:flex md:px-7 md:space-x-1 max-w-8xl">
         <Sidebar.Mobile user={props.user} />
         <Sidebar.Desktop user={props.user}  className="md:mt-9 bg-white md:rounded-xl md:w-2/6 lg:w-1/5 hidden md:block max-w-xs"/>
         <Layout

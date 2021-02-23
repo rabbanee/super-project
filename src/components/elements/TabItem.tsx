@@ -11,7 +11,7 @@ interface TabItemProps {
 
 const TabItem = ({ children, openedTab, thisTab, setOpenedTab, href, color }: TabItemProps) => {
   return (
-    <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
+    <li className="mr-2 last:mr-0 flex-auto text-center mb-2">
       <a
         className={
           "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +

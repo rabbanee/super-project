@@ -60,6 +60,11 @@ export const teacher = [
     icon:  <OutlineIcon.Puzzle className="h-6"/>,
     href: '/exams'
   },
+  {
+    name: 'Bank Soal',
+    icon:  <OutlineIcon.Document className="h-6"/>,
+    href: '/questions-bank'
+  },
 ];
 
 export const student = [

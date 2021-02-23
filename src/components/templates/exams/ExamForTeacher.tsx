@@ -23,6 +23,9 @@ import grades from '@data/grades';
 import dynamic from 'next/dynamic'
 import ContainerFooter from '@elements/container/Footer';
 import * as OutlineIcon from '@elements/icon/Outline';
+import majors from '@data/majors';
+import { DatePicker } from '@modules/Datepicker';
+import TimeInput from '@modules/TimeInput';
 
 
 interface ExamForTeacherProps {
@@ -40,11 +43,11 @@ const ExamForTeacher = ({ user }) => {
   const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState(() => dummySubjects[0]);
-  const [selectedChapter, setSelectedChapter] = useState(() => dummyChapters[0]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isModalShow, setIsModalShow] = useState(false);
-  const chapterNameRef = useRef();
   const [selectedGrade, setSelectedGrade] = useState(grades[0]);
+  const [selectedMajors, setSelectedMajors] = useState(majors[0]);
+  const [isModalShow, setIsModalShow] = useState(false);
+  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
 
   return (
     <>
@@ -52,15 +55,8 @@ const ExamForTeacher = ({ user }) => {
       <LayoutWithSidebar user={user} title="Ujian">
         <Container>
           <ContainerBody className="rounded-b-xl">
-          <div className="flex items-end flex-col mb-2">
-            <Button.Primary onClick={() => setIsModalShow(true)}>Tambahkan Ujian</Button.Primary>
-          </div>
-            <div className="flex justify-between space-y-3">
-              <div className="flex justify-center items-center self-end space-x-1">
-                <span className="text-md">Tampilkan</span>
-                <ListBox items={showEntries} selectedItem={selectedShowEntry} setSelectedItem={setSelectedShowEntry} />
-                <span>data</span>
-              </div>
+            <div className="flex justify-between space-y-3 flex-wrap items-baseline">
+              <Button.Primary onClick={() => setIsModalShow(true)}>Tambahkan Ujian</Button.Primary>
               <InputWithIcon Icon={<SolidIcon.Search className="text-gray-500 w-5 h-5" />}/>
             </div>
             <Table color="primary-darkest" className="rounded-b-xl rounded-t-xl">
@@ -108,76 +104,86 @@ const ExamForTeacher = ({ user }) => {
                 </tr>
               </tbody>
               <Modal isShow={isModalShow} setIsShow={setIsModalShow}>
-            <form>
-              <ModalBody>
-                <div className="sm:flex sm:items-start">
-                  <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                      Tambahkan Ujian
-                    </h3>
-                    <div className="mt-4 flex flex-col space-y-3">   
-                      <div>
-                        <td>
-                        <ListBox items={dummySubjects} label="Class" selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                        </td>
-                        <td>
-                        <ListBox items={dummySubjects} label="Section" selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                        </td> 
-                        <td>
-                        <ListBox items={dummySubjects} label="Subject" selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                        </td>
-                        
-                      </div>
-                      <div>
-                        <label htmlFor="order_of_the_material" className="block text-sm font-medium text-gray-700">Title</label>
-                        <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" />
-                      </div>
-                      <div>
-                        <Editor/>
-                      </div>
-                      <div className="col-span-6 sm:col-span-6">
-                        <td>
-                        <label htmlFor="order_of_the_material" className="block text-sm font-medium text-gray-700">Exam Start</label>
-                        <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" />
-                        </td>
-                        <td>
-                        <label htmlFor="order_of_the_material" className="block text-sm font-medium text-gray-700">Start Time</label>
-                        <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" />
-                        </td>
-                      </div>
-                      <div className="col-span-6 sm:col-span-6">
-                        <td>
-                        <label htmlFor="order_of_the_material" className="block text-sm font-medium text-gray-700">Exam End</label>
-                        <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" />
-                        </td>
-                        <td>
-                        <label htmlFor="order_of_the_material" className="block text-sm font-medium text-gray-700">Time over</label>
-                        <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" />
-                        </td>
-                      </div>
-                      <div className="col-span-6 sm:col-span-6">
-                        <td>
-                        <label htmlFor="order_of_the_material" className="block text-sm font-medium text-gray-700">Total Question</label>
-                        <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" />
-                        </td>
-                        <td>
-                        <label htmlFor="order_of_the_material" className="block text-sm font-medium text-gray-700">Duration(minutes)</label>
-                        <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" />
-                        </td>
-                      </div>
-                      <div className="col-span-6 sm:col-span-6">
-                        <td>
-                        <label htmlFor="order_of_the_material" className="block text-sm font-medium text-gray-700">Minimum Test Score</label>
-                        <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" />
-                        </td>
+                <form>
+                  <ModalBody>
+                    <div className="sm:flex sm:items-start">
+                      <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                        <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+                          Tambahkan Ujian
+                        </h3>
+                        <div className="grid grid-cols-3 gap-3 w-full">   
+                          <div className="col-span-3 sm:col-span-1">
+                            <ListBox items={grades} label="Kelas" selectedItem={selectedGrade} setSelectedItem={setSelectedGrade}/>
+                          </div>
+                          <div className="col-span-3 sm:col-span-1">
+                            <ListBox items={majors} label="Jurusan" selectedItem={selectedMajors} setSelectedItem={setSelectedMajors}/>
+                          </div>
+                          <div className="col-span-3 sm:col-span-1">
+                            <ListBox items={dummySubjects} label="Pelajaran" selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
+                          </div>
+                          <div className="col-span-3 sm:col-span-3">
+                            <label htmlFor="title" className="block text-sm font-medium text-gray-700">Judul Ujian</label>
+                            <input id="title" name="title" type="text" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Judul Ujian" />
+                          </div>
+                          <div className="col-span-3 sm:col-span-3">
+                            <label htmlFor="exam_description" className="block text-sm font-medium text-gray-700">Deskripsi Ujian</label>
+                            <input id="exam_description" name="exam_description" type="text" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Deskripsi Ujian" />
+                          </div>
+                          <div className="col-span-3 sm:col-span-3">
+                            <label htmlFor="start-date" className="block text-sm leading-5 font-medium text-gray-700">Tanggal Mulai</label>
+                            <DatePicker
+                              id="start-date"
+                              onChange={setStartDate}
+                              date={startDate}
+                            />
+                          </div>
+                          <div className="col-span-3 sm:col-span-3">
+                            <label htmlFor="time-input" className="block text-sm leading-5 font-medium text-gray-700">Waktu Mulai</label>
+                            <div className="flex shadow-md">
+                              <TimeInput id="time-input" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-l-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm flex-grow border-r-0"  />
+                              <button
+                                className="bg-gray-300 rounded-r-md flex items-center justify-center text-sm font-semibold px-2 focus:outline-none"
+                                type="button"
+                              >
+                                <OutlineIcon.Clock className="h-6 w-6" />
+                              </button>
+                            </div>
+                          </div>
+                          <div className="col-span-3 sm:col-span-3">
+                            <label htmlFor="end-date" className="block text-sm leading-5 font-medium text-gray-700">Tanggal Selesai</label>
+                            <DatePicker
+                              onChange={setEndDate}
+                              date={endDate}
+                              id="end-date"
+                            />
+                          </div>
+                          <div className="col-span-3 sm:col-span-3">
+                            <label htmlFor="time-input" className="block text-sm leading-5 font-medium text-gray-700">Waktu Selesai</label>
+                            <div className="flex shadow-md">
+                              <TimeInput id="time-input" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-l-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm flex-grow border-r-0"  />
+                              <button
+                                className="bg-gray-300 rounded-r-md flex items-center justify-center text-sm font-semibold px-2 focus:outline-none"
+                                type="button"
+                              >
+                                <OutlineIcon.Clock className="h-6 w-6" />
+                              </button>
+                            </div>
+                          </div>
+                          <div className="col-span-3 sm:col-span-3">
+                            <label htmlFor="duration" className="block text-sm font-medium text-gray-700">Durasi (Dalam menit)</label>
+                            <input id="duration" name="duration" type="number" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Durasi Ujian" />
+                          </div>
+                          <div className="col-span-3 sm:col-span-3">
+                            <label htmlFor="minimum-score" className="block text-sm font-medium text-gray-700">KKM</label>
+                            <input id="minimum-score" name="minimum-score" type="number" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="KKM" />
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </ModalBody>
-              <ModalFooter>
+                  </ModalBody>
+                  <ModalFooter>
                     <Button.Primary className="w-full inline-flex justify-center shadow-sm text-base font-medium sm:ml-3 sm:w-auto sm:text-sm">
-                      Tambahkan Pengumuman
+                      Tambahkan Ujian
                     </Button.Primary>
                     <Button.Secondary type="button" className="mt-3 w-full inline-flex justify-center shadow-sm text-base font-medium sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => setIsModalShow(false)}>
                       Batal

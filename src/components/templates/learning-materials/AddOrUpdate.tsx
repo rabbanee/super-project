@@ -44,12 +44,14 @@ function AddOrUpdateLearningMaterials({ user, title, learningMaterial }: AddOrUp
       <form>
         <Container>
           <ContainerBody className="px-4 py-5 bg-white sm:p-6 rounded-t-xl">
-            <div className="flex justify-between mb-2">
+            <div className="flex justify-between mb-2 items-end flex-wrap">
               <h2 className="text-4xl font-bold	text-black mb-2">{title}</h2>
-              <Button.Primary type="button" onClick={() => setIsModalShow(true)} className="inline-flex items-center">
-                <SolidIcon.Plus className="-ml-1 mr-1 h-5 w-5" />
-                Tambah Bab
-              </Button.Primary>
+              <div className="justify-end flex w-full sm:w-auto">
+                <Button.Primary type="button" onClick={() => setIsModalShow(true)} className="inline-flex items-center">
+                  <SolidIcon.Plus className="-ml-1 mr-1 h-5 w-5" />
+                  Tambah Bab
+                </Button.Primary>
+              </div>
             </div>
             <div className="grid grid-cols-6 gap-4 mt-2">
               <div className="col-span-6 sm:col-span-6">

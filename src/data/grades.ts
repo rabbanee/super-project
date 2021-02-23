@@ -1,7 +1,10 @@
 const grades = [
-  'X',
-  'XI',
-  'XII',
+  'X RPL',
+  'X TKJ',
+  'XI RPL',
+  'XI TKJ',
+  'XII RPL',
+  'XII TKJ',
 ];
 
 export default grades;

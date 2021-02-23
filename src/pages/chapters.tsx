@@ -26,7 +26,6 @@ interface ChapterProps {
 }
 
 const Chapters = ({ user }: ChapterProps) => {
-  const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
   const [isEditChapterModalShow, setIsEditChapterModalShow] = useState(false);
   const chapterNameRef = useRef();
@@ -61,19 +60,14 @@ const Chapters = ({ user }: ChapterProps) => {
       <LayoutWithSidebar title="Bab" user={user}>
         <Container>
           <ContainerBody className="rounded-b-xl space-y-2">
-            <div className="flex justify-between">
+            <div className="flex justify-between items-baseline">
               <h2 className="text-3xl font-bold	text-black mb-2">Bab</h2>
               <Button.Primary type="button" onClick={() => setIsAddChapterModalShow(true)} className="inline-flex items-center">
                 <SolidIcon.Plus className="-ml-1 mr-1 h-5 w-5" />
                 Tambah Bab
               </Button.Primary>
             </div>
-            <div className="flex justify-between space-y-3">
-              <div className="flex justify-center items-center self-end space-x-1">
-                <span className="text-md">Tampilkan</span>
-                <ListBox items={showEntries} selectedItem={selectedShowEntry} setSelectedItem={setSelectedShowEntry} />
-                <span>data</span>
-              </div>
+            <div className="flex justify-end space-y-3">
               <InputWithIcon Icon={<SolidIcon.Search className="text-gray-500 w-5 h-5" />}/>
             </div>
             <Table color="primary-darkest" className="rounded-b-xl rounded-t-xl">
@@ -106,7 +100,7 @@ const Chapters = ({ user }: ChapterProps) => {
                       <Td className="text-center">
                         { chapterName }
                       </Td>
-                      <Td className="text-center">
+                      <Td className="text-center flex">
                         <Button.Primary onClick={() => editChapterModalHandler(chapterName, dummySubjects[chapterNameIndex])} type="button" className="inline-flex items-center mr-1.5">
                           <SolidIcon.Pencil className="-ml-1 mr-1 h-5 w-5" />
                           Ubah
