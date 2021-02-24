@@ -85,6 +85,15 @@ const Attitude = ({ user }) => {
                   <Th className="text-center">
                     Kedisiplinan
                   </Th>
+                  <Th className="text-center">
+                    KerjaSama
+                  </Th>
+                  <Th className="text-center">
+                    Kreatif
+                  </Th>
+                  <Th className="text-center">
+                    Keterangan
+                  </Th>
                 </tr>
               </thead>
               <tbody>
@@ -100,6 +109,15 @@ const Attitude = ({ user }) => {
                   <td>
                    <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
                   </td>
+                  <td>
+                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
+                  </td>
+                  <td>
+                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
+                  </td> 
+                  <td>
+                    <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Keterangan" />
+                  </td>
                 </tr>
                 <tr>
                   <Td className="text-center">2</Td>
@@ -112,6 +130,15 @@ const Attitude = ({ user }) => {
                   </td> 
                   <td>
                    <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
+                  </td>
+                  <td>
+                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
+                  </td>
+                  <td>
+                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
+                  </td> 
+                  <td>
+                   <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Keterangan" />
                   </td>
                 </tr>
                 <tr>
@@ -126,6 +153,15 @@ const Attitude = ({ user }) => {
                   <td>
                    <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
                   </td>
+                  <td>
+                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
+                  </td>
+                  <td>
+                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
+                  </td> 
+                  <td>
+                   <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Keterangan" />
+                  </td>
                 </tr>
                 <tr>
                   <Td className="text-center">4</Td>
@@ -139,6 +175,16 @@ const Attitude = ({ user }) => {
                   <td>
                    <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
                   </td>
+                  <td>
+                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
+                  </td>
+                  <td>
+                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
+                  </td>
+                  <td>
+                   <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Keterangan"/>
+                  </td>
+                  
                 </tr>
               </tbody>
             </Table>
