@@ -6,7 +6,7 @@ interface TableProps {
 
 const Table = ({ children, color, className  }: TableProps) => {
   return (
-    <div className="flex flex-col mt-2">
+    <div className="flex flex-col">
       <div className="-my-2 overflow-x-auto sm:-mx-6 mt-2">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6">
           <div className={`shadow overflow-hidden rounded-lg ${className && className}`}>
