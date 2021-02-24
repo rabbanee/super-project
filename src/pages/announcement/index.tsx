@@ -10,6 +10,12 @@ import dummySubjects from '@data/dummies/subjects';
 import grades from '@data/grades';
 import ModalBody from '@elements/ModalBody';
 import ModalFooter from '@elements/ModalFooter';
+import Title from '@elements/Title';
+import { isAdmin } from '@utils/roles/isAdmin';
+import { isHeadmaster } from '@utils/roles/isHeadmaster';
+import { isTeacher } from '@utils/roles/isTeacher';
+import Link from 'next/link';
+import * as SolidIcon from '@elements/icon/Solid';
 
 interface AnnouncementProps {
   user: User
@@ -33,9 +39,20 @@ function Announcement({ user }: AnnouncementProps) {
 
   return (
     <LayoutWithSidebar title="Pengumuman" user={user}>
-      <div className="flex items-end flex-col mb-2">
-        <Button.Primary onClick={() => setIsModalShow(true)}>Tambahkan Pengumuman</Button.Primary>
+      <div className="flex justify-between items-start">
+        <Title className="mb-2">Pengumuman</Title>
+        { (isAdmin(user.role) || isHeadmaster(user.role) || isTeacher(user.role))  &&
+          <Link href={`/announcement/management`}>
+            <a className="btn btn-primary inline-flex items-center">
+              <SolidIcon.Adjustments className="-ml-1 mr-1 h-5 w-5" />
+              Pengelolaan Pengumuman
+            </a>
+          </Link>
+        }
       </div>
+      {/* <div className="flex items-end flex-col mb-2">
+        <Button.Primary onClick={() => setIsModalShow(true)}>Tambahkan Pengumuman</Button.Primary>
+      </div> */}
       <div className="bg-white p-6 md:px-10 rounded-xl shadow-md relative overflow-hidden container mx-auto">
         <table className="table table-borderless tab mt-2">
           <tbody>

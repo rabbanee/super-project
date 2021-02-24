@@ -24,6 +24,7 @@ const Editor = () => {
           };
           // You can store the "editor" and use when it is needed.
         }}
+        
         onChange={(event, editor) => {
           const data = editor.getData()
           console.log({ event, editor, data })

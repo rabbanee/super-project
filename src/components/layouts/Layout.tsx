@@ -1,7 +1,13 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-const Layout = (props : any) => {
+interface LayoutProps {
+  title: string,
+  className?: string,
+  children?: ReactNode,
+}
+
+const Layout = ({ ...props }: LayoutProps) => {
   return (
     <React.Fragment>
       <Head>

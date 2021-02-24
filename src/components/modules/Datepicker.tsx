@@ -21,17 +21,19 @@ export const inputStyle = {
 
 interface DatePickerProps {
   date: Date;
+  id?: string;
   onChange: (date: Date) => void;
 }
 
 export const DatePicker: React.FC<DatePickerProps> = (props) => (
-  <RawDatePicker date={props.date} onChange={props.onChange}></RawDatePicker>
+  <RawDatePicker id={props.id} date={props.date} onChange={props.onChange}></RawDatePicker>
 );
 
 export const RawDatePicker: React.FC<{
   date: Date;
+  id?: string;
   onChange: (date: Date) => void;
-}> = ({ date, onChange }) => {
+}> = ({ date, onChange, id }) => {
   const popupNode = useRef<HTMLElement>();
   const ctxValue = useDatepickerCtx(date, onChange, popupNode);
 
@@ -47,7 +49,7 @@ export const RawDatePicker: React.FC<{
                 style={inputStyle}
                 onFocus={(e) => ctxValue.showCalendar()}
                 value={formattedDate(date)}
-                id='date-picker'
+                id={id ?? 'date-picker'}
                 readOnly
               />
               <button

@@ -22,7 +22,6 @@ interface LearningMaterialsProps {
 }
 
 const LearningMaterials = ({ user }: LearningMaterialsProps) => {
-  const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
 
   return (
@@ -31,7 +30,7 @@ const LearningMaterials = ({ user }: LearningMaterialsProps) => {
       <LayoutWithSidebar title="Materi Pembelajaran" user={user}>
         <Container>
           <ContainerBody className="rounded-b-xl space-y-2">
-            <div className="flex justify-between">
+            <div className="flex justify-between items-baseline flex-wrap">
               <h2 className="text-3xl font-bold	text-black mb-2">Materi Pembelajaran</h2>
               <Link href="/learning-materials/add">
                 <a className="btn btn-primary inline-flex items-center">
@@ -40,12 +39,7 @@ const LearningMaterials = ({ user }: LearningMaterialsProps) => {
                 </a>
               </Link>
             </div>
-            <div className="flex justify-between space-y-3">
-              <div className="flex justify-center items-center self-end space-x-1">
-                <span className="text-md">Tampilkan</span>
-                <ListBox items={showEntries} selectedItem={selectedShowEntry} setSelectedItem={setSelectedShowEntry} />
-                <span>data</span>
-              </div>
+            <div className="flex justify-end space-y-3">
               <InputWithIcon Icon={<SolidIcon.Search className="text-gray-500 w-5 h-5" />}/>
             </div>
             <Table color="primary-darkest" className="rounded-b-xl rounded-t-xl">

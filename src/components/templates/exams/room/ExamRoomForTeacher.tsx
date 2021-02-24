@@ -22,7 +22,10 @@ import Pagination from "@modules/Pagination";
 import { DatePicker } from '@modules/Datepicker';
 import TimeInput from "@modules/TimeInput";
 import * as OutlineIcon from '@elements/icon/Outline';
-import { Link as LinkScroll } from 'react-scroll';
+import ConfirmationModal from "@modules/ConfirmationModal";
+import Modal from "@elements/Modal";
+import ModalBody from "@elements/ModalBody";
+
 
 interface ExamRoomForTeacherProps {
   user: User,
@@ -38,8 +41,11 @@ const tabs = [
 const ExamRoomForTeacher = ({ user }: ExamRoomForTeacherProps) => {
   const [openedTab, setOpenedTab] = useState(1);
   const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
-  const [date, setDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
   const timeInputRef: any = useRef(null);
+  const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
+  const [isImportQuestionModalShow, setIsImportQuestionModalShow] = useState(false);
   const onButtonClick = () => {
     // `current` points to the mounted text input element
     console.log(timeInputRef);
@@ -48,6 +54,55 @@ const ExamRoomForTeacher = ({ user }: ExamRoomForTeacherProps) => {
   };
   return (
     <>
+      {/* Import Question Modal  */}
+      <Modal isShow={isImportQuestionModalShow} setIsShow={setIsImportQuestionModalShow}>
+        <ModalBody>
+         <Table color="primary-darkest" className="rounded-b-xl rounded-t-xl">
+            <thead className="bg-primary">
+              <tr>
+                <Th className="text-center">
+                  Soal
+                </Th>
+                <Th className="text-center">
+                  Jawaban
+                </Th>
+                <Th className="text-center">
+                  Pelajaran
+                </Th>
+                <Th className="text-center">
+                  Kelas
+                </Th>
+                <Th className="text-center">
+                  Aksi
+                </Th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <Td className="text-center">Bagian positif di atom?</Td>
+                <Td className="text-center">Proton</Td>
+                <Td className="text-center">Kimia</Td>
+                <Td className="text-center truncate">XII RPL</Td>
+                <Td className="text-center flex justify-center space-x-2">
+                  <Link href={`/questions-bank/update/`}>
+                    <a className="btn btn-primary inline-flex items-center">
+                      <SolidIcon.Pencil className="-ml-1 mr-1 h-5 w-5" />
+                      Ubah
+                    </a>
+                  </Link>
+                  <Button.Danger onClick={() => setIsConfirmationModalShow(true)} type="button" className="inline-flex items-center">
+                    <SolidIcon.Trash className="-ml-1 mr-1 h-5 w-5" /> 
+                    Hapus
+                  </Button.Danger>
+                </Td>
+              </tr>
+            </tbody>
+          </Table>
+          <Pagination />
+        </ModalBody>
+      </Modal>
+      {/* Confirmation Modal for Question  */}
+      <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Soal" description="Apakah Anda yakin ingin menghapus soal ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
       <LayoutWithSidebar title={`Ruang Ujian (${tabs[openedTab-1]})`} user={user}>
         <Container>
           <ContainerBody className="rounded-b-lg">
@@ -63,28 +118,66 @@ const ExamRoomForTeacher = ({ user }: ExamRoomForTeacherProps) => {
                 }
               </TabList>
               <TabContentContainer>
+                {/* Tab 1 */}
                 <TabContent openedTab={openedTab} thisTab={1}>
                   <h2 className="text-2xl font-bold	text-black antialiased">Judul Ujian</h2>
                   <p className="mb-2 antialiased">Deskripsi Ujian</p>
                   <ExamInformation  />
                 </TabContent>
+                {/* Tab 2 */}
                 <TabContent openedTab={openedTab} thisTab={2}>
-                  <div className="mb-2">
-                    <h2 className="text-2xl font-bold	text-black antialiased">Soal</h2>
-                    <Button.Primary>
+                  <div className="mb-2 flex justify-end items-baseline">
+                    <Button.Primary onClick={() => setIsImportQuestionModalShow(true)}>
                       Impor Soal
                     </Button.Primary>
                   </div>
+                  <div className="flex justify-between items-baseline flex-wrap">
+                    <h2 className="text-2xl font-bold	text-black antialiased">Soal</h2>
+                    <InputWithIcon Icon={<SolidIcon.Search className="text-gray-500 w-5 h-5" />}/>
+                  </div>
+                  {/* Question Table */}
+                  <Table color="primary-darkest" className="rounded-b-xl rounded-t-xl">
+                    <thead className="bg-primary">
+                      <tr>
+                        <Th>
+                          Pertanyaan
+                        </Th>
+                        <Th className="text-center">
+                          Jawaban
+                        </Th>
+                        <Th className="text-center">
+                          Aksi
+                        </Th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <Td className="">Nomor massa dari Ar18</Td>
+                        <Td className="text-center">
+                          <span className="border border-green-400 bg-green-100 text-green-400 px-2 py-1 rounded">A</span>
+                        </Td>
+                        <Td className=" flex justify-center space-x-2">
+                          <Link href={`/learning-materials/update/`}>
+                            <a className="btn btn-primary inline-flex items-center">
+                              <SolidIcon.Eye className="-ml-1 mr-1 h-5 w-5" />
+                              Lihat
+                            </a>
+                          </Link>
+                          <Button.Danger onClick={() => setIsConfirmationModalShow(true)} type="button" className="inline-flex items-center">
+                            <SolidIcon.Trash className="-ml-1 mr-1 h-5 w-5" /> 
+                            Hapus
+                          </Button.Danger>
+                        </Td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                  <Pagination />
                   <ExamInformation  />
                 </TabContent>
+                {/* Tab 3 */}
                 <TabContent openedTab={openedTab} thisTab={3}>
-                  <h2 className="text-2xl font-bold	text-black antialiased">Hasil</h2>
-                  <div className="flex justify-between space-y-3">
-                    <div className="flex justify-center items-center self-end space-x-1">
-                      <span className="text-md">Tampilkan</span>
-                      <ListBox items={showEntries} selectedItem={selectedShowEntry} setSelectedItem={setSelectedShowEntry} />
-                      <span>data</span>
-                    </div>
+                  <div className="flex justify-between space-y-3 items-baseline flex-wrap">
+                    <h2 className="text-2xl font-bold	text-black antialiased">Hasil</h2>
                     <InputWithIcon Icon={<SolidIcon.Search className="text-gray-500 w-5 h-5" />}/>
                   </div>
                   <Table color="primary-darkest" className="rounded-b-xl rounded-t-xl">
@@ -135,6 +228,7 @@ const ExamRoomForTeacher = ({ user }: ExamRoomForTeacherProps) => {
                   <Pagination />
                   <ExamInformation  />
                 </TabContent>
+                {/* Tab 4 */}
                 <TabContent openedTab={openedTab} thisTab={4}>
                   <form>
                     <div className="grid grid-cols-3 gap-3">
@@ -147,27 +241,62 @@ const ExamRoomForTeacher = ({ user }: ExamRoomForTeacherProps) => {
                         <input id="exam_description" name="exam_description" type="text" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Deskripsi Ujian" />
                       </div>
                       <div className="col-span-3 sm:col-span-1">
-                        <label htmlFor="date-picker" className="block text-sm leading-5 font-medium text-gray-700">Tanggal Mulai</label>
+                        <label htmlFor="start-date" className="block text-sm leading-5 font-medium text-gray-700">Tanggal Mulai</label>
                         <DatePicker
-                          onChange={setDate}
-                          date={date}
+                          id="start-date"
+                          onChange={setStartDate}
+                          date={startDate}
                         />
                       </div>
                       <div className="col-span-3 sm:col-span-1">
                         <label htmlFor="time-input" className="block text-sm leading-5 font-medium text-gray-700">Waktu Mulai</label>
                         <div className="flex shadow-md">
-                          <TimeInput id="time-input" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm flex-grow border-r-0"  />
+                          <TimeInput id="time-input" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-l-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm flex-grow border-r-0"  />
                           <button
-                            className="bg-green-300 rounded-r flex items-center justify-center text-sm font-semibold px-2 focus:outline-none"
+                            className="bg-gray-300 rounded-r-md flex items-center justify-center text-sm font-semibold px-2 focus:outline-none"
                             type="button"
                             onClick={onButtonClick}
                           >
-                            <OutlineIcon.Clock className="h-6 w-6 text-green-700" />
+                            <OutlineIcon.Clock className="h-6 w-6" />
                           </button>
                         </div>
                       </div>
+                      <div className="col-span-3 sm:col-span-1">
+                        <label htmlFor="end-date" className="block text-sm leading-5 font-medium text-gray-700">Tanggal Selesai</label>
+                        <DatePicker
+                          onChange={setEndDate}
+                          date={endDate}
+                          id="end-date"
+                        />
+                      </div>
+                      <div className="col-span-3 sm:col-span-1">
+                        <label htmlFor="time-input" className="block text-sm leading-5 font-medium text-gray-700">Waktu Selesai</label>
+                        <div className="flex shadow-md">
+                          <TimeInput id="time-input" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-l-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm flex-grow border-r-0"  />
+                          <button
+                            className="bg-gray-300 rounded-r-md flex items-center justify-center text-sm font-semibold px-2 focus:outline-none"
+                            type="button"
+                            onClick={onButtonClick}
+                          >
+                            <OutlineIcon.Clock className="h-6 w-6" />
+                          </button>
+                        </div>
+                      </div>
+                      <div className="col-span-3 sm:col-span-1">
+                        <label htmlFor="duration" className="block text-sm font-medium text-gray-700">Durasi (Dalam menit)</label>
+                        <input id="duration" name="duration" type="number" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Durasi Ujian" />
+                      </div>
+                      <div className="col-span-3 sm:col-span-1">
+                        <label htmlFor="minimum-score" className="block text-sm font-medium text-gray-700">KKM</label>
+                        <input id="minimum-score" name="minimum-score" type="number" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="KKM" />
+                      </div>
                     </div>
+                    <Button.Primary className="inline-flex items-center my-4">
+                      <SolidIcon.Save className="-ml-1 mr-1 h-5 w-5" />
+                      Simpan
+                    </Button.Primary>
                   </form>
+                  <ExamInformation  />
                 </TabContent>
               </TabContentContainer>
             </Tab>

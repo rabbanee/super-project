@@ -43,7 +43,7 @@ const Attitude = ({ user }) => {
 
   return (
     <>
-       <LayoutWithSidebar user={user} title="Nilai Sikap">
+      <LayoutWithSidebar user={user} title="Nilai Sikap">
         <Container>
           <ContainerBody className="rounded-b-xl">
           <div className="flex justify-between">
