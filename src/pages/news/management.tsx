@@ -1,41 +1,39 @@
 import ContainerBody from '@elements/container/Body';
 import Container from '@elements/container/Index';
+import Table from '@elements/Table';
+import Td from '@elements/Td';
+import Th from '@elements/Th';
 import { User } from '@interface/User';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
-import Link from 'next/link';
-import * as SolidIcon from '@elements/icon/Solid';
-import Table from '@elements/Table';
-import Th from '@elements/Th';
-import Pagination from '@modules/Pagination';
-import Td from '@elements/Td';
-import * as Button from '@elements/Button';
 import ConfirmationModal from '@modules/ConfirmationModal';
-import { useState } from 'react';
 import { thisPageFor } from '@utils/thisPageFor';
+import Link from 'next/link';
+import React, { useState } from 'react';
+import * as SolidIcon from '@elements/icon/Solid';
+import * as Button from '@elements/Button';
+import Pagination from '@modules/Pagination';
+import Title from '@elements/Title';
 
-interface QuestionsBankProps {
-  user: User;
+interface NewsManagementProps {
+  user: User,
 }
 
-const QuestionsBank = ({ user }: QuestionsBankProps) => {
+const NewsManagement = ({ user }: NewsManagementProps) => {
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
 
   return (
     <>
-      <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Soal" description="Apakah Anda yakin ingin menghapus Soal ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
-      <LayoutWithSidebar user={user} title="Bank Soal">
+      <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Berita" description="Apakah Anda yakin ingin menghapus berita ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
+      <LayoutWithSidebar title="Pengelolaan Berita" user={user}>
         <Container>
-          <ContainerBody>
-            <div className="flex justify-between items-start">
-              <div>
-                <h1 className="text-3xl font-bold	text-black">Soal Saya</h1>
-                <p>{user.name}</p>
-              </div>
-              <Link href="/questions-bank/add">
+          <ContainerBody className="rounded-b-xl">
+            <div className="flex justify-between flex-wrap items-start">
+              <Title>Pengelolaan Berita</Title>
+              <Link href={`/news/add`}>
                 <a className="btn btn-primary inline-flex items-center">
-                  <SolidIcon.Plus className="-ml-1 mr-1 h-5 w-5" /> 
-                  Tambah Soal
+                  <SolidIcon.Plus className="-ml-1 mr-1 h-5 w-5" />
+                  Tambah Berita
                 </a>
               </Link>
             </div>
@@ -43,16 +41,10 @@ const QuestionsBank = ({ user }: QuestionsBankProps) => {
               <thead className="bg-primary">
                 <tr>
                   <Th className="text-center">
-                    Soal
+                    No
                   </Th>
                   <Th className="text-center">
-                    Jawaban
-                  </Th>
-                  <Th className="text-center">
-                    Pelajaran
-                  </Th>
-                  <Th className="text-center">
-                    Kelas
+                    Judul
                   </Th>
                   <Th className="text-center">
                     Aksi
@@ -61,12 +53,10 @@ const QuestionsBank = ({ user }: QuestionsBankProps) => {
               </thead>
               <tbody>
                 <tr>
-                  <Td className="text-center">Bagian positif di atom?</Td>
-                  <Td className="text-center">Proton</Td>
-                  <Td className="text-center">Kimia</Td>
-                  <Td className="text-center truncate">XII RPL</Td>
+                  <Td className="text-center">1</Td>
+                  <Td className="text-center">Piket setiap pagi</Td>
                   <Td className="text-center flex justify-center space-x-2">
-                    <Link href={`/questions-bank/update/1`}>
+                    <Link href={`/news/edit/1`}>
                       <a className="btn btn-primary inline-flex items-center">
                         <SolidIcon.Pencil className="-ml-1 mr-1 h-5 w-5" />
                         Ubah
@@ -88,13 +78,14 @@ const QuestionsBank = ({ user }: QuestionsBankProps) => {
   );
 };
 
-export default QuestionsBank;
+export default NewsManagement;
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
   thisPageFor({
     context,
     currentRole: user.role,
-    forRoles: [3],
+    forRoles: [1],
   });
+
   return {
     props: {
       user, 

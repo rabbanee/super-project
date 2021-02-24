@@ -12,6 +12,7 @@ import React, { useEffect, useState } from 'react';
 import * as SolidIcon from '@elements/icon/Solid';
 import * as Button from '@elements/Button';
 import Link from 'next/link';
+import Title from '@elements/Title';
 
 const ExamForStudent = ({ user }) => {
   const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
@@ -25,7 +26,7 @@ const ExamForStudent = ({ user }) => {
     <LayoutWithSidebar user={user} title="Ujian">
       <Container>
         <ContainerBody className="rounded-b-xl">
-          <h2 className="text-4xl font-bold	text-black mb-2">Ujian</h2>
+          <Title className="mb-2">Ujian</Title>
           <div className="flex justify-between space-y-3">
             <div className="flex justify-center items-center self-end space-x-1">
               <span className="text-md">Tampilkan</span>

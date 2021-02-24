@@ -103,99 +103,99 @@ const ExamForTeacher = ({ user }) => {
                   </Td>
                 </tr>
               </tbody>
-              <Modal isShow={isModalShow} setIsShow={setIsModalShow}>
-                <form>
-                  <ModalBody>
-                    <div className="sm:flex sm:items-start">
-                      <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
-                        <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                          Tambahkan Ujian
-                        </h3>
-                        <div className="grid grid-cols-3 gap-3 w-full">   
-                          <div className="col-span-3 sm:col-span-1">
-                            <ListBox items={grades} label="Kelas" selectedItem={selectedGrade} setSelectedItem={setSelectedGrade}/>
-                          </div>
-                          <div className="col-span-3 sm:col-span-1">
-                            <ListBox items={majors} label="Jurusan" selectedItem={selectedMajors} setSelectedItem={setSelectedMajors}/>
-                          </div>
-                          <div className="col-span-3 sm:col-span-1">
-                            <ListBox items={dummySubjects} label="Pelajaran" selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                          </div>
-                          <div className="col-span-3 sm:col-span-3">
-                            <label htmlFor="title" className="block text-sm font-medium text-gray-700">Judul Ujian</label>
-                            <input id="title" name="title" type="text" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Judul Ujian" />
-                          </div>
-                          <div className="col-span-3 sm:col-span-3">
-                            <label htmlFor="exam_description" className="block text-sm font-medium text-gray-700">Deskripsi Ujian</label>
-                            <input id="exam_description" name="exam_description" type="text" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Deskripsi Ujian" />
-                          </div>
-                          <div className="col-span-3 sm:col-span-3">
-                            <label htmlFor="start-date" className="block text-sm leading-5 font-medium text-gray-700">Tanggal Mulai</label>
-                            <DatePicker
-                              id="start-date"
-                              onChange={setStartDate}
-                              date={startDate}
-                            />
-                          </div>
-                          <div className="col-span-3 sm:col-span-3">
-                            <label htmlFor="time-input" className="block text-sm leading-5 font-medium text-gray-700">Waktu Mulai</label>
-                            <div className="flex shadow-md">
-                              <TimeInput id="time-input" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-l-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm flex-grow border-r-0"  />
-                              <button
-                                className="bg-gray-300 rounded-r-md flex items-center justify-center text-sm font-semibold px-2 focus:outline-none"
-                                type="button"
-                              >
-                                <OutlineIcon.Clock className="h-6 w-6" />
-                              </button>
-                            </div>
-                          </div>
-                          <div className="col-span-3 sm:col-span-3">
-                            <label htmlFor="end-date" className="block text-sm leading-5 font-medium text-gray-700">Tanggal Selesai</label>
-                            <DatePicker
-                              onChange={setEndDate}
-                              date={endDate}
-                              id="end-date"
-                            />
-                          </div>
-                          <div className="col-span-3 sm:col-span-3">
-                            <label htmlFor="time-input" className="block text-sm leading-5 font-medium text-gray-700">Waktu Selesai</label>
-                            <div className="flex shadow-md">
-                              <TimeInput id="time-input" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-l-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm flex-grow border-r-0"  />
-                              <button
-                                className="bg-gray-300 rounded-r-md flex items-center justify-center text-sm font-semibold px-2 focus:outline-none"
-                                type="button"
-                              >
-                                <OutlineIcon.Clock className="h-6 w-6" />
-                              </button>
-                            </div>
-                          </div>
-                          <div className="col-span-3 sm:col-span-3">
-                            <label htmlFor="duration" className="block text-sm font-medium text-gray-700">Durasi (Dalam menit)</label>
-                            <input id="duration" name="duration" type="number" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Durasi Ujian" />
-                          </div>
-                          <div className="col-span-3 sm:col-span-3">
-                            <label htmlFor="minimum-score" className="block text-sm font-medium text-gray-700">KKM</label>
-                            <input id="minimum-score" name="minimum-score" type="number" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="KKM" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button.Primary className="w-full inline-flex justify-center shadow-sm text-base font-medium sm:ml-3 sm:w-auto sm:text-sm">
-                      Tambahkan Ujian
-                    </Button.Primary>
-                    <Button.Secondary type="button" className="mt-3 w-full inline-flex justify-center shadow-sm text-base font-medium sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => setIsModalShow(false)}>
-                      Batal
-                    </Button.Secondary>
-                  </ModalFooter>
-                </form>
-              </Modal>
             </Table>
             <Pagination />
           </ContainerBody>
         </Container>
       </LayoutWithSidebar>
+      <Modal isShow={isModalShow} setIsShow={setIsModalShow}>
+        <form>
+          <ModalBody>
+            <div className="sm:flex sm:items-start">
+              <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+                  Tambahkan Ujian
+                </h3>
+                <div className="grid grid-cols-3 gap-3 w-full">   
+                  <div className="col-span-3 sm:col-span-1">
+                    <ListBox items={grades} label="Kelas" selectedItem={selectedGrade} setSelectedItem={setSelectedGrade}/>
+                  </div>
+                  <div className="col-span-3 sm:col-span-1">
+                    <ListBox items={majors} label="Jurusan" selectedItem={selectedMajors} setSelectedItem={setSelectedMajors}/>
+                  </div>
+                  <div className="col-span-3 sm:col-span-1">
+                    <ListBox items={dummySubjects} label="Pelajaran" selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
+                  </div>
+                  <div className="col-span-3 sm:col-span-3">
+                    <label htmlFor="title" className="block text-sm font-medium text-gray-700">Judul Ujian</label>
+                    <input id="title" name="title" type="text" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Judul Ujian" />
+                  </div>
+                  <div className="col-span-3 sm:col-span-3">
+                    <label htmlFor="exam_description" className="block text-sm font-medium text-gray-700">Deskripsi Ujian</label>
+                    <input id="exam_description" name="exam_description" type="text" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Deskripsi Ujian" />
+                  </div>
+                  <div className="col-span-3 sm:col-span-3">
+                    <label htmlFor="start-date" className="block text-sm leading-5 font-medium text-gray-700">Tanggal Mulai</label>
+                    <DatePicker
+                      id="start-date"
+                      onChange={setStartDate}
+                      date={startDate}
+                    />
+                  </div>
+                  <div className="col-span-3 sm:col-span-3">
+                    <label htmlFor="time-input" className="block text-sm leading-5 font-medium text-gray-700">Waktu Mulai</label>
+                    <div className="flex shadow-md">
+                      <TimeInput id="time-input" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-l-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm flex-grow border-r-0"  />
+                      <button
+                        className="bg-gray-300 rounded-r-md flex items-center justify-center text-sm font-semibold px-2 focus:outline-none"
+                        type="button"
+                      >
+                        <OutlineIcon.Clock className="h-6 w-6" />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="col-span-3 sm:col-span-3">
+                    <label htmlFor="end-date" className="block text-sm leading-5 font-medium text-gray-700">Tanggal Selesai</label>
+                    <DatePicker
+                      onChange={setEndDate}
+                      date={endDate}
+                      id="end-date"
+                    />
+                  </div>
+                  <div className="col-span-3 sm:col-span-3">
+                    <label htmlFor="time-input" className="block text-sm leading-5 font-medium text-gray-700">Waktu Selesai</label>
+                    <div className="flex shadow-md">
+                      <TimeInput id="time-input" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-l-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm flex-grow border-r-0"  />
+                      <button
+                        className="bg-gray-300 rounded-r-md flex items-center justify-center text-sm font-semibold px-2 focus:outline-none"
+                        type="button"
+                      >
+                        <OutlineIcon.Clock className="h-6 w-6" />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="col-span-3 sm:col-span-3">
+                    <label htmlFor="duration" className="block text-sm font-medium text-gray-700">Durasi (Dalam menit)</label>
+                    <input id="duration" name="duration" type="number" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Durasi Ujian" />
+                  </div>
+                  <div className="col-span-3 sm:col-span-3">
+                    <label htmlFor="minimum-score" className="block text-sm font-medium text-gray-700">KKM</label>
+                    <input id="minimum-score" name="minimum-score" type="number" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="KKM" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button.Primary className="w-full inline-flex justify-center shadow-sm text-base font-medium sm:ml-3 sm:w-auto sm:text-sm">
+              Tambahkan Ujian
+            </Button.Primary>
+            <Button.Secondary type="button" className="mt-3 w-full inline-flex justify-center shadow-sm text-base font-medium sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => setIsModalShow(false)}>
+              Batal
+            </Button.Secondary>
+          </ModalFooter>
+        </form>
+      </Modal>
     </>
   );
 };

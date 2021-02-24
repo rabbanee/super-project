@@ -25,15 +25,11 @@ const Editor = dynamic(
   { ssr: false }
 )
 
-const AddQuestions = ({ user }: AddQuestionsProps) => {
+const UpdateQuestions = ({ user }: AddQuestionsProps) => {
   const [selectedTypeOfQuestion, setSelectedTypeOfQuestion] = useState(typeOfQuestions[0]);
   const [selectedCorrectAnswer, setSelectedCorrectAnswer] = useState(options[0]);
   const [selectedGrade, setSelectedGrade] = useState(grades[0]);
   const [selectedSubject, setSelectedSubject] = useState(dummySubjects[0]);
-
-  useEffect(() => {
-    
-  }, [selectedTypeOfQuestion]);
 
   return (
     <LayoutWithSidebar user={user} title="Tambah Soal">
@@ -114,7 +110,7 @@ const AddQuestions = ({ user }: AddQuestionsProps) => {
   );
 };
 
-export default AddQuestions;
+export default UpdateQuestions;
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
   thisPageFor({
     context,
