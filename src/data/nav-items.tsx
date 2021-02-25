@@ -65,6 +65,11 @@ export const teacher = [
     icon:  <OutlineIcon.Document className="h-6"/>,
     href: '/questions-bank'
   },
+  {
+    name: 'Penilaian Sikap',
+    icon:  <OutlineIcon.ClipboardCheck className="h-6"/>,
+    href: '/attitude-assessment'
+  },
 ];
 
 export const student = [

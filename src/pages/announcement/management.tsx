@@ -14,6 +14,7 @@ import Th from '@elements/Th';
 import Td from '@elements/Td';
 import Pagination from '@modules/Pagination';
 import ConfirmationModal from '@modules/ConfirmationModal';
+import InputWithIcon from '@modules/InputWithIcon';
 
 interface AnnouncementManagementProps {
   user: User,
@@ -28,14 +29,17 @@ const AnnouncementManagement = ({ user }: AnnouncementManagementProps) => {
       <LayoutWithSidebar user={user} title="Pengelolaan Pengumuman">
         <Container>
           <ContainerBody className="rounded-b-xl">
-            <div className="flex justify-between flex-wrap items-start">
-              <Title>Pengelolaan Pengumuman</Title>
-              <Link href={`/announcement/add`}>
-                <a className="btn btn-primary inline-flex items-center">
-                  <SolidIcon.Plus className="-ml-1 mr-1 h-5 w-5" />
-                  Tambah Pengumuman
-                </a>
-              </Link>
+            <div className="flex items-end flex-col justify-end space-y-2">
+              <div className="flex justify-between flex-wrap items-start w-full">
+                <Title>Pengelolaan Pengumuman</Title>
+                <Link href={`/announcement/add`}>
+                  <a className="btn btn-primary inline-flex items-center">
+                    <SolidIcon.Plus className="-ml-1 mr-1 h-5 w-5" />
+                    Tambah Pengumuman
+                  </a>
+                </Link>
+              </div>
+              <InputWithIcon Icon={<SolidIcon.Search className="text-gray-500 w-5 h-5" />}/>
             </div>
             <Table color="primary-darkest" className="rounded-b-xl rounded-t-xl">
               <thead className="bg-primary">

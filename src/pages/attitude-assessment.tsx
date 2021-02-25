@@ -26,12 +26,11 @@ import ContainerFooter from '@elements/container/Footer';
 import * as OutlineIcon from '@elements/icon/Outline';
 
 
-interface AttitudeProps {
+interface AttitudeAssessmentProps {
   user: User,
-  title: string,
 }
 
-const Attitude = ({ user }) => {
+const AttitudeAssessment = ({ user }: AttitudeAssessmentProps) => {
   const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState(() => dummySubjects[0]);
@@ -43,11 +42,11 @@ const Attitude = ({ user }) => {
 
   return (
     <>
-      <LayoutWithSidebar user={user} title="Nilai Sikap">
+      <LayoutWithSidebar user={user} title="Penilaian Sikap">
         <Container>
           <ContainerBody className="rounded-b-xl">
           <div className="flex justify-between">
-            <h2 className="text-3xl font-bold	text-black mb-2">Nilai Sikap</h2>
+            <h2 className="text-3xl font-bold	text-black mb-2">Penilaian Sikap</h2>
           </div>
             <div className="flex justify-between space-y-3">
               <div className="flex justify-center items-center self-end space-x-1">
@@ -196,7 +195,7 @@ const Attitude = ({ user }) => {
   );
 };
 
-export default Attitude;
+export default AttitudeAssessment;
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
     return {
       props: {

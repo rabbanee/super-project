@@ -19,6 +19,8 @@ import dummySubjects from '@data/dummies/subjects';
 import dummyChapters from '@data/dummies/chapters';
 import ConfirmationModal from '@modules/ConfirmationModal';
 import { thisPageFor } from '@utils/thisPageFor';
+import Title from '@elements/Title';
+import { roleNames } from '@data/roles';
 
 
 interface EditAccessRightsProps {
@@ -26,20 +28,19 @@ interface EditAccessRightsProps {
 }
 
 const EditAccessRights = ({ user }: EditAccessRightsProps) => {
-  const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
+  const [selectedRoleName, setSelectedRoleName] = useState(roleNames[0]);
   return (
     <>
-    <LayoutWithSidebar title="EditAccessRights" user={user}>
+    <LayoutWithSidebar title="Edit Hak Akses" user={user}>
       <Container>
-        <ContainerBody className="rounded-b-xl space-y-2">
-          <div className="flex justify-between">
-            <h2 className="text-3xl font-bold	text-black mb-2">EditAccessRights</h2>
+        <ContainerBody className="rounded-b-xl">
+          <div className="flex justify-between mb-2">
+            <Title>Edit Hak Akses</Title>
           </div>
           <div className="flex justify-between space-y-3">
-            <div className="flex justify-center items-center self-end space-x-1">
-              <span className="text-md">Tampilkan</span>
-              <ListBox items={showEntries} selectedItem={selectedShowEntry} setSelectedItem={setSelectedShowEntry} />
-              <span>Role</span>
+            <div className="flex justify-start items-center self-end space-x-1 w-full">
+              <span className="text-md font-bold">Rol: </span>
+              <ListBox items={roleNames} selectedItem={selectedRoleName} setSelectedItem={setSelectedRoleName} />
             </div>
             <InputWithIcon Icon={<SolidIcon.Search className="text-gray-500 w-5 h-5" />}/>
           </div>
