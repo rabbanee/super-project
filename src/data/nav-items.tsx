@@ -72,8 +72,22 @@ export const teacher = [
   },
 ];
 
+export const guardianOfStudent = [
+  ...all,
+  {
+    name: 'Kehadiran Siswa',
+    icon:  <OutlineIcon.ClipboardList className="h-6"/>,
+    href: '/student-attendance'
+  },
+];
+
 export const student = [
   ...all,
+  {
+    name: 'Kehadiran Siswa',
+    icon:  <OutlineIcon.ClipboardList className="h-6"/>,
+    href: '/student-attendance'
+  },
   {
     name: 'Ujian',
     icon: <OutlineIcon.Puzzle className="h-6"/>,

@@ -2,11 +2,12 @@ import { Transition } from '@headlessui/react';
 
 interface ModalProps {
   isShow: boolean,
-  setIsShow: Function,
+  setIsShow?: Function,
   children: any,
+  isFocus?: boolean,
 }
 
-const  Modal = ({ children, isShow, setIsShow  }: ModalProps) => {
+const  Modal = ({ children, isShow, setIsShow, isFocus = false }: ModalProps) => {
   return (
     <Transition
       show={isShow}
@@ -33,7 +34,7 @@ const  Modal = ({ children, isShow, setIsShow  }: ModalProps) => {
           className="fixed inset-0 transition-opacity" 
           aria-hidden="true"
         >
-          <div className="absolute inset-0 bg-gray-500 opacity-75" onClick={() => setIsShow(false)
+          <div className="absolute inset-0 bg-gray-500 opacity-75" onClick={ isFocus ? null : () => setIsShow(false)
           }></div>
         </Transition.Child>
 

@@ -26,6 +26,7 @@ import * as OutlineIcon from '@elements/icon/Outline';
 import majors from '@data/majors';
 import { DatePicker } from '@modules/Datepicker';
 import TimeInput from '@modules/TimeInput';
+import Title from '@elements/Title';
 
 
 interface ExamForTeacherProps {
@@ -55,8 +56,9 @@ const ExamForTeacher = ({ user }) => {
       <LayoutWithSidebar user={user} title="Ujian">
         <Container>
           <ContainerBody className="rounded-b-xl">
+            <Title>Ujian</Title>
             <div className="flex justify-between space-y-3 flex-wrap items-baseline">
-              <Button.Primary onClick={() => setIsModalShow(true)}>Tambahkan Ujian</Button.Primary>
+              <Button.Primary onClick={() => setIsModalShow(true)}>Tambah Ujian</Button.Primary>
               <InputWithIcon Icon={<SolidIcon.Search className="text-gray-500 w-5 h-5" />}/>
             </div>
             <Table color="primary-darkest" className="rounded-b-xl rounded-t-xl">

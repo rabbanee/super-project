@@ -7,6 +7,10 @@ interface Quiz {
     c: string,
     d: string,
   },
+  trueAnswer: string,
+  subject: string,
+  grade: string,
+  isChecked: boolean,
   isMultipleChoice: boolean,
 }
 

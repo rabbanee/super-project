@@ -26,7 +26,7 @@ const QuestionsBank = ({ user }: QuestionsBankProps) => {
       <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Soal" description="Apakah Anda yakin ingin menghapus Soal ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
       <LayoutWithSidebar user={user} title="Bank Soal">
         <Container>
-          <ContainerBody>
+          <ContainerBody className="rounded-b-xl">
             <div className="flex justify-between items-start">
               <div>
                 <h1 className="text-3xl font-bold	text-black">Soal Saya</h1>

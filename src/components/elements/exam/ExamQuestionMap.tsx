@@ -1,31 +1,58 @@
 import Quiz from '@interface/Quiz';
-import React, { useState } from 'react';
+import React, { LegacyRef, ReactNode, useRef, useState } from 'react';
 import { Link } from 'react-scroll'
 import * as OutlineIcon from '@elements/icon/Outline';
-import Countdown from 'react-countdown';
+import Countdown, { CountdownTimeDelta } from 'react-countdown';
 import convertMinutesToMilliseconds from '@utils/convertMinutesToMilliseconds';
 
 interface ExamQuestionMapProps {
   quizzes: Array<Quiz>,
   answers: Array<any>,
   examDuration: number,
+  countdownRef: LegacyRef<Countdown>,
+  renderer: any,
+  onExamPaused: (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void,
+  onExamStarted: (timeDelta: CountdownTimeDelta) => ReactNode,
 }
 
-const ExamQuestionMap = ({ quizzes, answers, examDuration }: ExamQuestionMapProps) => {
-  let [date, setDate] = useState(Date.now() + convertMinutesToMilliseconds(examDuration));
+const ExamQuestionMap = ({ quizzes, answers, examDuration, countdownRef, renderer, onExamPaused, onExamStarted }: ExamQuestionMapProps) => {
+  // Random component
+  // const Completionist = () => <span>You are good to go!</span>;
+
+  // // Renderer callback with condition
+  // const renderer = ({ total, hours, minutes, seconds, completed }) => {
+  //   console.log(total);
+    
+  //   if (completed) {
+  //     // Render a completed state
+  //     return <Completionist />;
+  //   } else {
+  //     // Render a countdown
+  //     return <span>{hours}:{minutes}:{seconds}</span>;
+  //   }
+  // };
+
+  // const pauseHandler = () => {
+  //   setIsExamPaused(true);
+  //   countdownRef.current.pause()
+  //   console.log(countdownRef);
+  // }
 
   return (
    <div className="bg-white w-1/4 p-6 rounded-md max-h-96 sticky top-0">
       <div className="flex flex-col space-y-2 border-b border-gray-200 pb-3">
         <div className="flex bg-gray-100 px-1 py-2 rounded">
-          <span className="cursor-pointer inline-flex items-center" onClick={() => console.log('clicked!')}>
-            <OutlineIcon.Pause className="h-6 w-6 text-blue-400"/>
+          <span className="cursor-pointer inline-flex items-center" onClick={onExamPaused}>
+            <OutlineIcon.Pause className="h-6 w-6 text-blue-400" />
           </span>
           <div className="flex items-center pl-4 space-x-1">
             <OutlineIcon.Clock className="h-6 w-6 text-gray-500" />
             <p>
               <Countdown 
-                date={date}
+                ref={countdownRef}
+                date={examDuration}
+                renderer={renderer}
+                onStart={onExamStarted}
                 daysInHours={true}
               />
             </p>

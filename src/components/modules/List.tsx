@@ -4,7 +4,8 @@ import { isAdmin } from '@utils/roles/isAdmin';
 import { isTeacher } from '@utils/roles/isTeacher';
 import { isStudent} from '@utils/roles/isStudent';
 import { isHeadmaster} from '@utils/roles/isHeadmaster';
-import { all, admin, teacher, student, headmaster } from '@data/nav-items';
+import { all, admin, teacher, student, headmaster, guardianOfStudent } from '@data/nav-items';
+import { isGuardianOfStudent } from '@utils/roles/isGuardianOfStudent';
 
 const List = (props: any) => {
   const { role } = props;
@@ -18,7 +19,9 @@ const List = (props: any) => {
     if (isStudent(role)) setItems(student);
 
     if (isHeadmaster(role)) setItems(headmaster);
-  }, []);
+
+    if (isGuardianOfStudent(role)) setItems(guardianOfStudent);
+  }, [role]);
 
   return (
     <ul className="w-full pt-2">
