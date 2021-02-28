@@ -1,41 +1,39 @@
 import { User } from "@interface/User";
 import { withAuthServerSideProps } from "@lib/withAuthServerSide";
-import ExamForTeacher from "@templates/exams/ExamForTeacher";
-import ExamForStudent from "@templates/exams/ExamForStudent";
+import ExamCRUD from "@templates/exams/ExamCRUD";
+import ExamForStudent from "@templates/exams/Exam";
+import findPermissionByName from "@utils/findPermissionByName";
 import { thisPageFor } from "@utils/thisPageFor";
 import Error from 'next/error'
 
 interface ExamsProps {
   user: User,
+  permissions: any,
 }
 
-const Exams = ({ user }: ExamsProps) => {
-  if (user.role === 3) {
+const Exams = ({ user, permissions }: ExamsProps) => {
+  if (findPermissionByName(permissions, 'crud exam')) {
     return (
-      <ExamForTeacher user={user} />
+      <ExamCRUD user={user} permissions={permissions} />
     );
-  } else if (user.role === 4) {
+  } else if (findPermissionByName(permissions, 'exam')) {
     return (
-      <ExamForStudent user={user} />
+      <ExamForStudent user={user}  permissions={permissions}/>
     );
   } else {
     return (
-      <Error statusCode={404}/>
-    )
+      <Error statusCode={404} />
+    );
   }
 };
 
 export default Exams;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
-  thisPageFor({
-    context,
-    currentRole: user.role,
-    forRoles: [3, 4],
-  });
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
 
   return {
     props: {
       user, 
+      permissions,
     }
   };
 });

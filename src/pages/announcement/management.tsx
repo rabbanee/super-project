@@ -15,18 +15,20 @@ import Td from '@elements/Td';
 import Pagination from '@modules/Pagination';
 import ConfirmationModal from '@modules/ConfirmationModal';
 import InputWithIcon from '@modules/InputWithIcon';
+import checkPermissions from '@utils/checkPermissions';
 
 interface AnnouncementManagementProps {
   user: User,
+  permissions: any,
 }
 
-const AnnouncementManagement = ({ user }: AnnouncementManagementProps) => {
+const AnnouncementManagement = ({ user, permissions }: AnnouncementManagementProps) => {
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
 
   return (
     <>
       <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Pengumuman" description="Apakah Anda yakin ingin menghapus pengumuman ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
-      <LayoutWithSidebar user={user} title="Pengelolaan Pengumuman">
+      <LayoutWithSidebar user={user} title="Pengelolaan Pengumuman" permissions={permissions}>
         <Container>
           <ContainerBody className="rounded-b-xl">
             <div className="flex items-end flex-col justify-end space-y-2">
@@ -83,18 +85,17 @@ const AnnouncementManagement = ({ user }: AnnouncementManagementProps) => {
 };
 
 export default AnnouncementManagement;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
-  thisPageFor({
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+  checkPermissions({
     context,
-    currentRole: user.role,
-    forRoles: [
-      1, 2, 3,
-    ],
+    permissions,
+    permissionName: 'crud announcement',
   });
 
   return {
     props: {
       user, 
+      permissions,
     }
   };
 });

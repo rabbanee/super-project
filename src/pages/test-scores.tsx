@@ -30,9 +30,10 @@ import * as OutlineIcon from '@elements/icon/Outline';
 interface TestScoresProps {
   user: User,
   title: string,
+  permissions: any,
 }
 
-const TestScores= ({ user }) => {
+const TestScores= ({ user, permissions }) => {
   const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState(() => dummySubjects[0]);
@@ -46,7 +47,7 @@ const TestScores= ({ user }) => {
 
   return (
     <>
-      <LayoutWithSidebar user={user} title="Nilai Ujian">
+      <LayoutWithSidebar user={user} title="Nilai Ujian" permissions={permissions}>
         <Container>
           <ContainerBody className="rounded-b-xl">
           <div className="flex justify-between items-baseline">
@@ -209,10 +210,11 @@ const TestScores= ({ user }) => {
 };
 
 export default TestScores;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
     return {
       props: {
         user, 
+        permissions,
       }
     };
   });

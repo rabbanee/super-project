@@ -21,9 +21,10 @@ interface AddOrUpdateLearningMaterialsProps {
   user: User,
   title: string,
   learningMaterial?: LearningMaterial,
+  permissions: any,
 }
 
-function AddOrUpdateLearningMaterials({ user, title, learningMaterial }: AddOrUpdateLearningMaterialsProps) {   
+function AddOrUpdateLearningMaterials({ user, title, learningMaterial, permissions }: AddOrUpdateLearningMaterialsProps) {   
   const [selectedSubject, setSelectedSubject] = useState(() => learningMaterial?.subject ?? dummySubjects[0]);
   const [selectedChapter, setSelectedChapter] = useState(() => learningMaterial?.chapter ??dummyChapters[0]);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +41,7 @@ function AddOrUpdateLearningMaterials({ user, title, learningMaterial }: AddOrUp
   };
 
   return (
-    <LayoutWithSidebar title={title} user={user}>
+    <LayoutWithSidebar title={title} user={user} permissions={permissions}>
       <form>
         <Container>
           <ContainerBody className="px-4 py-5 bg-white sm:p-6 rounded-t-xl">

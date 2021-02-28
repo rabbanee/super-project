@@ -4,23 +4,31 @@ import { isAdmin } from '@utils/roles/isAdmin';
 import { isTeacher } from '@utils/roles/isTeacher';
 import { isStudent} from '@utils/roles/isStudent';
 import { isHeadmaster} from '@utils/roles/isHeadmaster';
-import { all, admin, teacher, student, headmaster, guardianOfStudent } from '@data/nav-items';
+import navItems, { all } from '@data/nav-items';
 import { isGuardianOfStudent } from '@utils/roles/isGuardianOfStudent';
+import axios from 'axios';
 
 const List = (props: any) => {
-  const { role } = props;
+  const { role, permissions } = props;
   const [items, setItems] = useState(all);
-  
+
+
+  const getNavItems = async () => {
+    const item = await navItems(permissions);
+    setItems(item);
+  }
+
   useEffect(() => {
-    if (isAdmin(role)) setItems(admin);
+    getNavItems();
+    // if (isAdmin(role)) setItems(admin);
 
-    if (isTeacher(role)) setItems(teacher);
+    // if (isTeacher(role)) setItems(teacher);
 
-    if (isStudent(role)) setItems(student);
+    // if (isStudent(role)) setItems(student);
 
-    if (isHeadmaster(role)) setItems(headmaster);
+    // if (isHeadmaster(role)) setItems(headmaster);
 
-    if (isGuardianOfStudent(role)) setItems(guardianOfStudent);
+    // if (isGuardianOfStudent(role)) setItems(guardianOfStudent);
   }, [role]);
 
   return (

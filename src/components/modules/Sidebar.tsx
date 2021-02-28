@@ -9,7 +9,7 @@ import List from '@modules/List';
 
 const Mobile = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = props;
+  const { user, permissions } = props;
 
   return (
     <div>
@@ -75,7 +75,7 @@ const Mobile = (props: any) => {
               className="relative w-screen max-w-xs bg-white"
             >
               {
-                _Sidebar(user)
+                _Sidebar(user, permissions)
               }
             </Transition.Child>
           </section>
@@ -85,14 +85,11 @@ const Mobile = (props: any) => {
   );
 };
 
-const _Sidebar  = (user: any, className?: string) => {
+const _Sidebar  = (user: any, permissions: any, className?: string) => {
  return (
     <aside className={`h-full flex flex-col py-6 dark:bg-primary-darkest dark:border-primary-darkest shadow-md overflow-y-scrol w-full ${className && className}`}>
       <div className="flex items-start px-5 space-x-4">
-        <span className="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100 border-primary	border-3">
-          <SolidIcon.UserCircle className="h-full w-full text-gray-300" />
-        </span>
-        {/* <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" className="w-14 rounded-full border-primary	border-3" /> */}
+        <img src={`${process.env.NEXT_PUBLIC_API_HOST}images/${user.imageId}`} alt="User" className="w-14 rounded-full border-primary	border-3" />
         <div className="flex flex-col">
           <h2 className="text-2xl font-bold dark:text-gray-100">{ user.name  }</h2>
           <div className="flex space-x-2">
@@ -110,7 +107,7 @@ const _Sidebar  = (user: any, className?: string) => {
       <div className="mt-6 relative flex-1 border-t-2">
       {/*  Replace with your content */}
        {
-         <List role={user.role}/>
+         <List role={user.role} permissions={permissions} />
        }
       {/*  /End replace */}
       </div>
@@ -118,10 +115,12 @@ const _Sidebar  = (user: any, className?: string) => {
     );
 }
 
+
+
 const Desktop = (props: any) => {
-  const { user, className } = props;
+  const { user, permissions, className } = props;
   return (
-   _Sidebar(user, className)
+   _Sidebar(user, permissions, className)
   );
 };
 

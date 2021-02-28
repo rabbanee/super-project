@@ -29,8 +29,9 @@ import Title from "@elements/Title";
 import dummyQuizzes from "@data/dummies/quizzes";
 
 
-interface ExamRoomForTeacherProps {
+interface CRUDExamRoomProps {
   user: User,
+  permissions: any,
 }
 
 const tabs = [
@@ -40,7 +41,7 @@ const tabs = [
   'Ubah Ujian',
 ];
 
-const ExamRoomForTeacher = ({ user }: ExamRoomForTeacherProps) => {
+const CRUDExamRoom = ({ user, permissions }: CRUDExamRoomProps) => {
   const [openedTab, setOpenedTab] = useState(1);
   const [endDate, setEndDate] = useState(new Date());
   const [startDate, setStartDate] = useState(new Date());
@@ -139,7 +140,7 @@ const ExamRoomForTeacher = ({ user }: ExamRoomForTeacherProps) => {
       </Modal>
       {/* Confirmation Modal for Question  */}
       <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Soal" description="Apakah Anda yakin ingin menghapus soal ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
-      <LayoutWithSidebar title={`Ruang Ujian (${tabs[openedTab-1]})`} user={user}>
+      <LayoutWithSidebar title={`Ruang Ujian (${tabs[openedTab-1]})`} user={user} permissions={permissions}>
         <Container>
           <ContainerBody className="rounded-b-xl">
             <Title className="mb-1">{`Ruang Ujian (${tabs[openedTab-1]})`}</Title>
@@ -343,4 +344,4 @@ const ExamRoomForTeacher = ({ user }: ExamRoomForTeacherProps) => {
   );
 };
 
-export default ExamRoomForTeacher;
+export default CRUDExamRoom;

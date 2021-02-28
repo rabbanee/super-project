@@ -14,7 +14,7 @@ interface AddOrEditChapterModalProps {
   selectedSubject: string,
   setSelectedSubject: Function,
   chapterNameRef: LegacyRef<HTMLInputElement>,
-  chapterData?: object,
+  chapterData?: any,
 }
 
 const AddOrEditChapterModal = ({ isModalShow, setIsModalShow, onSubmit, selectedSubject, setSelectedSubject, chapterNameRef, chapterData} : AddOrEditChapterModalProps) => {

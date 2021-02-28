@@ -14,6 +14,7 @@ import ContainerFooter from '@elements/container/Footer';
 interface AddOrEditNewsProps {
   user: User,
   news?: Array<any>,
+  permissions: any,
 }
 
 const Editor = dynamic(
@@ -22,7 +23,7 @@ const Editor = dynamic(
 )
 
 
-const AddOrEditNews = ({ user, news }: AddOrEditNewsProps) => {
+const AddOrEditNews = ({ user, news, permissions }: AddOrEditNewsProps) => {
   const [files, setFiles] = useState([]);
   const {getRootProps, getInputProps} = useDropzone({
     accept: 'image/*',
@@ -50,7 +51,7 @@ const AddOrEditNews = ({ user, news }: AddOrEditNewsProps) => {
   }, [files]);
   
   return (
-    <LayoutWithSidebar user={user} title="Tambah Berita">
+    <LayoutWithSidebar user={user} title="Tambah Berita" permissions={permissions}>
       <Container>
         <ContainerBody>
           <div className="flex justify-between flex-wrap items-start mb-2">

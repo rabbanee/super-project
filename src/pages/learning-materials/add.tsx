@@ -3,20 +3,22 @@ import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import AddOrUpdateLearningMaterials from 'components/templates/learning-materials/AddOrUpdate';
 
 interface AddLearningMaterialsProps {
-  user: User
+  user: User,
+  permissions: any
 }
 
-function AddLearningMaterials({ user }: AddLearningMaterialsProps) {   
+function AddLearningMaterials({ user, permissions }: AddLearningMaterialsProps) {   
   return(
-    <AddOrUpdateLearningMaterials title="Tambah Materi Pembelajaran" user={user}/>
+    <AddOrUpdateLearningMaterials title="Tambah Materi Pembelajaran" user={user} permissions={permissions}/>
   );
 };
 
 export default AddLearningMaterials;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
   return {
     props: {
       user, 
+      permissions,
     }
   };
 });

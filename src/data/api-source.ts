@@ -8,13 +8,15 @@ class ApiSource {
     });
   }
   
-  static async register(name : string, email : string, role: number,  password : string, passwordConfirmation: string) {
+  static async register(name : string, email : string, role: string,  password : string, passwordConfirmation: string) {
+   
+    
     return await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}register`, {
       name,
       email,
       role,
       password,
-      password_confirmation: passwordConfirmation
+      password_confirmation: passwordConfirmation,
     });
   }
 
@@ -27,6 +29,12 @@ class ApiSource {
   static async logout(token : string) {
     const data = null;
     return await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}logout`, data,  { 
+      headers: {'Authorization': `Bearer ${token}`}
+    });
+  }
+  
+  static async getPermissions(token: string) {
+    return await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}permission`,  { 
       headers: {'Authorization': `Bearer ${token}`}
     });
   }

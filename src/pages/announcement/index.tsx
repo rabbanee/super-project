@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { User } from '@interface/User';
@@ -16,9 +16,12 @@ import { isHeadmaster } from '@utils/roles/isHeadmaster';
 import { isTeacher } from '@utils/roles/isTeacher';
 import Link from 'next/link';
 import * as SolidIcon from '@elements/icon/Solid';
+import findPermissionByName from '@utils/findPermissionByName';
+import checkPermissions from '@utils/checkPermissions';
 
 interface AnnouncementProps {
-  user: User
+  user: User,
+  permissions: any,
 }
 
 const Editor = dynamic(
@@ -26,22 +29,28 @@ const Editor = dynamic(
   { ssr: false }
 )
 
-function Announcement({ user }: AnnouncementProps) {
+function Announcement({ user, permissions }: AnnouncementProps) {
   const [isModalShow, setIsModalShow] = useState(false);
   const [date, setDate] = useState(new Date());
   const [selectedSubject, setSelectedSubject] = useState(dummySubjects[0]);
   const [selectedGrade, setSelectedGrade] = useState(grades[0]);
 
 
+  useEffect(() => {
+    console.log(permissions);
+    console.log('hai');
+    
+  }, []);
+
   const announcementHandler = (e) => {
     e.preventDefault();
   }
 
   return (
-    <LayoutWithSidebar title="Pengumuman" user={user}>
+    <LayoutWithSidebar title="Pengumuman" user={user} permissions={permissions}>
       <div className="flex justify-between items-start">
         <Title className="mb-2">Pengumuman</Title>
-        { (isAdmin(user.role) || isHeadmaster(user.role) || isTeacher(user.role))  &&
+        { findPermissionByName(permissions, 'crud announcement')  &&
           <Link href={`/announcement/management`}>
             <a className="btn btn-primary inline-flex items-center">
               <SolidIcon.Adjustments className="-ml-1 mr-1 h-5 w-5" />
@@ -112,10 +121,17 @@ function Announcement({ user }: AnnouncementProps) {
 }
 
 export default Announcement;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any) {
+  checkPermissions({
+    context,
+    permissions,
+    permissionName: 'view announcement',
+  });
+
   return {
     props: {
-      user, 
+      user,
+      permissions,
     }
   };
 });

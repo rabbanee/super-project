@@ -20,15 +20,16 @@ import Title from '@elements/Title';
 
 interface AttitudeAssessmentProps {
   user: User,
+  permissions: any,
 }
 
-const AttitudeAssessment = ({ user }: AttitudeAssessmentProps) => {
+const AttitudeAssessment = ({ user, permissions }: AttitudeAssessmentProps) => {
   const [selectedGrade, setSelectedGrade] = useState(grades[0]);
   const [selectedSubject, setSelectedSubject] = useState(attitudes[0]);
 
   return (
     <>
-      <LayoutWithSidebar user={user} title="Penilaian Sikap">
+      <LayoutWithSidebar user={user} title="Penilaian Sikap" permissions={permissions}>
         <Container>
           <ContainerBody className="rounded-b-xl">
             <div className="flex justify-between mb-2">
@@ -133,10 +134,11 @@ const AttitudeAssessment = ({ user }: AttitudeAssessmentProps) => {
 };
 
 export default AttitudeAssessment;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
     return {
       props: {
         user, 
+        permissions,
       }
     };
   });

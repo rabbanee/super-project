@@ -14,7 +14,7 @@ import * as Button from '@elements/Button';
 import Link from 'next/link';
 import Title from '@elements/Title';
 
-const ExamForStudent = ({ user }) => {
+const Exam = ({ user, permissions }) => {
   const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const ExamForStudent = ({ user }) => {
   }, [selectedShowEntry]);
 
   return (
-    <LayoutWithSidebar user={user} title="Ujian">
+    <LayoutWithSidebar user={user} title="Ujian" permissions={permissions}>
       <Container>
         <ContainerBody className="rounded-b-xl">
           <Title className="mb-2">Ujian</Title>
@@ -114,4 +114,4 @@ const ExamForStudent = ({ user }) => {
   );
 };
 
-export default ExamForStudent;
+export default Exam;

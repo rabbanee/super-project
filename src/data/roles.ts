@@ -3,5 +3,5 @@ export const roleNames = [
   'Kepala Sekolah',
   'Guru',
   'Siswa',
-  'Wali Santri',
+  'Wali Siswa',
 ];

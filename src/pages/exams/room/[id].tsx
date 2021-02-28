@@ -1,45 +1,40 @@
 import { User } from '@interface/User';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
-import { thisPageFor } from '@utils/thisPageFor';
 import { useRouter } from 'next/router';
-import { isStudent } from '@utils/roles/isStudent';
-import ExamRoomForStudent from '@templates/exams/room/ExamRoomForStudent';
-import ExamRoomForTeacher from '@templates/exams/room/ExamRoomForTeacher';
-import { isTeacher } from '@utils/roles/isTeacher';
+import findPermissionByName from '@utils/findPermissionByName';
+import CRUDExamRoom from '@templates/exams/room/CRUDExamRoom';
+import Index from '@templates/exams/room/Index';
+import Error from 'next/error';
 
 interface ExamRoomProps {
   user: User,
+  permissions: any,
 }
 
-const ExamRoom = ({ user }: ExamRoomProps) => {
+const ExamRoom = ({ user, permissions }: ExamRoomProps) => {
   const router = useRouter();
   const { id } = router.query;
   
-  if (isStudent(user.role)) {
+  if (findPermissionByName(permissions, 'exam')) {
     return (
-      <ExamRoomForStudent  user={user} id={`${id}`}/>
+      <Index user={user} id={`${id}`} permissions={permissions}/>
     );
-  } else if (isTeacher(user.role)) {
+  } else if (findPermissionByName(permissions, 'crud exam')) {
     return (
-      <ExamRoomForTeacher user={user} />
+      <CRUDExamRoom user={user} permissions={permissions} />
     );
   } else {
-    return '';
+    return <Error statusCode={404} />;
   }
 
 };
 
 export default ExamRoom;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
-  thisPageFor({
-    context,
-    currentRole: user.role,
-    forRoles: [3,4],
-  });
-
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
   return {
     props: {
       user, 
+      permissions,
     }
   };
 });

@@ -23,18 +23,19 @@ import * as Button from '@elements/Button';
 import { useState } from 'react';
 import { User } from '@interface/User';
 
-interface StudentAttendanceForTeacherProps {
+interface StudentAttendanceCRUDAndReportProps {
   user: User,
+  permissions: any,
 }
 
-const StudentAttendanceForTeacher = ({ user }: StudentAttendanceForTeacherProps) => {
+const StudentAttendanceCRUDAndReport = ({ user, permissions }: StudentAttendanceCRUDAndReportProps) => {
   const [openedTab, setOpenedTab] = useState(1);
   const [date, setDate] = useState(new Date());
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
   return (
     <>
       <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Kehadiran Siswa" description="Apakah Anda yakin ingin menghapus kehadiran siswa ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" /> 
-      <LayoutWithSidebar title="Kehadiran Siswa" user={user}>
+      <LayoutWithSidebar title="Kehadiran Siswa" user={user} permissions={permissions}>
         <Container className="relative">
         <ContainerBody className="rounded-b-xl">
             <h1 className="text-3xl font-bold	text-black mb-2">{`Kehadiran Siswa (${openedTab === 1 ? 'Pengelolaan' : 'Laporan'})`}</h1>
@@ -171,4 +172,4 @@ const StudentAttendanceForTeacher = ({ user }: StudentAttendanceForTeacherProps)
   );
 };
 
-export default StudentAttendanceForTeacher;
+export default StudentAttendanceCRUDAndReport;

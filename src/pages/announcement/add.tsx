@@ -13,31 +13,32 @@ import ContainerFooter from '@elements/container/Footer';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import { thisPageFor } from '@utils/thisPageFor';
 import AddOrEditAnnouncement from '@templates/announcement/AddOrEditAnnouncement';
+import checkPermissions from '@utils/checkPermissions';
 
 interface AddAnnoncementProps {
   user: User,
+  permissions: any,
 }
 
 
-const AddAnnoncement = ({ user }: AddAnnoncementProps) => {
+const AddAnnoncement = ({ user, permissions }: AddAnnoncementProps) => {
   return (
-    <AddOrEditAnnouncement user={user} />
+    <AddOrEditAnnouncement user={user} permissions={permissions} />
   );
 };
 
 export default AddAnnoncement;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
-  thisPageFor({
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+  checkPermissions({
     context,
-    currentRole: user.role,
-    forRoles: [
-      1,2,3
-    ],
+    permissions,
+    permissionName: 'crud announcement',
   });
-
+  
   return {
     props: {
       user, 
+      permissions,
     }
   };
 });

@@ -1,8 +1,6 @@
 import * as Button from '@elements/Button';
 import * as OutlineIcon from '@elements/icon/Outline';
-import Timer from '@elements/Timer';
 import convertMinutesToMilliseconds from '@utils/convertMinutesToMilliseconds';
-import prettyMilliseconds from 'pretty-ms';
 import { useEffect } from 'react';
 import Countdown from 'react-countdown';
 

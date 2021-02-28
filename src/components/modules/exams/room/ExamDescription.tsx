@@ -12,12 +12,13 @@ interface ExamDescriptionProps {
   examDescription: {
     id: string | string[],
   },
-  setIsStudentOnATest: Function
+  setIsStudentOnATest: Function,
+  permissions: any,
 }
 
-const ExamDescription = ({ user, examDescription, setIsStudentOnATest } : ExamDescriptionProps) => {
+const ExamDescription = ({ user, examDescription, setIsStudentOnATest, permissions } : ExamDescriptionProps) => {
   return (
-    <LayoutWithSidebar title="Ruang Ujian" user={user}>
+    <LayoutWithSidebar title="Ruang Ujian" user={user} permissions={permissions}>
       <Container>
         <ContainerBody>
           <div className="flex justify-between">

@@ -15,18 +15,20 @@ import * as Button from '@elements/Button';
 import Pagination from '@modules/Pagination';
 import Title from '@elements/Title';
 import InputWithIcon from '@modules/InputWithIcon';
+import checkPermissions from '@utils/checkPermissions';
 
 interface NewsManagementProps {
   user: User,
+  permissions: any,
 }
 
-const NewsManagement = ({ user }: NewsManagementProps) => {
+const NewsManagement = ({ user, permissions }: NewsManagementProps) => {
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
 
   return (
     <>
       <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Berita" description="Apakah Anda yakin ingin menghapus berita ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
-      <LayoutWithSidebar title="Pengelolaan Berita" user={user}>
+      <LayoutWithSidebar title="Pengelolaan Berita" user={user} permissions={permissions}>
         <Container>
           <ContainerBody className="rounded-b-xl">
             <div className="flex items-end flex-col justify-end space-y-2">
@@ -83,16 +85,17 @@ const NewsManagement = ({ user }: NewsManagementProps) => {
 };
 
 export default NewsManagement;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
-  thisPageFor({
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+  checkPermissions({
     context,
-    currentRole: user.role,
-    forRoles: [1],
+    permissions,
+    permissionName: 'crud news',
   });
 
   return {
     props: {
       user, 
+      permissions,
     }
   };
 });

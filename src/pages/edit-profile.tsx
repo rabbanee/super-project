@@ -6,12 +6,14 @@ import { User } from '@interface/User';
 import Container from '@elements/container/Index';
 import ContainerBody from '@elements/container/Body';
 import ContainerFooter from '@elements/container/Footer';
+import checkPermissions from '@utils/checkPermissions';
 
 interface EditProfileProps {
-  user: User
+  user: User,
+  permissions: any,
 }
 
-const EditProfile = ({ user }: EditProfileProps) => {
+const EditProfile = ({ user, permissions }: EditProfileProps) => {
   const [image, setImage] = useState(null);
 
   const imageHandler = (event: any) => setImage(URL.createObjectURL(event.target.files[0]));
@@ -21,7 +23,7 @@ const EditProfile = ({ user }: EditProfileProps) => {
   };
 
   return (
-   <LayoutWithSidebar title="Edit Profile" user={user}>
+   <LayoutWithSidebar title="Edit Profile" user={user} permissions={permissions}>
       {/* <div className="bg-white p-6 md:px-10 rounded-xl shadow-md relative overflow-hidden container mx-auto"> */}
       <form onSubmit={editHandler}>
         <Container>
@@ -47,9 +49,9 @@ const EditProfile = ({ user }: EditProfileProps) => {
                     <span className="inline-block h-14 w-14 overflow-hidden rounded-full">
                       <img src={image} alt="User"  />
                     </span>  :  
-                    <span className="inline-block h-14 w-14 rounded-full overflow-hidden bg-gray-100">
-                      <SolidIcon.UserCircle className="h-full w-full text-gray-300" />
-                    </span>
+                    <span className="inline-block h-14 w-14 overflow-hidden rounded-full">
+                      <img src={`${process.env.NEXT_PUBLIC_API_HOST}images/${user.imageId}`} alt="User"  />
+                    </span> 
                   }
                    <div className="flex text-sm text-gray-600 ml-2">
                     <label htmlFor="file-upload" className="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-primary-darkest focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary-dark">
@@ -78,10 +80,17 @@ const EditProfile = ({ user }: EditProfileProps) => {
 };
 
 export default EditProfile;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any) {
+  checkPermissions({
+    context,
+    permissions,
+    permissionName: 'edit profile',
+  });
+
   return {
     props: {
       user, 
+      permissions,
     }
   };
 });

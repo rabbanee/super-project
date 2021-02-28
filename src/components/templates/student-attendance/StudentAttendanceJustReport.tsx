@@ -14,13 +14,14 @@ import { rangeOfYears } from "@utils/rangeOfYears";
 import * as Button from '@elements/Button';
 import Title from "@elements/Title";
 
-interface StudentAttendanceForStudentOrGuardianOfStudentProps {
+interface StudentAttendanceJustReportProps {
   user: User,
+  permissions: any,
 }
 
-const StudentAttendanceForStudentOrGuardianOfStudent = ({ user }: StudentAttendanceForStudentOrGuardianOfStudentProps) => {
+const StudentAttendanceJustReport = ({ user, permissions }: StudentAttendanceJustReportProps) => {
   return (
-    <LayoutWithSidebar user={user} title="Kehadiran Siswa (Laporan)">
+    <LayoutWithSidebar user={user} title="Kehadiran Siswa (Laporan)" permissions={permissions}>
       <Container>
         <ContainerBody className="rounded-b-xl">
           <Title>Kehadiran Siswa (Laporan)</Title>
@@ -82,4 +83,4 @@ const StudentAttendanceForStudentOrGuardianOfStudent = ({ user }: StudentAttenda
   );
 };
 
-export default StudentAttendanceForStudentOrGuardianOfStudent;
+export default StudentAttendanceJustReport;

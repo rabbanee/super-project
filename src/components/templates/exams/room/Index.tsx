@@ -5,18 +5,19 @@ import ExamDescription from "@modules/exams/room/ExamDescription";
 import convertMinutesToMilliseconds from "@utils/convertMinutesToMilliseconds";
 import { useEffect, useRef, useState } from "react";
 
-interface ExamRoomForStudentProps {
+interface IndexProps {
   id: string,
   user: User,
+  permissions: any,
 }
 
-const ExamRoomForStudent = ({ id, user }: ExamRoomForStudentProps) => {
+const Index = ({ id, user, permissions }: IndexProps) => {
   const [isStudentOnATest, setIsStudentOnATest] = useState(false);
   const [answers, setAnswers] = useState([]);
   const [examDuration, setExamDuration] = useState(Date.now() + convertMinutesToMilliseconds(dummyExam.currentDuration));
   const [isExamPaused, setIsExamPaused] = useState(false);
   const [step, setStep] = useState(1);
-  const countdownRef = useRef();
+  const countdownRef: any = useRef();
 
   useEffect(() => {
     console.log(answers);
@@ -24,7 +25,7 @@ const ExamRoomForStudent = ({ id, user }: ExamRoomForStudentProps) => {
   }, [answers]);
 
   useEffect(() => {
-    if (!isExamPaused) {
+    if (!isExamPaused && countdownRef !== undefined) {
       countdownRef?.current?.start();
     }
   }, [isExamPaused]);
@@ -62,11 +63,11 @@ const ExamRoomForStudent = ({ id, user }: ExamRoomForStudentProps) => {
 
   if (!isStudentOnATest) {
     return (
-      <ExamDescription user={user} examDescription={{ id }} setIsStudentOnATest={setIsStudentOnATest}/>
+      <ExamDescription user={user} examDescription={{ id }} setIsStudentOnATest={setIsStudentOnATest} permissions={permissions}/>
     );
   }
   
   return <Exam onExamPaused={onExamPaused} renderer={renderer} countdownRef={countdownRef}  exam={dummyExam} answers={answers} setAnswers={setAnswers} examDuration={examDuration} onExamStarted={onExamStarted} isExamPaused={isExamPaused} setIsExamPaused={setIsExamPaused} />;
 };
 
-export default ExamRoomForStudent;
+export default Index;

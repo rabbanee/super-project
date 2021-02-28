@@ -12,7 +12,7 @@ interface ExamQuestionMapProps {
   countdownRef: LegacyRef<Countdown>,
   renderer: any,
   onExamPaused: (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void,
-  onExamStarted: (timeDelta: CountdownTimeDelta) => ReactNode,
+  onExamStarted: (timeDelta: CountdownTimeDelta) => void,
 }
 
 const ExamQuestionMap = ({ quizzes, answers, examDuration, countdownRef, renderer, onExamPaused, onExamStarted }: ExamQuestionMapProps) => {

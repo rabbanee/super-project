@@ -1,68 +1,37 @@
 import React, { useState } from 'react';
-import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
-import { thisPageFor } from '@utils/thisPageFor';
 import { User } from '@interface/User';
-import Container from '@elements/container/Index';
-import ContainerBody from '@elements/container/Body';
-import Tab from '@elements/Tab';
-import TabList from '@elements/TabList';
-import TabItem from '@elements/TabItem';
-import TabContentContainer from '@elements/TabContentContainer';
-import TabContent from '@elements/TabContent';
-import ListBox from '@modules/ListBox';
-import grades from '@data/grades';
-import { DatePicker } from '@modules/Datepicker';
-import Table from '@elements/Table';
-import Th from '@elements/Th';
-import dummyStudents from '@data/dummies/students';
-import Td from '@elements/Td';
-import attendanceStatuses from '@data/attendance-statuses';
-import * as Button from '@elements/Button';
-import { monthNames } from '@data/months';
-import { rangeOfYears } from '@utils/rangeOfYears';
-import StatusPill from '@elements/StatusPill';
-import * as SolidIcon from '@elements/icon/Solid';
-import Link from 'next/link';
-import ConfirmationModal from '@modules/ConfirmationModal';
-import showEntries from '@data/show-entries';
-import { isTeacher } from '@utils/roles/isTeacher';
-import StudentAttendanceForTeacher from '@templates/student-attendance/StudentAttendanceForTeacher';
-import { isStudent } from '@utils/roles/isStudent';
-import { isGuardianOfStudent } from '@utils/roles/isGuardianOfStudent';
 import Error from 'next/error';
-import StudentAttendanceForStudentOrGuardianOfStudent from '@templates/student-attendance/StudentAttendanceForStudentOrGuardianOfStudent';
+import StudentAttendanceJustReport from '@templates/student-attendance/StudentAttendanceJustReport';
+import StudentAttendanceCRUDAndReport from '@templates/student-attendance/StudentAttendanceCRUDAndReport';
+import findPermissionByName from '@utils/findPermissionByName';
 
 interface StudentAttendanceProps {
   user: User,
+  permissions: any,
 }
 
-const StudentAttendance = ({ user }: StudentAttendanceProps) => {
-  if (isTeacher(user.role)) {
+const StudentAttendance = ({ user, permissions }: StudentAttendanceProps) => {
+  if (findPermissionByName(permissions, 'crud student attandance')) {
     return (
-      <StudentAttendanceForTeacher user={user} />
+      <StudentAttendanceCRUDAndReport user={user} permissions={permissions}/>
     );
-  } else if (isStudent(user.role) || isGuardianOfStudent(user.role)) {
+  } else if (findPermissionByName(permissions, 'recap student attandance')) {
     return (
-      <StudentAttendanceForStudentOrGuardianOfStudent  user={user}/>
+      <StudentAttendanceJustReport user={user} permissions={permissions}/>
     )
   } else {
-    <Error statusCode={404} />
+    return <Error statusCode={404} />
   }
 };
 
 export default StudentAttendance;
 
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
-  thisPageFor({
-    currentRole: user.role,
-    forRoles: [3,4,5],
-    context
-  });
-  
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
   return {
     props: {
       user, 
+      permissions,
     }
   };
 });

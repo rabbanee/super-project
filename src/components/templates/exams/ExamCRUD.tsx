@@ -29,9 +29,9 @@ import TimeInput from '@modules/TimeInput';
 import Title from '@elements/Title';
 
 
-interface ExamForTeacherProps {
+interface ExamCRUDProps {
   user: User,
-  title: string,
+  permissions: any,
 }
 
 const Editor = dynamic(
@@ -40,8 +40,7 @@ const Editor = dynamic(
 )
 
 
-const ExamForTeacher = ({ user }) => {
-  const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
+const ExamCRUD = ({ user, permissions }: ExamCRUDProps) => {
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState(() => dummySubjects[0]);
   const [selectedGrade, setSelectedGrade] = useState(grades[0]);
@@ -53,7 +52,7 @@ const ExamForTeacher = ({ user }) => {
   return (
     <>
       <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Ujian" description="Apakah Anda yakin ingin menghapus ujian ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
-      <LayoutWithSidebar user={user} title="Ujian">
+      <LayoutWithSidebar user={user} title="Ujian" permissions={permissions}>
         <Container>
           <ContainerBody className="rounded-b-xl">
             <Title>Ujian</Title>
@@ -202,4 +201,4 @@ const ExamForTeacher = ({ user }) => {
   );
 };
 
-export default ExamForTeacher;
+export default ExamCRUD;
