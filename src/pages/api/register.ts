@@ -8,31 +8,17 @@ import { User } from "@interface/User";
 export default async function handler(req: any, res: any) {
   if (req.method === 'POST') {
     const cookies = new Cookies(req, res);
-    const { email, password  } = req.body;
+    const { name, email, password, role, passwordConfirmation } = req.body;
+    const token = cookies.get('token');
     
     let response;
      try {
-      response = await ApiSource.login(email, password);
+      response = await ApiSource.register(name, email, password, role, passwordConfirmation);
     } catch (error) {
       console.log(error.response.data);
       res.status(error.response.status).json(error.response.data);
       return;
     }
-    let data = response.data.user_data;
-
-    const user: User = {
-      name:  data.name,
-      email:  data.email,
-      role:  data.role,
-      imageId: data.image_id,
-    };
-
-    let userSignature = SignatureCookieHelper.signCookie(cookieSignature, JSON.stringify(user));
-    let tokenSignature =  SignatureCookieHelper.signCookie(cookieSignature, data.token);
-
-    CookieHelper.setTokenCookie(cookies, tokenSignature, data.expires_at);
-    CookieHelper.setUserCookie(cookies, userSignature, data.expires_at);
-    
     res.status(response.status).json(response.data);
   } else {
     res.status(404).send('');

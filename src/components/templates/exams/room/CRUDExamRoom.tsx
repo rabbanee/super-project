@@ -8,7 +8,7 @@ import TabList from "@elements/TabList";
 import { User } from "@interface/User";
 import LayoutWithSidebar from "@layouts/LayoutWithSidebar";
 import ExamInformation from "@elements/exam/ExamInformation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as Button from '@elements/Button';
 import ListBox from "@modules/ListBox";
 import showEntries from "@data/show-entries";
@@ -25,10 +25,13 @@ import * as OutlineIcon from '@elements/icon/Outline';
 import ConfirmationModal from "@modules/ConfirmationModal";
 import Modal from "@elements/Modal";
 import ModalBody from "@elements/ModalBody";
+import Title from "@elements/Title";
+import dummyQuizzes from "@data/dummies/quizzes";
 
 
-interface ExamRoomForTeacherProps {
+interface CRUDExamRoomProps {
   user: User,
+  permissions: any,
 }
 
 const tabs = [
@@ -38,28 +41,57 @@ const tabs = [
   'Ubah Ujian',
 ];
 
-const ExamRoomForTeacher = ({ user }: ExamRoomForTeacherProps) => {
+const CRUDExamRoom = ({ user, permissions }: CRUDExamRoomProps) => {
   const [openedTab, setOpenedTab] = useState(1);
-  const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
   const [endDate, setEndDate] = useState(new Date());
   const [startDate, setStartDate] = useState(new Date());
   const timeInputRef: any = useRef(null);
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
   const [isImportQuestionModalShow, setIsImportQuestionModalShow] = useState(false);
+  const [quizzes, setQuizzes] = useState(dummyQuizzes);
+
   const onButtonClick = () => {
     // `current` points to the mounted text input element
     console.log(timeInputRef);
     
     // timeInputRef.current.focus();
-  };
+  };  
+
+  useEffect(() => {
+    console.log(quizzes);
+  }, [quizzes]);
+
+  const handleAllChecked = (event) => {
+    const newQuizzes = quizzes;
+    newQuizzes.forEach(quiz =>  quiz.isChecked = event.target.checked);
+    console.log('handleAllChecked: ', newQuizzes);
+    
+    setQuizzes([...newQuizzes]);
+  }
+
+  
+  const handleCheckChieldElement = (event) => {
+    const newQuizzes = quizzes;
+    newQuizzes.forEach(quiz => {
+      if (quiz.id == event.target.id) quiz.isChecked =  event.target.checked;
+    });
+    setQuizzes([...newQuizzes])
+  }
+
   return (
     <>
       {/* Import Question Modal  */}
       <Modal isShow={isImportQuestionModalShow} setIsShow={setIsImportQuestionModalShow}>
-        <ModalBody>
-         <Table color="primary-darkest" className="rounded-b-xl rounded-t-xl">
+        <ModalBody className="overflow-hidden">
+         <Table color="primary-darkest" className="rounded-b-xl rounded-t-xl w-full">
             <thead className="bg-primary">
               <tr>
+                <Th className="text-center">
+                  <input id="select" name="select" type="checkbox" className="h-4 w-4 text-primary-darkest focus:ring-primary-dark border-gray-300 rounded focus:outline-none" onClick={handleAllChecked}/>
+                </Th>
+                <Th className="text-center">
+                  No
+                </Th>
                 <Th className="text-center">
                   Soal
                 </Th>
@@ -78,24 +110,29 @@ const ExamRoomForTeacher = ({ user }: ExamRoomForTeacherProps) => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <Td className="text-center">Bagian positif di atom?</Td>
-                <Td className="text-center">Proton</Td>
-                <Td className="text-center">Kimia</Td>
-                <Td className="text-center truncate">XII RPL</Td>
-                <Td className="text-center flex justify-center space-x-2">
-                  <Link href={`/questions-bank/update/`}>
-                    <a className="btn btn-primary inline-flex items-center">
-                      <SolidIcon.Pencil className="-ml-1 mr-1 h-5 w-5" />
-                      Ubah
-                    </a>
-                  </Link>
-                  <Button.Danger onClick={() => setIsConfirmationModalShow(true)} type="button" className="inline-flex items-center">
-                    <SolidIcon.Trash className="-ml-1 mr-1 h-5 w-5" /> 
-                    Hapus
-                  </Button.Danger>
-                </Td>
-              </tr>
+              {
+                dummyQuizzes.map((dummyQuiz, dummyQuizIndex) => 
+                  <tr key={dummyQuizIndex}>
+                    <Td className="text-center"> 
+                      <input id={`${dummyQuiz.id}`} name="select" type="checkbox" className="h-4 w-4 text-primary-darkest focus:ring-primary-dark border-gray-300 rounded focus:outline-none" onChange={handleCheckChieldElement} checked={dummyQuiz.isChecked}/>
+                    </Td>
+                    <Td className="text-center">{dummyQuizIndex+1}</Td>
+                    <Td className="text-center">{dummyQuiz.question}</Td>
+                    <Td className="text-center truncate">{dummyQuiz.trueAnswer}</Td>
+                    <Td className="text-center">
+                      {dummyQuiz.subject}
+                    </Td>
+                    <Td className="text-center">
+                      {dummyQuiz.grade}
+                    </Td>
+                    <Td className="text-center">
+                      <Button.Primary>
+                        Impor
+                      </Button.Primary>
+                    </Td>
+                  </tr>
+                )
+              }
             </tbody>
           </Table>
           <Pagination />
@@ -103,10 +140,10 @@ const ExamRoomForTeacher = ({ user }: ExamRoomForTeacherProps) => {
       </Modal>
       {/* Confirmation Modal for Question  */}
       <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Soal" description="Apakah Anda yakin ingin menghapus soal ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
-      <LayoutWithSidebar title={`Ruang Ujian (${tabs[openedTab-1]})`} user={user}>
+      <LayoutWithSidebar title={`Ruang Ujian (${tabs[openedTab-1]})`} user={user} permissions={permissions}>
         <Container>
-          <ContainerBody className="rounded-b-lg">
-            <h1 className="text-3xl font-bold	text-black mb-1 antialiased">{`Ruang Ujian (${tabs[openedTab-1]})`}</h1>
+          <ContainerBody className="rounded-b-xl">
+            <Title className="mb-1">{`Ruang Ujian (${tabs[openedTab-1]})`}</Title>
             <Tab color="primary-dark" openTab={openedTab} setOpenTab={setOpenedTab}>
               <TabList>
                 {
@@ -307,4 +344,4 @@ const ExamRoomForTeacher = ({ user }: ExamRoomForTeacherProps) => {
   );
 };
 
-export default ExamRoomForTeacher;
+export default CRUDExamRoom;

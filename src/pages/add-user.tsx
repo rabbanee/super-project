@@ -14,15 +14,19 @@ import { User } from '@interface/User';
 import Container from '@elements/container/Index';
 import ContainerBody from '@elements/container/Body';
 import ContainerFooter from '@elements/container/Footer';
+import checkPermissions from '@utils/checkPermissions';
+import grades from '@data/grades';
 
 interface AddUser {
-  user: User
+  user: User,
+  permissions: any,
 }
 
-const AddUser = ({ user }: AddUser) => {
+const AddUser = ({ user, permissions }: AddUser) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [selectedRole, setSelectedRole] = useState(roleNames[0]);
+  const [selectedGrade, setSelectedGrade] = useState(grades[0]);
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -52,7 +56,8 @@ const AddUser = ({ user }: AddUser) => {
       return;
     }
 
-    const role = convertRoleNameToRoleNumber(selectedRole);
+    const role = selectedRole;
+    // const role = convertRoleNameToRoleNumber(selectedRole);
 
     try {
       response = await ApiSource.register(name, email, role, password, passwordConfirmation);
@@ -74,7 +79,7 @@ const AddUser = ({ user }: AddUser) => {
   };
 
   return (
-    <LayoutWithSidebar title="Tambahkan Pengguna" user={user}>
+    <LayoutWithSidebar title="Tambahkan Pengguna" user={user} permissions={permissions}>
       <form onSubmit={handleRegister}>
         <Container>
           <ContainerBody>
@@ -93,6 +98,14 @@ const AddUser = ({ user }: AddUser) => {
               <div className="col-span-6 sm:col-span-6">
                 <ListBox items={roleNames} label="Rol" selectedItem={selectedRole} setSelectedItem={setSelectedRole}/>
               </div>
+
+              {
+                selectedRole === 'Siswa' && (
+                  <div className="col-span-6 sm:col-span-6">
+                    <ListBox items={grades} label="Kelas" selectedItem={selectedGrade} setSelectedItem={setSelectedGrade}/>
+                  </div>
+                )
+              }
 
               <div className="col-span-6 sm:col-span-6">
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">Kata Sandi</label>
@@ -126,16 +139,17 @@ const AddUser = ({ user }: AddUser) => {
 
 export default AddUser;
 
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
-  thisPageFor({
-    currentRole: user.role, 
-    forRoles: [1],
-    context
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+  checkPermissions({
+    context,
+    permissions,
+    permissionName: 'register'
   });
 
   return {
     props: {
-      user, 
+      user,
+      permissions, 
     },
   };
 });

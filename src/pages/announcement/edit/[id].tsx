@@ -1,28 +1,27 @@
 import { User } from '@interface/User';
 import React, { useEffect, useState } from 'react';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
-import { thisPageFor } from '@utils/thisPageFor';
 import AddOrEditAnnouncement from '@templates/announcement/AddOrEditAnnouncement';
+import checkPermissions from '@utils/checkPermissions';
 
 interface EditAnnoncementProps {
   user: User,
+  permissions: any,
 }
 
 
-const EditAnnoncement = ({ user }: EditAnnoncementProps) => {
+const EditAnnoncement = ({ user, permissions }: EditAnnoncementProps) => {
   return (
-    <AddOrEditAnnouncement user={user} announcement={['manusia']} />
+    <AddOrEditAnnouncement user={user} announcement={['manusia']} permissions={permissions} />
   );
 };
 
 export default EditAnnoncement;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
-  thisPageFor({
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+  checkPermissions({
     context,
-    currentRole: user.role,
-    forRoles: [
-      1,2,3
-    ],
+    permissions,
+    permissionName: 'crud announcement',
   });
 
   return {

@@ -12,6 +12,7 @@ import ContainerFooter from "@elements/container/Footer";
 interface AddOrEditAnnouncementProps {
   user: User,
   announcement?: Array<any>,
+  permissions: any,
 }
 
 const Editor = dynamic(
@@ -20,9 +21,9 @@ const Editor = dynamic(
 )
 
 
-const AddOrEditAnnouncement = ({ user, announcement }: AddOrEditAnnouncementProps) => {
+const AddOrEditAnnouncement = ({ user, announcement, permissions }: AddOrEditAnnouncementProps) => {
   return (
-    <LayoutWithSidebar user={user} title="Tambah Berita">
+    <LayoutWithSidebar user={user} title="Tambah Berita" permissions={permissions}>
       <Container>
         <ContainerBody>
           <div className="flex justify-between flex-wrap items-start mb-2">

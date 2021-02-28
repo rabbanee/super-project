@@ -16,17 +16,18 @@ import { thisPageFor } from '@utils/thisPageFor';
 
 interface QuestionsBankProps {
   user: User;
+  permissions: any;
 }
 
-const QuestionsBank = ({ user }: QuestionsBankProps) => {
+const QuestionsBank = ({ user, permissions }: QuestionsBankProps) => {
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
 
   return (
     <>
       <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Soal" description="Apakah Anda yakin ingin menghapus Soal ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
-      <LayoutWithSidebar user={user} title="Bank Soal">
+      <LayoutWithSidebar user={user} title="Bank Soal" permissions={permissions}>
         <Container>
-          <ContainerBody>
+          <ContainerBody className="rounded-b-xl">
             <div className="flex justify-between items-start">
               <div>
                 <h1 className="text-3xl font-bold	text-black">Soal Saya</h1>
@@ -89,15 +90,16 @@ const QuestionsBank = ({ user }: QuestionsBankProps) => {
 };
 
 export default QuestionsBank;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
-  thisPageFor({
-    context,
-    currentRole: user.role,
-    forRoles: [3],
-  });
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+  // thisPageFor({
+  //   context,
+  //   currentRole: user.role,
+  //   forRoles: [3],
+  // });
   return {
     props: {
       user, 
+      permissions,
     }
   };
 });

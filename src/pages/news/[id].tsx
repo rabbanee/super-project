@@ -1,14 +1,16 @@
 import { User } from '@interface/User';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
+import checkPermissions from '@utils/checkPermissions';
 
 interface ReadNewsProps {
-  user: User
+  user: User,
+  permissions: any,
 }
 
-function ReadNews({ user }: ReadNewsProps) {
+function ReadNews({ user, permissions }: ReadNewsProps) {
   return (
-    <LayoutWithSidebar title="Berita" user={user}>
+    <LayoutWithSidebar title="Berita" user={user} permissions={permissions}>
       <div className="bg-white p-6 md:px-7 rounded-xl shadow-md relative overflow-hidden container mx-auto">
         <h2 className="text-4xl font-bold	text-black mb-2">Definition of Cooperative Learning Type Jigsaw </h2>
         <div className="date-excerpt single skwp-news-meta">
@@ -23,10 +25,16 @@ function ReadNews({ user }: ReadNewsProps) {
 
   
   export default ReadNews;
-  export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
+  export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+    checkPermissions({
+      context,
+      permissions,
+      permissionName: 'view news',
+    });
     return {
       props: {
         user, 
+        permissions,
       }
     };
   });

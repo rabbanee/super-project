@@ -21,17 +21,20 @@ import ConfirmationModal from '@modules/ConfirmationModal';
 import { thisPageFor } from '@utils/thisPageFor';
 import Title from '@elements/Title';
 import { roleNames } from '@data/roles';
+import findPermissionByName from '@utils/findPermissionByName';
+import checkPermissions from '@utils/checkPermissions';
 
 
 interface EditAccessRightsProps {
   user: User,
+  permissions: any,
 }
 
-const EditAccessRights = ({ user }: EditAccessRightsProps) => {
+const EditAccessRights = ({ user, permissions }: EditAccessRightsProps) => {
   const [selectedRoleName, setSelectedRoleName] = useState(roleNames[0]);
   return (
     <>
-    <LayoutWithSidebar title="Edit Hak Akses" user={user}>
+    <LayoutWithSidebar title="Edit Hak Akses" user={user} permissions={permissions}>
       <Container>
         <ContainerBody className="rounded-b-xl">
           <div className="flex justify-between mb-2">
@@ -200,16 +203,16 @@ const EditAccessRights = ({ user }: EditAccessRightsProps) => {
 };
 
 export default EditAccessRights;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
-  thisPageFor({
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+  checkPermissions({
     context,
-    currentRole: user.role,
-    forRoles: [1]
-  }); 
-
+    permissions,
+    permissionName: 'edit permission',
+  });
   return {
     props: {
       user, 
+      permissions,
     }
   };
 });

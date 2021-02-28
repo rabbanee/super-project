@@ -1,14 +1,16 @@
 import Layout from "@layouts/Layout";
 import { useState } from "react";
 import * as Button from '@elements/Button';
-import * as Icon from '@elements/icon';
+import * as OutlineIcon from '@elements/icon/Outline';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const forgotPasswordHandler = () => {
-
+  const forgotPasswordHandler = (e: any) => {
+    setLoading(true);
+    e.preventDefault();
+    // setLoading(false);
   }
 
   return (
@@ -31,14 +33,14 @@ const ForgotPassword = () => {
 
           <div>
             <Button.Primary  
-            className={`${loading && 'cursor-not-allowed'}`}
+            className={`${loading && 'cursor-not-allowed'} group relative w-full flex justify-center`}
             disabled={loading}
             >
               {
-                loading && <Icon.loadingIndicatorButton /> 
+                loading && <OutlineIcon.Circle className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"  />  
               }
               {
-                loading ? 'Memproses' : 'Kirim Permintaan '
+                loading ? 'Memproses' : 'Kirim Permintaan'
               }
             </Button.Primary>
           </div>

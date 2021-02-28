@@ -3,28 +3,31 @@ import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import { thisPageFor } from '@utils/thisPageFor';
 import React from 'react';
 import AddOrEditNews from '@templates/news/AddOrEditNews';
+import checkPermissions from '@utils/checkPermissions';
 
 interface AddNewsProps {
   user: User,
+  permissions: any,
 }
 
-const AddNews = ({ user }: AddNewsProps) => {
+const AddNews = ({ user, permissions }: AddNewsProps) => {
   return (
-    <AddOrEditNews user={user}/>
+    <AddOrEditNews user={user} permissions={permissions}/>
   );
 };
 
 export default AddNews;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
-  thisPageFor({
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+  checkPermissions({
     context,
-    currentRole: user.role,
-    forRoles: [1],
+    permissions,
+    permissionName: 'crud news',
   });
 
   return {
     props: {
       user, 
+      permissions,
     }
   };
 });

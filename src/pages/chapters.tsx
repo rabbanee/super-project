@@ -23,9 +23,10 @@ import { thisPageFor } from '@utils/thisPageFor';
 
 interface ChapterProps {
   user: User,
+  permissions: any,
 }
 
-const Chapters = ({ user }: ChapterProps) => {
+const Chapters = ({ user, permissions }: ChapterProps) => {
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
   const [isEditChapterModalShow, setIsEditChapterModalShow] = useState(false);
   const chapterNameRef = useRef();
@@ -57,7 +58,7 @@ const Chapters = ({ user }: ChapterProps) => {
       <AddOrEditChapterModal isModalShow={isAddChapterModalShow} setIsModalShow={setIsAddChapterModalShow} chapterNameRef={chapterNameRef} onSubmit={addChapterHandler} selectedSubject={selectedSubject} setSelectedSubject={setSelectedSubject}  />
       <AddOrEditChapterModal isModalShow={isEditChapterModalShow} setIsModalShow={setIsEditChapterModalShow} chapterNameRef={chapterNameRef} onSubmit={editChapterHandler} selectedSubject={selectedSubject} setSelectedSubject={setSelectedSubject} chapterData={selectedChapterData} />
       <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Bab" description="Apakah Anda yakin ingin menghapus? Jika dihapus maka akan terhapus selamanya." confirmText="Hapus" />
-      <LayoutWithSidebar title="Bab" user={user}>
+      <LayoutWithSidebar title="Bab" user={user} permissions={permissions}>
         <Container>
           <ContainerBody className="rounded-b-xl space-y-2">
             <div className="flex justify-between items-baseline">
@@ -124,15 +125,16 @@ const Chapters = ({ user }: ChapterProps) => {
 };
 
 export default Chapters;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
-  thisPageFor({
-    context,
-    currentRole: user.role,
-    forRoles: [3]
-  });
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+  // thisPageFor({
+  //   context,
+  //   currentRole: user.role,
+  //   forRoles: [3]
+  // });
   return {
     props: {
       user, 
+      permissions,
     }
   };
 });

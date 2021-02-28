@@ -18,6 +18,7 @@ import * as OutlineIcon from '@elements/icon/Outline';
 
 interface AddQuestionsProps {
   user: User,
+  permissions: any,
 }
 
 const Editor = dynamic(
@@ -25,14 +26,14 @@ const Editor = dynamic(
   { ssr: false }
 )
 
-const UpdateQuestions = ({ user }: AddQuestionsProps) => {
+const UpdateQuestions = ({ user, permissions }: AddQuestionsProps) => {
   const [selectedTypeOfQuestion, setSelectedTypeOfQuestion] = useState(typeOfQuestions[0]);
   const [selectedCorrectAnswer, setSelectedCorrectAnswer] = useState(options[0]);
   const [selectedGrade, setSelectedGrade] = useState(grades[0]);
   const [selectedSubject, setSelectedSubject] = useState(dummySubjects[0]);
 
   return (
-    <LayoutWithSidebar user={user} title="Tambah Soal">
+    <LayoutWithSidebar user={user} title="Tambah Soal" permissions={permissions}>
       <Container>
         <form>
           <ContainerBody>
@@ -111,15 +112,16 @@ const UpdateQuestions = ({ user }: AddQuestionsProps) => {
 };
 
 export default UpdateQuestions;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
-  thisPageFor({
-    context,
-    currentRole: user.role,
-    forRoles: [3],
-  });
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+  // thisPageFor({
+  //   context,
+  //   currentRole: user.role,
+  //   forRoles: [3],
+  // });
   return {
     props: {
       user, 
+      permissions,
     }
   };
 });

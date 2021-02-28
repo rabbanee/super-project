@@ -1,6 +1,6 @@
 interface thisPageForParams  {
-  currentRole: number,
-  forRoles: Array<number>, 
+  currentRole: string,
+  forRoles: Array<string>, 
   redirectTo?: String, 
   context: any
 };

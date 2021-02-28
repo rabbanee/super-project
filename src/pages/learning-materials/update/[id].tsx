@@ -5,22 +5,24 @@ import AddOrUpdateLearningMaterials from 'components/templates/learning-material
 import { useRouter } from 'next/router';
 
 interface UpdateLearningMaterialsProps {
-  user: User
+  user: User,
+  permissions: any,
 }
 
-function UpdateLearningMaterials({ user }: UpdateLearningMaterialsProps) {
+function UpdateLearningMaterials({ user, permissions }: UpdateLearningMaterialsProps) {
   const router = useRouter();
   const { id } = router.query;
   return(
-    <AddOrUpdateLearningMaterials title="Ubah Materi Pembelajaran" user={user} learningMaterial={learningMaterials.find((learningMaterial) => learningMaterial.id === Number(id))}/>
+    <AddOrUpdateLearningMaterials permissions={permissions} title="Ubah Materi Pembelajaran" user={user} learningMaterial={learningMaterials.find((learningMaterial) => learningMaterial.id === Number(id))}/>
   );
 };
 
 export default UpdateLearningMaterials;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
   return {
     props: {
       user, 
+      permissions,
     }
   };
 });

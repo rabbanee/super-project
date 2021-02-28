@@ -5,92 +5,67 @@ import Table from '@elements/Table';
 import Td from '@elements/Td';
 import Th from '@elements/Th';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
-import InputWithIcon from '@modules/InputWithIcon';
 import ListBox from '@modules/ListBox';
 import Pagination from '@modules/Pagination';
-import * as SolidIcon from '@elements/icon/Solid';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
-import * as Button from '@elements/Button';
-import Link from 'next/link';
-import ConfirmationModal from '@modules/ConfirmationModal';
 import dummySubjects from '@data/dummies/subjects';
-import dummyChapters from '@data/dummies/chapters';
 import { User } from '@interface/User';
-import { useRef, useState } from 'react';
-import Modal from '@elements/Modal';
-import ModalBody from '@elements/ModalBody';
-import ModalFooter from '@elements/ModalFooter';
+import { useState } from 'react';
+import InputWithIcon from '@modules/InputWithIcon';
+import * as SolidIcon from '@elements/icon/Solid';
 import grades from '@data/grades';
-import dynamic from 'next/dynamic'
-import ContainerFooter from '@elements/container/Footer';
+import attitudes from '@data/attitudes';
 import * as OutlineIcon from '@elements/icon/Outline';
-
+import Title from '@elements/Title';
 
 interface AttitudeAssessmentProps {
   user: User,
+  permissions: any,
 }
 
-const AttitudeAssessment = ({ user }: AttitudeAssessmentProps) => {
-  const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
-  const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
-  const [selectedSubject, setSelectedSubject] = useState(() => dummySubjects[0]);
-  const [selectedChapter, setSelectedChapter] = useState(() => dummyChapters[0]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isModalShow, setIsModalShow] = useState(false);
-  const chapterNameRef = useRef();
+const AttitudeAssessment = ({ user, permissions }: AttitudeAssessmentProps) => {
   const [selectedGrade, setSelectedGrade] = useState(grades[0]);
+  const [selectedSubject, setSelectedSubject] = useState(attitudes[0]);
 
   return (
     <>
-      <LayoutWithSidebar user={user} title="Penilaian Sikap">
+      <LayoutWithSidebar user={user} title="Penilaian Sikap" permissions={permissions}>
         <Container>
           <ContainerBody className="rounded-b-xl">
-          <div className="flex justify-between">
-            <h2 className="text-3xl font-bold	text-black mb-2">Penilaian Sikap</h2>
-          </div>
-            <div className="flex justify-between space-y-3">
+            <div className="flex justify-between mb-2">
+              <Title>Penilaian Sikap</Title>
+            </div>
+            <div className="flex justify-between space-y-3 items-end">
               <div className="flex justify-center items-center self-end space-x-1">
-                <span className="text-md">Kelas</span>
-               <tr>
-                <td>   
-                 <ListBox items={showEntries} selectedItem={selectedShowEntry} setSelectedItem={setSelectedShowEntry} />
-                </td>
-               </tr>
-               <span className="text-md">Jurusan</span>
-               <tr>
-                <td>   
-                 <ListBox items={showEntries} selectedItem={selectedShowEntry} setSelectedItem={setSelectedShowEntry} />
-                </td>
-               </tr>
+                 <ListBox items={grades} selectedItem={selectedGrade} setSelectedItem={setSelectedGrade} label="Kelas" />
               </div>
-            
-              {/* <InputWithIcon Icon={<SolidIcon.Search className="text-gray-500 w-5 h-5" />}/> */}
+              <InputWithIcon Icon={<SolidIcon.Search className="text-gray-500 w-5 h-5" />}/>
             </div>
             <Table color="primary-darkest" className="rounded-b-xl rounded-t-xl">
               <thead className="bg-primary">
                 <tr>
-                  <Th className="text-center">
+                  <Th>
                     No
                   </Th>
-                  <Th className="text-center">
+                  <Th>
                     Nama
                   </Th>
-                  <Th className="text-center">
-                    Prilaku
+                  <Th>
+                    Perilaku
                   </Th>
-                  <Th className="text-center">
-                    Kerapihan
+                  <Th>
+                    Kerapian
                   </Th>
-                  <Th className="text-center">
+                  <Th>
                     Kedisiplinan
                   </Th>
-                  <Th className="text-center">
-                    KerjaSama
+                  <Th>
+                    Kerja sama
                   </Th>
-                  <Th className="text-center">
+                  <Th>
                     Kreatif
                   </Th>
-                  <Th className="text-center">
+                  <Th>
                     Keterangan
                   </Th>
                 </tr>
@@ -98,92 +73,55 @@ const AttitudeAssessment = ({ user }: AttitudeAssessmentProps) => {
               <tbody>
                 <tr>
                   <Td className="text-center">1</Td>
-                  <Td className="text-center">Kang cut</Td>
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
+                  <Td>Manusia</Td>
+                  <td className="px-2">
+                   <select name="" id="" className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm">
+                      {
+                        attitudes.map((attitude, attitudeIndex) => 
+                          <option key={attitudeIndex}>{attitude}</option>
+                        )
+                      }
+                   </select>
                   </td>
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                  </td> 
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
+                  <td className="px-2">
+                   <select name="" id="" className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm">
+                      {
+                        attitudes.map((attitude, attitudeIndex) => 
+                          <option key={attitudeIndex}>{attitude}</option>
+                        )
+                      }
+                   </select>
                   </td>
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
+                  <td className="px-2">
+                   <select name="" id="" className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm">
+                      {
+                        attitudes.map((attitude, attitudeIndex) => 
+                          <option key={attitudeIndex}>{attitude}</option>
+                        )
+                      }
+                   </select>
                   </td>
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                  </td> 
-                  <td>
-                    <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Keterangan" />
+                  <td className="px-2">
+                   <select name="" id="" className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm">
+                      {
+                        attitudes.map((attitude, attitudeIndex) => 
+                          <option key={attitudeIndex}>{attitude}</option>
+                        )
+                      }
+                   </select>
                   </td>
-                </tr>
-                <tr>
-                  <Td className="text-center">2</Td>
-                  <Td className="text-center">Kang pung</Td>
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
+                  <td className="px-2">
+                   <select name="" id="" className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm">
+                      {
+                        attitudes.map((attitude, attitudeIndex) => 
+                          <option key={attitudeIndex}>{attitude}</option>
+                        )
+                      }
+                   </select>
                   </td>
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                  </td> 
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
+                  <td className="px-2">
+                    <input id="information" name="information" type="text" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Keterangan" />
                   </td>
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                  </td>
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                  </td> 
-                  <td>
-                   <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Keterangan" />
-                  </td>
-                </tr>
-                <tr>
-                  <Td className="text-center">3</Td>
-                  <Td className="text-center">Kang Bungkus</Td>
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                  </td>
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                  </td> 
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                  </td>
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                  </td>
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                  </td> 
-                  <td>
-                   <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Keterangan" />
-                  </td>
-                </tr>
-                <tr>
-                  <Td className="text-center">4</Td>
-                  <Td className="text-center">Kang bikin Peraturan</Td>
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                  </td>
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                  </td> 
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                  </td>
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                  </td>
-                  <td>
-                   <ListBox items={dummySubjects} selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
-                  </td>
-                  <td>
-                   <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Keterangan"/>
-                  </td>
-                  
                 </tr>
               </tbody>
             </Table>
@@ -196,10 +134,11 @@ const AttitudeAssessment = ({ user }: AttitudeAssessmentProps) => {
 };
 
 export default AttitudeAssessment;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
     return {
       props: {
         user, 
+        permissions,
       }
     };
   });

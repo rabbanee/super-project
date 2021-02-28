@@ -18,16 +18,17 @@ import learningMaterials from '@data/learning-materials';
 import ConfirmationModal from '@modules/ConfirmationModal';
 
 interface LearningMaterialsProps {
-  user: User
+  user: User,
+  permissions: any,
 }
 
-const LearningMaterials = ({ user }: LearningMaterialsProps) => {
+const LearningMaterials = ({ user, permissions }: LearningMaterialsProps) => {
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
 
   return (
     <>
       <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Materi Pembelajaran" description="Apakah Anda yakin ingin menghapus materi pembelajaran ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
-      <LayoutWithSidebar title="Materi Pembelajaran" user={user}>
+      <LayoutWithSidebar title="Materi Pembelajaran" user={user} permissions={permissions}>
         <Container>
           <ContainerBody className="rounded-b-xl space-y-2">
             <div className="flex justify-between items-baseline flex-wrap">
@@ -100,10 +101,11 @@ const LearningMaterials = ({ user }: LearningMaterialsProps) => {
 };
 
 export default LearningMaterials;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
   return {
     props: {
       user, 
+      permissions,
     }
   };
 });

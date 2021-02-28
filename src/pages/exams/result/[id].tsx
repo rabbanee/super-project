@@ -10,11 +10,12 @@ import { withAuthServerSideProps } from "@lib/withAuthServerSide";
 
 interface ExamResultProps {
   user: User,
+  permissions: any,
 }
 
-const ExamResult = ({ user }: ExamResultProps) => {
+const ExamResult = ({ user, permissions }: ExamResultProps) => {
   return (
-    <LayoutWithSidebar title="Hasil Ujian" user={user}>
+    <LayoutWithSidebar title="Hasil Ujian" user={user}  permissions={permissions}>
       <Container>
         <ContainerBody className="rounded-b-xl">
           <div className="mb-4">
@@ -167,11 +168,12 @@ const ExamResult = ({ user }: ExamResultProps) => {
 };
 
 export default ExamResult;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User)  {
+export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
   
   return {
     props: {
       user, 
+      permissions,
     }
   };
 });

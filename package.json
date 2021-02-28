@@ -1,6 +1,7 @@
 {
   "name": "super-project",
   "version": "0.1.0",
+  "homepage": "e-zeey.com",
   "private": true,
   "scripts": {
     "dev": "next dev",

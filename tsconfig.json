@@ -58,7 +58,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/redux/store/index.js", "src/redux/reducers/index.js", "src/redux/actions/index.js"  ],
+, "src/redux/store/index.js", "src/redux/reducers/index.js", "src/redux/actions/index.js", "src/components/templates/student-attendance"  ],
   "exclude": [
     "node_modules"
   ]
