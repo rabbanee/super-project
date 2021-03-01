@@ -1,7 +1,7 @@
 import Layout from "@layouts/Layout";
 import { useState } from "react";
 import * as Button from '@elements/Button';
-// import * as Icon from '@elements/icon';
+import * as OutlineIcon from '@elements/icon/Outline';
 
 const ChangePassword = () => {
   const [email, setEmail] = useState(null);
@@ -41,7 +41,7 @@ const ChangePassword = () => {
             disabled={loading}
             >
               {
-                loading &&  <Icon.loadingIndicatorButton /> 
+                loading && <OutlineIcon.Circle className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"  />
               }
               {
                 loading ? 'Memproses' : 'Kirim Permintaan '
