@@ -108,7 +108,7 @@ const TestScores= ({ user, permissions }) => {
                   <Td className="text-center flex justify-center space-x-2">
                         <Link href={`/`} passHref>
                           <a className="btn btn-primary inline-flex items-center">
-                            <SolidIcon.Trash className="-ml-1 mr-1 h-5 w-5" />
+                            <SolidIcon.DocumentSearch className="-ml-1 mr-1 h-5 w-5" />
                           Periksa
                           </a>
                         </Link>
@@ -127,7 +127,7 @@ const TestScores= ({ user, permissions }) => {
                   <Td className="text-center flex justify-center space-x-2">
                         <Link href={`/`} passHref>
                           <a className="btn btn-primary inline-flex items-center">
-                            <SolidIcon.Trash className="-ml-1 mr-1 h-5 w-5" />
+                            <SolidIcon.DocumentSearch className="-ml-1 mr-1 h-5 w-5" />
                           Periksa
                           </a>
                         </Link>
@@ -146,7 +146,7 @@ const TestScores= ({ user, permissions }) => {
                   <Td className="text-center flex justify-center space-x-2">
                         <Link href={`/`} passHref>
                           <a className="btn btn-primary inline-flex items-center">
-                            <SolidIcon.Trash className="-ml-1 mr-1 h-5 w-5" />
+                            <SolidIcon.DocumentSearch className="-ml-1 mr-1 h-5 w-5" />
                           Periksa
                           </a>
                         </Link>
