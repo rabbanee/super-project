@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import * as SolidIcon from '@elements/icon/Solid';
+import { useRef, useState } from 'react';
+import * as OutlineIcon from '@elements/icon/Outline';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import { User } from '@interface/User';
@@ -7,6 +7,12 @@ import Container from '@elements/container/Index';
 import ContainerBody from '@elements/container/Body';
 import ContainerFooter from '@elements/container/Footer';
 import checkPermissions from '@utils/checkPermissions';
+import * as Button from '@elements/Button';
+import axios from 'axios';
+import ApiSource from '@data/api-source';
+import Cookies from 'js-cookie';
+import cookie from 'cookie-signature';
+
 
 interface EditProfileProps {
   user: User,
@@ -15,23 +21,47 @@ interface EditProfileProps {
 
 const EditProfile = ({ user, permissions }: EditProfileProps) => {
   const [image, setImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const formRef = useRef(null);
 
   const imageHandler = (event: any) => setImage(URL.createObjectURL(event.target.files[0]));
 
-  const editHandler = (e: any) => {
+  const editHandler = async (e: any) => {
     e.preventDefault();
+    setIsLoading(true);
+    // console.log(nameRef);
+    const form = formRef.current
+    // alert(`email: ${form['email_address'].value}; name:${form['name'].value}`)
+    let token = cookie.sign('daffa', process.env.NEXT_PUBLIC_PASSWORD);
+    console.log(token);
+    
+    // let response = null;
+    // const fd = new FormData();
+    // if (image) {
+    //   fd.append('image', image);
+    // }
+    // fd.append('email', form['email_address'].value);
+    // fd.append('name', form['name'].value);
+    // try {
+    //   response = await ApiSource.editProfile({
+    //     ...fd
+    //   });
+    // } catch (error) {
+      
+    // }
+    setIsLoading(false);
   };
 
   return (
    <LayoutWithSidebar title="Edit Profile" user={user} permissions={permissions}>
       {/* <div className="bg-white p-6 md:px-10 rounded-xl shadow-md relative overflow-hidden container mx-auto"> */}
-      <form onSubmit={editHandler}>
+      <form onSubmit={editHandler} ref={formRef}>
         <Container>
           <ContainerBody>
             <div className="grid grid-cols-6 gap-6">
               <div className="col-span-6 sm:col-span-6">
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nama</label>
-                <input id="name" name="name" type="text" autoComplete="name" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Nama" defaultValue={user.name}/>
+                <input id="name" name="name" type="text" autoComplete="name" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Nama" defaultValue={user.name} />
               </div>
 
               <div className="col-span-6 sm:col-span-6">
@@ -67,10 +97,18 @@ const EditProfile = ({ user, permissions }: EditProfileProps) => {
 
             </div>
           </ContainerBody>
-          <ContainerFooter>
-            <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-darkest focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-              Simpan
-            </button>
+          <ContainerFooter className="justify-end flex">
+            <Button.Primary  
+              className={`${isLoading && 'cursor-not-allowed'} group relative flex justify-center`}
+              disabled={isLoading}
+            >
+                {
+                  isLoading && <OutlineIcon.Circle className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" /> 
+                }
+                {
+                  isLoading ? 'Memproses' : 'Ubah'
+                }
+            </Button.Primary>
           </ContainerFooter>
         </Container>
       </form>

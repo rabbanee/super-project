@@ -36,6 +36,9 @@
       "@interface/*": [
         "interface/*"
       ],
+      "@globals/*": [
+        "globals/*"
+      ],
     },
     "lib": [
       "dom",

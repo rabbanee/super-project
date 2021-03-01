@@ -1,5 +1,5 @@
 import ApiSource from "../../data/api-source";
-import { SignatureCookieHelper } from "../../utils/auth/signature-cookie-helper";
+import { CookieSignatureHelper } from "@utils/auth/cookie-signature-helper";
 import cookieSignature from 'cookie-signature';
 import Cookies from 'cookies'
 import { CookieHelper } from "../../utils/auth/cookie-helper";
@@ -19,7 +19,7 @@ export default async function handler(req: any, res: any) {
     return;
   }
   
-  let unsignToken = await SignatureCookieHelper.unsignCookie(cookieSignature, token);
+  let unsignToken = await CookieSignatureHelper.unsignCookie(token);
   
   let response;
   try {

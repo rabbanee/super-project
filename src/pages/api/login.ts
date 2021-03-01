@@ -1,7 +1,7 @@
 import ApiSource from "../../data/api-source";
 import Cookies from 'cookies'
 import { CookieHelper } from "../../utils/auth/cookie-helper";
-import { SignatureCookieHelper } from "../../utils/auth/signature-cookie-helper";
+import { CookieSignatureHelper } from "@utils/auth/cookie-signature-helper";
 import cookieSignature from 'cookie-signature';
 import { User } from "@interface/User";
 
@@ -27,8 +27,8 @@ export default async function handler(req: any, res: any) {
       imageId: data.image_id,
     };
 
-    let userSignature = SignatureCookieHelper.signCookie(cookieSignature, JSON.stringify(user));
-    let tokenSignature =  SignatureCookieHelper.signCookie(cookieSignature, data.token);
+    let userSignature = CookieSignatureHelper.signCookie(JSON.stringify(user));
+    let tokenSignature =  CookieSignatureHelper.signCookie(data.token);
 
     CookieHelper.setTokenCookie(cookies, tokenSignature, data.expires_at);
     CookieHelper.setUserCookie(cookies, userSignature, data.expires_at);

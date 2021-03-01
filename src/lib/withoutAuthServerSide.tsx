@@ -8,7 +8,7 @@ export function withoutAuthServerSideProps(getServerSidePropsFunc?: Function){
       const cookies = new Cookies(context.req, context.res);
       const tokenFromCookie =  cookies.get('token') ?? '';
 
-      const tokenUnsignFromCookie = cookie.unsign(tokenFromCookie, process.env.COOKIE_SIGNATURE_PASSWORD);
+      const tokenUnsignFromCookie = cookie.unsign(tokenFromCookie, process.env.NEXT_PUBLIC_COOKIE_SIGNATURE_PASSWORD);
 
       let user = null;
 

@@ -16,6 +16,7 @@ import ContainerBody from '@elements/container/Body';
 import ContainerFooter from '@elements/container/Footer';
 import checkPermissions from '@utils/checkPermissions';
 import grades from '@data/grades';
+import axios from 'axios';
 
 interface AddUser {
   user: User,
@@ -57,19 +58,24 @@ const AddUser = ({ user, permissions }: AddUser) => {
     }
 
     const role = selectedRole;
+    const grade = selectedGrade;
     // const role = convertRoleNameToRoleNumber(selectedRole);
 
     try {
-      response = await ApiSource.register(name, email, role, password, passwordConfirmation);
+      response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}api/register`, {
+        name, email, password, role, passwordConfirmation, grade
+      });
     } catch (error) {
       dispatch(showAlert({
-        title: 'Terjadi Kesalahan',
-        description: error.response.data.message || 'Mohon coba kembali :)',
+        title:  error.response.data.message || 'Terjadi Kesalahan',
+        description: error.response.data.errors[Object.keys(error.response.data.errors || '')[0]][0] || 'Mohon coba kembali :)',
         type: 'error',
       })); 
       setIsLoading(false);
       return;
     }
+    console.log(response);
+    
     dispatch(showAlert({
       title: 'Berhasil menambahkan pengguna!',
       type: 'success',
@@ -120,7 +126,7 @@ const AddUser = ({ user, permissions }: AddUser) => {
           </ContainerBody>
           <ContainerFooter>
             <Button.Primary  
-              className={`${isLoading && 'cursor-not-allowed'}`}
+              className={`${isLoading && 'cursor-not-allowed'} group relative w-full flex justify-center`}
               disabled={isLoading}
             >
                 {

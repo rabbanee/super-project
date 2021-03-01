@@ -1,6 +1,6 @@
 const defaultOptions = {
   sameSite: 'strict',
-  httpOnly: true,
+  httpOnly: false,
 };
 
 let tomorrow =  new Date();

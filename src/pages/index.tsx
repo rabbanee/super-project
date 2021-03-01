@@ -10,7 +10,7 @@ import Cookies from 'cookies';
 // import ApiSource from "../../data/api-source";
 // import { SignatureCookieHelper } from "../../utils/auth/signature-cookie-helper";
 import cookieSignature from 'cookie-signature';
-import { SignatureCookieHelper } from '@utils/auth/signature-cookie-helper';
+import { CookieSignatureHelper } from '@utils/auth/cookie-signature-helper';
 import ApiSource from '@data/api-source';
 import { CookieHelper } from '@utils/auth/cookie-helper';
 import findPermissionByName from '@utils/findPermissionByName';
@@ -22,10 +22,10 @@ interface HomeProps {
 
 function Home({ user, permissions }: HomeProps) {
 
-  // useEffect(() => {
-  //   console.log(permissions);
+  useEffect(() => {
+    console.log(permissions);
     
-  // }, [permissions]);
+  }, [permissions]);
 
   return (
     <LayoutWithSidebar title="Beranda" user={user} permissions={permissions}>

@@ -2,15 +2,36 @@ import Layout from "@layouts/Layout";
 import { useState } from "react";
 import * as Button from '@elements/Button';
 import * as OutlineIcon from '@elements/icon/Outline';
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { showAlert } from "@actions/index";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState(null);
   const [loading, setLoading] = useState(false);
+  const dispatch: Function = useDispatch();
 
-  const forgotPasswordHandler = (e: any) => {
+  const forgotPasswordHandler = async (e: any) => {
     setLoading(true);
     e.preventDefault();
-    // setLoading(false);
+    // daffarabbanee@gmail.com
+    let response = null;
+    try {
+      response = await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}password/request`, {
+        email
+      });
+    } catch (error) {
+      console.log(error);
+      return
+    }
+
+    dispatch(showAlert({
+      title: response.data.message,
+      type: 'success',
+    }));
+    console.log(response);
+    
+    setLoading(false);
   }
 
   return (

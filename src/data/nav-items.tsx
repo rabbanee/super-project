@@ -4,10 +4,6 @@ import removeDuplicates from '@utils/removeDuplicates';
 import findNavItemsByName from '@utils/findNavItemsByName';
 import findPermissionByName from '@utils/findPermissionByName';
 
-function onlyUnique(value, index, self) {
-  return self.indexOf(value) === index;
-}
-
 const tes = [
   // 'login',
   // 'register',

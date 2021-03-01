@@ -1,7 +1,7 @@
 import ApiSource from "../data/api-source";
 import Cookies from 'cookies'
 import { CookieHelper } from "../utils/auth/cookie-helper";
-import { SignatureCookieHelper } from "../utils/auth/signature-cookie-helper";
+import { CookieSignatureHelper } from "@utils/auth/cookie-signature-helper";
 let cookie = require('cookie-signature');
 
 export function withAuthServerSideProps(getServerSidePropsFunc?: Function){
@@ -11,8 +11,8 @@ export function withAuthServerSideProps(getServerSidePropsFunc?: Function){
       const tokenFromCookie =  cookies.get('token') ?? '';
       const userFromCookie =  cookies.get('user') ?? '';
        
-      const userUnsignFromCookie = SignatureCookieHelper.unsignCookie(cookie, userFromCookie);
-      const tokenUnsignFromCookie = SignatureCookieHelper.unsignCookie(cookie, tokenFromCookie);
+      const userUnsignFromCookie = CookieSignatureHelper.unsignCookie(userFromCookie);
+      const tokenUnsignFromCookie = CookieSignatureHelper.unsignCookie(tokenFromCookie);
       let user = null;
       
       if(!tokenUnsignFromCookie) {
@@ -26,7 +26,7 @@ export function withAuthServerSideProps(getServerSidePropsFunc?: Function){
       if (!userUnsignFromCookie && !user) {
         user = await getUser(tokenUnsignFromCookie);
         // Set a signature cookie
-        let userSignature = SignatureCookieHelper.signCookie(cookie, JSON.stringify(user));
+        let userSignature = CookieSignatureHelper.signCookie(JSON.stringify(user));
         CookieHelper.setUserCookie(cookies, userSignature);
       } 
       
@@ -42,7 +42,7 @@ export function withAuthServerSideProps(getServerSidePropsFunc?: Function){
         user = JSON.parse(userUnsignFromCookie);
       }
 
-      let permissions = await getPermission(tokenUnsignFromCookie);
+      let permissions = await getPermission(tokenUnsignFromCookie, context, cookies);
 
       if(getServerSidePropsFunc){
           return {
@@ -68,12 +68,19 @@ export function withAuthServerSideProps(getServerSidePropsFunc?: Function){
     }
 }
 
-async function getPermission(token: string) {
+async function getPermission(token: string, context, cookies) {
   let response = null;
   try {
     response = await ApiSource.getPermissions(token);
   } catch (error) {
-    console.log('failed to getUser');
+    console.log('failed to getPermissions', error.response.status);
+    if (error.response.status === 401) {
+      CookieHelper.resetCookie(cookies);
+      context.res.writeHead(302, {
+        Location: '/login',
+      });
+      context.res.end();
+    }
     return null;
   }
   return response.data;
