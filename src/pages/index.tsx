@@ -14,6 +14,7 @@ import { CookieSignatureHelper } from '@utils/auth/cookie-signature-helper';
 import ApiSource from '@data/api-source';
 import { CookieHelper } from '@utils/auth/cookie-helper';
 import findPermissionByName from '@utils/findPermissionByName';
+// import Skeleton from 'react-loading-skeleton';
 
 interface HomeProps {
   user: User,
@@ -22,10 +23,13 @@ interface HomeProps {
 
 function Home({ user, permissions }: HomeProps) {
 
+  const getNews = () => {
+    // axios
+  };
+
   useEffect(() => {
-    console.log(permissions);
     
-  }, [permissions]);
+  }, []);
 
   return (
     <LayoutWithSidebar title="Beranda" user={user} permissions={permissions}>

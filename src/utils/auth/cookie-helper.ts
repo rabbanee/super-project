@@ -1,5 +1,5 @@
 const defaultOptions = {
-  sameSite: 'strict',
+  sameSite: '',
   httpOnly: false,
 };
 
@@ -13,6 +13,8 @@ export class CookieHelper {
   }
 
   static setUserCookie(cookie: any, user: string, expires?: string) {
+    console.log(user);
+    
     cookie.set('user', user, {
       ...defaultOptions,
       expires: new Date(expires ?? tomorrow)

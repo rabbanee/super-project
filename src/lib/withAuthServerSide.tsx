@@ -2,6 +2,7 @@ import ApiSource from "../data/api-source";
 import Cookies from 'cookies'
 import { CookieHelper } from "../utils/auth/cookie-helper";
 import { CookieSignatureHelper } from "@utils/auth/cookie-signature-helper";
+import { User } from "@interface/User";
 let cookie = require('cookie-signature');
 
 export function withAuthServerSideProps(getServerSidePropsFunc?: Function){
@@ -27,6 +28,8 @@ export function withAuthServerSideProps(getServerSidePropsFunc?: Function){
         user = await getUser(tokenUnsignFromCookie);
         // Set a signature cookie
         let userSignature = CookieSignatureHelper.signCookie(JSON.stringify(user));
+        console.log(userSignature);
+        
         CookieHelper.setUserCookie(cookies, userSignature);
       } 
       
@@ -73,8 +76,8 @@ async function getPermission(token: string, context, cookies) {
   try {
     response = await ApiSource.getPermissions(token);
   } catch (error) {
-    console.log('failed to getPermissions', error.response.status);
-    if (error.response.status === 401) {
+    console.log('failed to getPermissions', error?.response?.status);
+    if (error?.response?.status === 401) {
       CookieHelper.resetCookie(cookies);
       context.res.writeHead(302, {
         Location: '/login',
@@ -91,8 +94,14 @@ async function getUser(token: string) {
    try {
      result = await ApiSource.getUser(token);
    } catch (error) {
-     console.log('failed to getUser');
+     console.log('failed to getUser', error);
      return null;
    }
-   return result.data;
+    const imageId = result.data.user.image_id;
+    delete result.data.user.image_id;
+    const user: User = {
+      ...result.data.user,
+      imageId,
+    };
+   return user;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Layout from '@layouts/Layout';
 import * as OutlineIcon from '@elements/icon/Outline';
 import * as Button from '@elements/Button';
@@ -13,6 +13,7 @@ const Login: React.FC = () => {
   const [loading, setLoading]  = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const rememberMeRef = useRef();
   const router = useRouter();
   const dispatch: Function = useDispatch();
 
@@ -22,7 +23,7 @@ const Login: React.FC = () => {
     dispatch(closeAlert());
     setLoading(true);
     try {
-      response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}api/login`, { email, password });
+      response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}api/login`, { email, password, remember_me: rememberMeRef.current.checked  });
     } catch (error) {
       console.log(error.response.data);
       const { data } = error.response;
@@ -72,7 +73,7 @@ const Login: React.FC = () => {
 
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <input id="remember_me" name="remember_me" type="checkbox" className="h-4 w-4 text-primary-darkest focus:ring-primary-dark border-gray-300 rounded"/>
+              <input id="remember_me" name="remember_me" type="checkbox" className="h-4 w-4 text-primary-darkest focus:ring-primary-dark border-gray-300 rounded" ref={rememberMeRef}/>
               <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900 dark:text-gray-50">
                 Ingat saya
               </label>

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as OutlineIcon from '@elements/icon/Outline';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
@@ -11,7 +11,13 @@ import * as Button from '@elements/Button';
 import axios from 'axios';
 import ApiSource from '@data/api-source';
 import Cookies from 'js-cookie';
-import cookie from 'cookie-signature';
+import { CookieSignatureHelper } from '@utils/auth/cookie-signature-helper';
+import { CookieHelper } from '@utils/auth/cookie-helper';
+import { showAlert } from '@actions/index';
+import { useDispatch } from "react-redux";
+
+// import { CookieHelper } from '@utils/auth/cookie-helper';
+// import { CookieSignatureHelper } from '@utils/auth/cookie-signature-helper';
 
 
 interface EditProfileProps {
@@ -23,32 +29,57 @@ const EditProfile = ({ user, permissions }: EditProfileProps) => {
   const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const formRef = useRef(null);
-
+  const dispatch: Function = useDispatch();
+  
   const imageHandler = (event: any) => setImage(URL.createObjectURL(event.target.files[0]));
+  
+  useEffect(() => {
+    Cookies.remove('tes');
+  }, []);
 
   const editHandler = async (e: any) => {
+    const fd = new FormData();
     e.preventDefault();
     setIsLoading(true);
     // console.log(nameRef);
     const form = formRef.current
     // alert(`email: ${form['email_address'].value}; name:${form['name'].value}`)
-    let token = cookie.sign('daffa', process.env.NEXT_PUBLIC_PASSWORD);
-    console.log(token);
+    let token;
+    try {
+      token = (await ApiSource.getUnsignToken()).data;
+    } catch (error) {
+      console.log(error);
+    }
     
-    // let response = null;
-    // const fd = new FormData();
-    // if (image) {
-    //   fd.append('image', image);
-    // }
-    // fd.append('email', form['email_address'].value);
-    // fd.append('name', form['name'].value);
-    // try {
-    //   response = await ApiSource.editProfile({
-    //     ...fd
-    //   });
-    // } catch (error) {
-      
-    // }
+    let response = null;
+    if (image) {
+      fd.append('image', form['file-upload'].files[0]);
+    }
+    fd.append('email', form['email_address'].value);
+    fd.append('name', form['name'].value);
+    fd.append('_method', 'put');
+    console.log(form['file-upload'].files[0]);
+    
+    try {
+      response = await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}users`, fd, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      });
+    } catch (error) {
+      console.log(error.response.data);
+    }
+    const imageId = response.data.user.image_id;
+    delete response.data.user.image_id;
+    const user: User = {
+      ...response.data.user,
+      imageId,
+    };
+    Cookies.remove('user');
+    dispatch(showAlert({
+      title: 'Berhasil merubah pengguna!',
+      type: 'success',
+    })); 
     setIsLoading(false);
   };
 

@@ -8,6 +8,9 @@ import * as SolidIcon from '@elements/icon/Solid';
 import * as Button from '@elements/Button';
 import dynamic from "next/dynamic";
 import ContainerFooter from "@elements/container/Footer";
+import grades from "@data/grades";
+import { useState } from "react";
+import ListBox from "@modules/ListBox";
 
 interface AddOrEditAnnouncementProps {
   user: User,
@@ -20,8 +23,15 @@ const Editor = dynamic(
   { ssr: false }
 )
 
+const readers = [
+  ...grades,
+  'Seluruh Pengguna',
+  // 'Wali Siswa',
+];
 
 const AddOrEditAnnouncement = ({ user, announcement, permissions }: AddOrEditAnnouncementProps) => {
+  const [selectedGrade, setSelectedGrade] = useState(readers[0]);
+
   return (
     <LayoutWithSidebar user={user} title="Tambah Berita" permissions={permissions}>
       <Container>
@@ -40,6 +50,10 @@ const AddOrEditAnnouncement = ({ user, announcement, permissions }: AddOrEditAnn
             <div className="col-span-2">
               <label htmlFor="title" className="block text-sm font-medium text-gray-700">Judul Pengumuman</label>
               <input id="title" name="title" type="text" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Judul Berita" />
+            </div>
+            {/* Readers */}
+            <div className="col-span-2">
+              <ListBox items={readers} label="Pembaca" selectedItem={selectedGrade} setSelectedItem={setSelectedGrade}/>
             </div>
             {/* Editor */}
             <div className="col-span-2">

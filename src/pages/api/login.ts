@@ -8,11 +8,12 @@ import { User } from "@interface/User";
 export default async function handler(req: any, res: any) {
   if (req.method === 'POST') {
     const cookies = new Cookies(req, res);
-    const { email, password  } = req.body;
+    const { email, password, remember_me } = req.body;
+    console.log(remember_me);
     
     let response;
      try {
-      response = await ApiSource.login(email, password);
+      response = await ApiSource.login(email, password, remember_me);
     } catch (error) {
       console.log(error.response.data);
       res.status(error.response.status).json(error.response.data);

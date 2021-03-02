@@ -1,27 +1,20 @@
 import axios from "axios";
 
 class ApiSource {
-  static async login(email : string, password : string) {
+  static async login(email : string, password : string, remember_me: string) {
     return await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}login`, {
       email,
-      password
+      password,
+      remember_me,
     });
   }
   
-  static async editProfile({ name, email, image, token }: any) {
-    console.log(token);
-    const fd = new FormData();
-    if (image) {
-      fd.append('image', image);
-    }
-    fd.append('email', email);
-    fd.append('name', name);
-    
-    return await axios.put(`${process.env.NEXT_PUBLIC_API_HOST}users`, fd,
-    {
-      headers:  {'Authorization': `Bearer ${token}`},
-    }
-    );
+  static async editProfile(fd: object, token: any) {
+    return await axios.put(`${process.env.NEXT_PUBLIC_API_HOST}users`, fd, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    });
   }
   
   static async register(name : string, email : string, role: string,  password : string, passwordConfirmation: string, grade: string, token: string) {
@@ -40,7 +33,7 @@ class ApiSource {
   }
 
   static async getUser(token : string) {
-    return await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}user`, { 
+    return await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}user/detail`, { 
       headers: {'Authorization': `Bearer ${token}`}
     });
   }
@@ -56,6 +49,10 @@ class ApiSource {
     return await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}permission`,  { 
       headers: {'Authorization': `Bearer ${token}`}
     });
+  }
+  
+  static async getUnsignToken() {
+    return await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}api/unsign-token`);
   }
 }
 
