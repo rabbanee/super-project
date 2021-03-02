@@ -13,7 +13,7 @@ const Login: React.FC = () => {
   const [loading, setLoading]  = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const rememberMeRef = useRef();
+  const rememberMeRef: any = useRef();
   const router = useRouter();
   const dispatch: Function = useDispatch();
 
@@ -23,7 +23,7 @@ const Login: React.FC = () => {
     dispatch(closeAlert());
     setLoading(true);
     try {
-      response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}api/login`, { email, password, remember_me: rememberMeRef.current.checked  });
+      response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}api/login`, { email, password, remember_me: rememberMeRef?.current?.checked  });
     } catch (error) {
       console.log(error.response.data);
       const { data } = error.response;
