@@ -1,5 +1,5 @@
 const defaultOptions = {
-  sameSite: 'strict',
+  sameSite: '',
   httpOnly: false,
 };
 

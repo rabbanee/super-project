@@ -16,6 +16,46 @@ export const closeAlert = () => {
   }
 }
 
+// export const getUser = async (user) => {
+//   let response;
+//   const tokenFromCookie = Cookies.get('token') ?? '';
+//   return async (dispatch) => {
+//     try {
+//       response = await ApiSource.getUser(tokenFromCookie);
+//     } catch (error) {
+//       CookieHelper.resetCookie(Cookies);
+//       console.log(error);
+//       return null;
+//     }
+//     return response.data;
+//   }
+// };
+
+export const logout = () => {
+  return {
+    type: 'LOGOUT',
+  }
+};
+
+export const setPermissions = (list) => {
+  return {
+    type: 'SET_PERMISSION',
+    list,
+    isValid: true,
+  }
+};
+
+export const setUser = (user) => {
+  console.log(user);
+  return {
+    type: 'SET_USER',
+    user: {
+      ...user,
+      isValid: true,
+    },
+  }
+};
+
 export const login = ({ email, password }) => {
   let response;
   return async (dispatch) => {

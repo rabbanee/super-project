@@ -15,20 +15,27 @@ import * as Button from '@elements/Button';
 import Pagination from '@modules/Pagination';
 import Title from '@elements/Title';
 import InputWithIcon from '@modules/InputWithIcon';
-import checkPermissions from '@utils/checkPermissions';
+import WithAuth from '@lib/WithAuth';
+import { useDispatch, useSelector } from 'react-redux';
+import usePermissions from '@lib/usePermissions';
 
 interface NewsManagementProps {
   user: User,
   permissions: any,
 }
 
-const NewsManagement = ({ user, permissions }: NewsManagementProps) => {
+const NewsManagement = () => {
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
-
+  const checkPermissions = usePermissions({
+    permissionName: 'crud news',
+  });
+  
   return (
     <>
       <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Berita" description="Apakah Anda yakin ingin menghapus berita ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
-      <LayoutWithSidebar title="Pengelolaan Berita" user={user} permissions={permissions}>
+      <LayoutWithSidebar title="Pengelolaan Berita" user={user} permissions={permissions.list}>
         <Container>
           <ContainerBody className="rounded-b-xl">
             <div className="flex items-end flex-col justify-end space-y-2">
@@ -84,18 +91,18 @@ const NewsManagement = ({ user, permissions }: NewsManagementProps) => {
   );
 };
 
-export default NewsManagement;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  checkPermissions({
-    context,
-    permissions,
-    permissionName: 'crud news',
-  });
+export default WithAuth(NewsManagement);
+// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+//   checkPermissions({
+//     context,
+//     permissions,
+//     permissionName: 'crud news',
+//   });
 
-  return {
-    props: {
-      user, 
-      permissions,
-    }
-  };
-});
+//   return {
+//     props: {
+//       user, 
+//       permissions,
+//     }
+//   };
+// });

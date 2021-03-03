@@ -15,20 +15,27 @@ import Td from '@elements/Td';
 import Pagination from '@modules/Pagination';
 import ConfirmationModal from '@modules/ConfirmationModal';
 import InputWithIcon from '@modules/InputWithIcon';
-import checkPermissions from '@utils/checkPermissions';
+import usePermissions from '@lib/usePermissions';
+import { useDispatch, useSelector } from 'react-redux';
+import WithAuth from '@lib/WithAuth';
 
 interface AnnouncementManagementProps {
   user: User,
   permissions: any,
 }
 
-const AnnouncementManagement = ({ user, permissions }: AnnouncementManagementProps) => {
+const AnnouncementManagement = () => {
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
+  const checkPermissions = usePermissions({
+    permissionName: 'crud announcement',
+  });
 
   return (
     <>
       <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Pengumuman" description="Apakah Anda yakin ingin menghapus pengumuman ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
-      <LayoutWithSidebar user={user} title="Pengelolaan Pengumuman" permissions={permissions}>
+      <LayoutWithSidebar user={user} title="Pengelolaan Pengumuman" permissions={permissions.list}>
         <Container>
           <ContainerBody className="rounded-b-xl">
             <div className="flex items-end flex-col justify-end space-y-2">
@@ -84,18 +91,18 @@ const AnnouncementManagement = ({ user, permissions }: AnnouncementManagementPro
   );
 };
 
-export default AnnouncementManagement;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  checkPermissions({
-    context,
-    permissions,
-    permissionName: 'crud announcement',
-  });
+export default WithAuth(AnnouncementManagement);
+// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+//   checkPermissions({
+//     context,
+//     permissions,
+//     permissionName: 'crud announcement',
+//   });
 
-  return {
-    props: {
-      user, 
-      permissions,
-    }
-  };
-});
+//   return {
+//     props: {
+//       user, 
+//       permissions,
+//     }
+//   };
+// });

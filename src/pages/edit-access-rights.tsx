@@ -23,18 +23,26 @@ import Title from '@elements/Title';
 import { roleNames } from '@data/roles';
 import findPermissionByName from '@utils/findPermissionByName';
 import checkPermissions from '@utils/checkPermissions';
-
+import WithAuth from '@lib/WithAuth';
+import usePermissions from '@lib/usePermissions';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface EditAccessRightsProps {
   user: User,
   permissions: any,
 }
 
-const EditAccessRights = ({ user, permissions }: EditAccessRightsProps) => {
+const EditAccessRights = () => {
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
   const [selectedRoleName, setSelectedRoleName] = useState(roleNames[0]);
+  const checkPermissions = usePermissions({
+    permissionName: 'edit permission',
+  });
+
   return (
     <>
-    <LayoutWithSidebar title="Edit Hak Akses" user={user} permissions={permissions}>
+    <LayoutWithSidebar title="Edit Hak Akses" user={user} permissions={permissions.list}>
       <Container>
         <ContainerBody className="rounded-b-xl">
           <div className="flex justify-between mb-2">
@@ -202,17 +210,17 @@ const EditAccessRights = ({ user, permissions }: EditAccessRightsProps) => {
   );
 };
 
-export default EditAccessRights;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  checkPermissions({
-    context,
-    permissions,
-    permissionName: 'edit permission',
-  });
-  return {
-    props: {
-      user, 
-      permissions,
-    }
-  };
-});
+export default WithAuth(EditAccessRights);
+// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+//   checkPermissions({
+//     context,
+//     permissions,
+//     permissionName: 'edit permission',
+//   });
+//   return {
+//     props: {
+//       user, 
+//       permissions,
+//     }
+//   };
+// });

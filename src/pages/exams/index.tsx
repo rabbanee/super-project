@@ -1,24 +1,25 @@
 import { User } from "@interface/User";
-import { withAuthServerSideProps } from "@lib/withAuthServerSide";
 import ExamCRUD from "@templates/exams/ExamCRUD";
 import ExamForStudent from "@templates/exams/Exam";
 import findPermissionByName from "@utils/findPermissionByName";
-import { thisPageFor } from "@utils/thisPageFor";
 import Error from 'next/error'
-
+import WithAuth from '@lib/WithAuth';
+import { useDispatch, useSelector } from 'react-redux';
 interface ExamsProps {
   user: User,
   permissions: any,
 }
 
-const Exams = ({ user, permissions }: ExamsProps) => {
-  if (findPermissionByName(permissions, 'crud exam')) {
+const Exams = () => {
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
+  if (findPermissionByName(permissions.list, 'crud exam')) {
     return (
-      <ExamCRUD user={user} permissions={permissions} />
+      <ExamCRUD user={user} permissions={permissions.list} />
     );
-  } else if (findPermissionByName(permissions, 'exam')) {
+  } else if (findPermissionByName(permissions.list, 'exam')) {
     return (
-      <ExamForStudent user={user}  permissions={permissions}/>
+      <ExamForStudent user={user}  permissions={permissions.list}/>
     );
   } else {
     return (
@@ -27,13 +28,13 @@ const Exams = ({ user, permissions }: ExamsProps) => {
   }
 };
 
-export default Exams;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+export default WithAuth(Exams);
+// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
 
-  return {
-    props: {
-      user, 
-      permissions,
-    }
-  };
-});
+//   return {
+//     props: {
+//       user, 
+//       permissions,
+//     }
+//   };
+// });

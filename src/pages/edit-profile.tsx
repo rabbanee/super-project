@@ -6,54 +6,73 @@ import { User } from '@interface/User';
 import Container from '@elements/container/Index';
 import ContainerBody from '@elements/container/Body';
 import ContainerFooter from '@elements/container/Footer';
-import checkPermissions from '@utils/checkPermissions';
 import * as Button from '@elements/Button';
 import axios from 'axios';
 import ApiSource from '@data/api-source';
 import Cookies from 'js-cookie';
-import cookie from 'cookie-signature';
-
+import usePermissions from '@lib/usePermissions';
+import { useDispatch, useSelector } from 'react-redux';
+import WithAuth from '@lib/WithAuth';
+import { setUser, showAlert } from '@actions/index';
 
 interface EditProfileProps {
   user: User,
   permissions: any,
 }
 
-const EditProfile = ({ user, permissions }: EditProfileProps) => {
+const EditProfile = () => {
   const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const formRef = useRef(null);
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
+  const tokenFromCookie = Cookies.get('token');
+  const checkPermissions = usePermissions({
+    permissionName: 'edit profile',
+  });
+  const dispatch: Function = useDispatch();
 
   const imageHandler = (event: any) => setImage(URL.createObjectURL(event.target.files[0]));
 
   const editHandler = async (e: any) => {
+    const fd = new FormData();
     e.preventDefault();
     setIsLoading(true);
-    // console.log(nameRef);
     const form = formRef.current
-    // alert(`email: ${form['email_address'].value}; name:${form['name'].value}`)
-    let token = cookie.sign('daffa', process.env.NEXT_PUBLIC_PASSWORD);
-    console.log(token);
+    let response = null;
+    if (image) {
+      fd.append('image', form['file-upload'].files[0]);
+    }
+    fd.append('email', form['email_address'].value);
+    fd.append('name', form['name'].value);
+    fd.append('_method', 'put');
+    console.log(form['file-upload'].files[0]);
     
-    // let response = null;
-    // const fd = new FormData();
-    // if (image) {
-    //   fd.append('image', image);
-    // }
-    // fd.append('email', form['email_address'].value);
-    // fd.append('name', form['name'].value);
-    // try {
-    //   response = await ApiSource.editProfile({
-    //     ...fd
-    //   });
-    // } catch (error) {
-      
-    // }
+    try {
+      response = await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}users`, fd, {
+        headers: {
+          'Authorization': `Bearer ${tokenFromCookie}`,
+        }
+      });
+    } catch (error) {
+      console.log(error.response.data);
+    }
+    const imageId = response.data.user.image_id;
+    delete response.data.user.image_id;
+    const user: User = {
+      ...response.data.user,
+      imageId,
+    };
+    dispatch(setUser(user))
+    dispatch(showAlert({
+      title: 'Berhasil merubah pengguna!',
+      type: 'success',
+    })); 
     setIsLoading(false);
   };
 
   return (
-   <LayoutWithSidebar title="Edit Profile" user={user} permissions={permissions}>
+   <LayoutWithSidebar title="Edit Profile" user={user} permissions={permissions.list}>
       {/* <div className="bg-white p-6 md:px-10 rounded-xl shadow-md relative overflow-hidden container mx-auto"> */}
       <form onSubmit={editHandler} ref={formRef}>
         <Container>
@@ -117,18 +136,18 @@ const EditProfile = ({ user, permissions }: EditProfileProps) => {
   );
 };
 
-export default EditProfile;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any) {
-  checkPermissions({
-    context,
-    permissions,
-    permissionName: 'edit profile',
-  });
+export default WithAuth(EditProfile);
+// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any) {
+//   checkPermissions({
+//     context,
+//     permissions,
+//     permissionName: 'edit profile',
+//   });
 
-  return {
-    props: {
-      user, 
-      permissions,
-    }
-  };
-});
+//   return {
+//     props: {
+//       user, 
+//       permissions,
+//     }
+//   };
+// });

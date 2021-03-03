@@ -13,7 +13,9 @@ import ContainerFooter from '@elements/container/Footer';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import { thisPageFor } from '@utils/thisPageFor';
 import AddOrEditAnnouncement from '@templates/announcement/AddOrEditAnnouncement';
-import checkPermissions from '@utils/checkPermissions';
+import { useDispatch, useSelector } from 'react-redux';
+import WithAuth from '@lib/WithAuth';
+import usePermissions from '@lib/usePermissions';
 
 interface AddAnnoncementProps {
   user: User,
@@ -21,24 +23,29 @@ interface AddAnnoncementProps {
 }
 
 
-const AddAnnoncement = ({ user, permissions }: AddAnnoncementProps) => {
+const AddAnnoncement = () => {
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
+  const checkPermissions = usePermissions({
+    permissionName: 'crud announcement',
+  });
   return (
-    <AddOrEditAnnouncement user={user} permissions={permissions} />
+    <AddOrEditAnnouncement user={user} permissions={permissions.list} />
   );
 };
 
-export default AddAnnoncement;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  checkPermissions({
-    context,
-    permissions,
-    permissionName: 'crud announcement',
-  });
+export default WithAuth(AddAnnoncement);
+// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+//   checkPermissions({
+//     context,
+//     permissions,
+//     permissionName: 'crud announcement',
+//   });
   
-  return {
-    props: {
-      user, 
-      permissions,
-    }
-  };
-});
+//   return {
+//     props: {
+//       user, 
+//       permissions,
+//     }
+//   };
+// });

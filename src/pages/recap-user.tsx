@@ -16,18 +16,26 @@ import { thisPageFor } from "@utils/thisPageFor";
 import Container from "@elements/container/Index";
 import ContainerBody from "@elements/container/Body";
 import checkPermissions from "@utils/checkPermissions";
+import WithAuth from "@lib/WithAuth";
+import usePermissions from "@lib/usePermissions";
+import { useDispatch, useSelector } from 'react-redux';
 
 interface RecapUserProps {
   user: User,
   permissions: any,
 }
 
-const RecapUser = ({ user, permissions }: RecapUserProps) => {
+const RecapUser = () => {
   const [activeRecapType, setActiveRecapType] = useState(0);
   const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
+  const checkPermissions = usePermissions({
+    permissionName: 'recap user',
+  });
 
   return (
-    <LayoutWithSidebar user={user} title="Rekap Pengguna" permissions={permissions}>
+    <LayoutWithSidebar user={user} title="Rekap Pengguna" permissions={permissions.list}>
       <Container>
         <ContainerBody className="rounded-b-xl">
           <h2 className="text-3xl font-bold	text-black mb-2">{ recapTypes[activeRecapType] }</h2>
@@ -79,18 +87,18 @@ const RecapUser = ({ user, permissions }: RecapUserProps) => {
   );
 };
 
-export default RecapUser;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  checkPermissions({
-    context,
-    permissions,
-    permissionName: 'recap user',
-  });
+export default WithAuth(RecapUser);
+// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+//   checkPermissions({
+//     context,
+//     permissions,
+//     permissionName: 'recap user',
+//   });
 
-  return {
-    props: {
-      user, 
-      permissions,
-    }
-  };
-});
+//   return {
+//     props: {
+//       user, 
+//       permissions,
+//     }
+//   };
+// });

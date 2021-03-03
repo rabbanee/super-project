@@ -17,19 +17,22 @@ import grades from '@data/grades';
 import attitudes from '@data/attitudes';
 import * as OutlineIcon from '@elements/icon/Outline';
 import Title from '@elements/Title';
+import WithAuth from '@lib/WithAuth';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface AttitudeAssessmentProps {
   user: User,
   permissions: any,
 }
 
-const AttitudeAssessment = ({ user, permissions }: AttitudeAssessmentProps) => {
+const AttitudeAssessment = () => {
   const [selectedGrade, setSelectedGrade] = useState(grades[0]);
   const [selectedSubject, setSelectedSubject] = useState(attitudes[0]);
-
+const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
   return (
     <>
-      <LayoutWithSidebar user={user} title="Penilaian Sikap" permissions={permissions}>
+      <LayoutWithSidebar user={user} title="Penilaian Sikap" permissions={permissions.list}>
         <Container>
           <ContainerBody className="rounded-b-xl">
             <div className="flex justify-between mb-2">
@@ -133,12 +136,12 @@ const AttitudeAssessment = ({ user, permissions }: AttitudeAssessmentProps) => {
   );
 };
 
-export default AttitudeAssessment;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-    return {
-      props: {
-        user, 
-        permissions,
-      }
-    };
-  });
+export default WithAuth(AttitudeAssessment);
+// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+//     return {
+//       props: {
+//         user, 
+//         permissions,
+//       }
+//     };
+//   });

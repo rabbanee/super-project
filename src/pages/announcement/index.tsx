@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { User } from '@interface/User';
 import * as Button from '@elements/Button';
@@ -11,13 +10,12 @@ import grades from '@data/grades';
 import ModalBody from '@elements/ModalBody';
 import ModalFooter from '@elements/ModalFooter';
 import Title from '@elements/Title';
-import { isAdmin } from '@utils/roles/isAdmin';
-import { isHeadmaster } from '@utils/roles/isHeadmaster';
-import { isTeacher } from '@utils/roles/isTeacher';
 import Link from 'next/link';
 import * as SolidIcon from '@elements/icon/Solid';
 import findPermissionByName from '@utils/findPermissionByName';
-import checkPermissions from '@utils/checkPermissions';
+import usePermissions from '@lib/usePermissions';
+import { useDispatch, useSelector } from 'react-redux';
+import WithAuth from '@lib/WithAuth';
 
 interface AnnouncementProps {
   user: User,
@@ -29,28 +27,26 @@ const Editor = dynamic(
   { ssr: false }
 )
 
-function Announcement({ user, permissions }: AnnouncementProps) {
+function Announcement() {
   const [isModalShow, setIsModalShow] = useState(false);
   const [date, setDate] = useState(new Date());
   const [selectedSubject, setSelectedSubject] = useState(dummySubjects[0]);
   const [selectedGrade, setSelectedGrade] = useState(grades[0]);
-
-
-  useEffect(() => {
-    console.log(permissions);
-    console.log('hai');
-    
-  }, []);
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
+  const checkPermissions = usePermissions({
+    permissionName: 'view announcement',
+  });
 
   const announcementHandler = (e) => {
     e.preventDefault();
   }
 
   return (
-    <LayoutWithSidebar title="Pengumuman" user={user} permissions={permissions}>
+    <LayoutWithSidebar title="Pengumuman" user={user} permissions={permissions.list}>
       <div className="flex justify-between items-start">
         <Title className="mb-2">Pengumuman</Title>
-        { findPermissionByName(permissions, 'crud announcement')  &&
+        { findPermissionByName(permissions.list, 'crud announcement')  &&
           <Link href={`/announcement/management`}>
             <a className="btn btn-primary inline-flex items-center">
               <SolidIcon.Adjustments className="-ml-1 mr-1 h-5 w-5" />
@@ -120,18 +116,18 @@ function Announcement({ user, permissions }: AnnouncementProps) {
   );
 }
 
-export default Announcement;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any) {
-  checkPermissions({
-    context,
-    permissions,
-    permissionName: 'view announcement',
-  });
+export default WithAuth(Announcement);
+// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any) {
+//   checkPermissions({
+//     context,
+//     permissions,
+//     permissionName: 'view announcement',
+//   });
 
-  return {
-    props: {
-      user,
-      permissions,
-    }
-  };
-});
+//   return {
+//     props: {
+//       user,
+//       permissions,
+//     }
+//   };
+// });

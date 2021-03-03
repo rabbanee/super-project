@@ -1,4 +1,5 @@
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
+import WithAuth from '@lib/WithAuth';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { User } from '@interface/User';
 import NewsCard from '@modules/NewsCard';
@@ -14,21 +15,23 @@ import { CookieSignatureHelper } from '@utils/auth/cookie-signature-helper';
 import ApiSource from '@data/api-source';
 import { CookieHelper } from '@utils/auth/cookie-helper';
 import findPermissionByName from '@utils/findPermissionByName';
+import { useDispatch, useSelector } from 'react-redux';
+import Error from 'next/error';
 
 interface HomeProps {
   user: User,
   permissions: any,
 }
 
-function Home({ user, permissions }: HomeProps) {
-
+function Home() {
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
   useEffect(() => {
-    console.log(permissions);
+    // console.log(permissions);
     
-  }, [permissions]);
-
+  }, [user, permissions]);
   return (
-    <LayoutWithSidebar title="Beranda" user={user} permissions={permissions}>
+    <LayoutWithSidebar title="Beranda" user={user} permissions={permissions.list}>
       <div className="bg-white dark:bg-gray-700 p-6 md:px-7 rounded-xl shadow-md relative overflow-hidden container mx-auto">
         <div className="z-10 relative">
           <h2 className="text-5xl font-bold	text-black mb-2 dark:text-gray-100">Halo, {user.name}</h2>
@@ -37,7 +40,7 @@ function Home({ user, permissions }: HomeProps) {
         <div className="bg-hola bg-left w-80 h-52 bg-cover opacity-75 bg-no-repeat absolute top-0 right-0 md:w-96 md:h-56" aria-label="hola image"></div>
       </div>
       {
-        findPermissionByName(permissions, 'view announcement') && (
+        findPermissionByName(permissions.list, 'view announcement') && (
           <Container className="mt-5">
             <ContainerBody className="rounded-b-xl">
               <h2 className="text-4xl font-bold	text-black mb-2 dark:text-gray-100">Pengumuman</h2>
@@ -71,7 +74,7 @@ function Home({ user, permissions }: HomeProps) {
         ) 
       }
       {
-        findPermissionByName(permissions, 'view news') && (
+        findPermissionByName(permissions.list, 'view news') && (
           <Container className="mt-5">
             <ContainerBody className="rounded-b-xl">
               <h2 className="text-4xl font-bold	text-black mb-2 dark:text-gray-100">Berita</h2>
@@ -84,16 +87,7 @@ function Home({ user, permissions }: HomeProps) {
         ) 
       }
     </LayoutWithSidebar>
-  );
+  )
 }
 
-export default Home;
-export const getServerSideProps = withAuthServerSideProps(async function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-
-  return {
-    props: {
-      user,
-      permissions, 
-    }
-  };
-});
+export default WithAuth(Home);

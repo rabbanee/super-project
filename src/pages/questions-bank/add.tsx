@@ -15,6 +15,8 @@ import * as Button from '@elements/Button';
 import ContainerFooter from '@elements/container/Footer';
 import Link from 'next/link';
 import * as OutlineIcon from '@elements/icon/Outline';
+import WithAuth from '@lib/WithAuth';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface AddQuestionsProps {
   user: User,
@@ -26,18 +28,20 @@ const Editor = dynamic(
   { ssr: false }
 )
 
-const AddQuestions = ({ user, permissions }: AddQuestionsProps) => {
+const AddQuestions = () => {
   const [selectedTypeOfQuestion, setSelectedTypeOfQuestion] = useState(typeOfQuestions[0]);
   const [selectedCorrectAnswer, setSelectedCorrectAnswer] = useState(options[0]);
   const [selectedGrade, setSelectedGrade] = useState(grades[0]);
   const [selectedSubject, setSelectedSubject] = useState(dummySubjects[0]);
-
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
+  
   useEffect(() => {
     
   }, [selectedTypeOfQuestion]);
 
   return (
-    <LayoutWithSidebar user={user} title="Tambah Soal" permissions={permissions}>
+    <LayoutWithSidebar user={user} title="Tambah Soal" permissions={permissions.list}>
       <Container>
         <form>
           <ContainerBody>
@@ -115,17 +119,17 @@ const AddQuestions = ({ user, permissions }: AddQuestionsProps) => {
   );
 };
 
-export default AddQuestions;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  // thisPageFor({
-  //   context,
-  //   currentRole: user.role,
-  //   forRoles: [3],
-  // });
-  return {
-    props: {
-      user, 
-      permissions,
-    }
-  };
-});
+export default WithAuth(AddQuestions);
+// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+//   // thisPageFor({
+//   //   context,
+//   //   currentRole: user.role,
+//   //   forRoles: [3],
+//   // });
+//   return {
+//     props: {
+//       user, 
+//       permissions,
+//     }
+//   };
+// });

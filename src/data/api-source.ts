@@ -40,7 +40,7 @@ class ApiSource {
   }
 
   static async getUser(token : string) {
-    return await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}user`, { 
+    return await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}user/detail`, { 
       headers: {'Authorization': `Bearer ${token}`}
     });
   }

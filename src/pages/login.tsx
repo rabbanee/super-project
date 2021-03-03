@@ -7,7 +7,12 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { closeAlert, showAlert } from '@actions/index';
+import { closeAlert, setUser, showAlert } from '@actions/index';
+import WithoutAuth from '@lib/WithoutAuth';
+import ApiSource from '@data/api-source';
+import { User } from '@interface/User';
+import { CookieHelper } from '@utils/auth/cookie-helper';
+import Cookies from 'js-cookie';
 
 const Login: React.FC = () => {
   const [loading, setLoading]  = useState(false);
@@ -22,7 +27,7 @@ const Login: React.FC = () => {
     dispatch(closeAlert());
     setLoading(true);
     try {
-      response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}api/login`, { email, password });
+      response = await ApiSource.login(email, password);
     } catch (error) {
       console.log(error.response.data);
       const { data } = error.response;
@@ -44,6 +49,15 @@ const Login: React.FC = () => {
       setLoading(false);
       return;
     }
+    let data = response.data.user_data;
+    const user: User = {
+      name:  data.name,
+      email:  data.email,
+      role:  data.role,
+      imageId: data.image_id,
+    };
+    dispatch(setUser(user));
+    CookieHelper.setTokenCookie(Cookies, data.token, data.expires_at);
     router.replace('/');
     setLoading(false);
   }
@@ -106,5 +120,5 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
-export const getServerSideProps = withoutAuthServerSideProps();
+export default WithoutAuth(Login);
+// export const getServerSideProps = withoutAuthServerSideProps();

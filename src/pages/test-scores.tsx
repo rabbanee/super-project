@@ -25,7 +25,8 @@ import { DatePicker } from '@modules/Datepicker';
 import dynamic from 'next/dynamic'
 import ContainerFooter from '@elements/container/Footer';
 import * as OutlineIcon from '@elements/icon/Outline';
-
+import WithAuth from '@lib/WithAuth';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface TestScoresProps {
   user: User,
@@ -33,7 +34,7 @@ interface TestScoresProps {
   permissions: any,
 }
 
-const TestScores= ({ user, permissions }) => {
+const TestScores= () => {
   const [selectedShowEntry, setSelectedShowEntry] = useState(showEntries[0]);
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState(() => dummySubjects[0]);
@@ -44,10 +45,12 @@ const TestScores= ({ user, permissions }) => {
   const [selectedGrade, setSelectedGrade] = useState(grades[0]);
   const [endDate, setEndDate] = useState(new Date());
   const [startDate, setStartDate] = useState(new Date());
+const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
 
   return (
     <>
-      <LayoutWithSidebar user={user} title="Nilai Ujian" permissions={permissions}>
+      <LayoutWithSidebar user={user} title="Nilai Ujian" permissions={permissions.list}>
         <Container>
           <ContainerBody className="rounded-b-xl">
           <div className="flex justify-between items-baseline">
@@ -209,12 +212,12 @@ const TestScores= ({ user, permissions }) => {
   );
 };
 
-export default TestScores;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-    return {
-      props: {
-        user, 
-        permissions,
-      }
-    };
-  });
+export default WithAuth(TestScores);
+// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+//     return {
+//       props: {
+//         user, 
+//         permissions,
+//       }
+//     };
+//   });
