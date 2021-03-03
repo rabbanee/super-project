@@ -34,3 +34,4 @@ yarn-error.log*
 .vercel
 
 super-project.zip
+out.zip
