@@ -19,6 +19,7 @@ import dummySubjects from '@data/dummies/subjects';
 import dummyChapters from '@data/dummies/chapters';
 import ConfirmationModal from '@modules/ConfirmationModal';
 import { thisPageFor } from '@utils/thisPageFor';
+import checkPermissions from '@utils/checkPermissions';
 
 
 interface ChapterProps {
@@ -126,11 +127,11 @@ const Chapters = ({ user, permissions }: ChapterProps) => {
 
 export default Chapters;
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  // thisPageFor({
-  //   context,
-  //   currentRole: user.role,
-  //   forRoles: [3]
-  // });
+  checkPermissions({
+    context,
+    permissions,
+    permissionName: 'crud chapter',
+  });
   return {
     props: {
       user, 

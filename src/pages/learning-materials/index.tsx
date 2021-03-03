@@ -16,6 +16,7 @@ import * as Button from '@elements/Button';
 import Link from 'next/link';
 import learningMaterials from '@data/learning-materials';
 import ConfirmationModal from '@modules/ConfirmationModal';
+import checkPermissions from '@utils/checkPermissions';
 
 interface LearningMaterialsProps {
   user: User,
@@ -102,6 +103,11 @@ const LearningMaterials = ({ user, permissions }: LearningMaterialsProps) => {
 
 export default LearningMaterials;
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+  checkPermissions({
+    context,
+    permissions,
+    permissionName: 'crud learning materials',
+  });
   return {
     props: {
       user, 

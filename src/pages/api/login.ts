@@ -33,7 +33,7 @@ export default async function handler(req: any, res: any) {
 
     CookieHelper.setTokenCookie(cookies, tokenSignature, data.expires_at);
     CookieHelper.setUserCookie(cookies, userSignature, data.expires_at);
-    
+    console.log(response);
     res.status(response.status).json(response.data);
   } else {
     res.status(404).send('');

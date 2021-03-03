@@ -15,6 +15,7 @@ import * as Button from '@elements/Button';
 import ContainerFooter from '@elements/container/Footer';
 import Link from 'next/link';
 import * as OutlineIcon from '@elements/icon/Outline';
+import checkPermissions from '@utils/checkPermissions';
 
 interface AddQuestionsProps {
   user: User,
@@ -117,11 +118,11 @@ const AddQuestions = ({ user, permissions }: AddQuestionsProps) => {
 
 export default AddQuestions;
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  // thisPageFor({
-  //   context,
-  //   currentRole: user.role,
-  //   forRoles: [3],
-  // });
+  checkPermissions({
+    context,
+    permissions,
+    permissionName: 'crud question bank',
+  });
   return {
     props: {
       user, 

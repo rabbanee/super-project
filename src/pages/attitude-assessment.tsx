@@ -17,6 +17,7 @@ import grades from '@data/grades';
 import attitudes from '@data/attitudes';
 import * as OutlineIcon from '@elements/icon/Outline';
 import Title from '@elements/Title';
+import checkPermissions from '@utils/checkPermissions';
 
 interface AttitudeAssessmentProps {
   user: User,
@@ -135,10 +136,15 @@ const AttitudeAssessment = ({ user, permissions }: AttitudeAssessmentProps) => {
 
 export default AttitudeAssessment;
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-    return {
-      props: {
-        user, 
-        permissions,
-      }
-    };
+  checkPermissions({
+    context,
+    permissions,
+    permissionName: 'crud attitude assessment',
   });
+  return {
+    props: {
+      user, 
+      permissions,
+    }
+  };
+});

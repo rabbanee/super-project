@@ -41,9 +41,35 @@ const EditProfile = ({ user, permissions }: EditProfileProps) => {
     const fd = new FormData();
     e.preventDefault();
     setIsLoading(true);
-    // console.log(nameRef);
-    const form = formRef.current
-    // alert(`email: ${form['email_address'].value}; name:${form['name'].value}`)
+    const form = formRef.current;
+    const password = (form['password'].value).trim();
+    const passwordConfirmation = (form['password-confirmation'].value).trim();
+
+    if (password !== passwordConfirmation) {
+      dispatch(showAlert({
+        title: 'Kata sandi harus sama dengan konfirmasi kata sandi',
+        type: 'error',
+      }));
+
+      setIsLoading(false);
+      return;
+    }
+
+    
+    if (password.length < 8 && password.length !== 0) {
+      dispatch(showAlert({
+        title: 'Kata sandi minimal 8 karakter',
+        type: 'error',
+      }));     
+      setIsLoading(false);
+      return;
+    }
+
+    if (password.length >= 8) {
+      fd.append('password', password);
+      fd.append('password_confirmation', passwordConfirmation);  
+    }
+
     let token;
     try {
       token = (await ApiSource.getUnsignToken()).data;
@@ -69,15 +95,9 @@ const EditProfile = ({ user, permissions }: EditProfileProps) => {
     } catch (error) {
       console.log(error.response.data);
     }
-    const imageId = response.data.user.image_id;
-    delete response.data.user.image_id;
-    const user: User = {
-      ...response.data.user,
-      imageId,
-    };
     Cookies.remove('user');
     dispatch(showAlert({
-      title: 'Berhasil merubah pengguna!',
+      title: 'Berhasil mengubah pengguna!',
       type: 'success',
     })); 
     setIsLoading(false);
@@ -100,6 +120,16 @@ const EditProfile = ({ user, permissions }: EditProfileProps) => {
                 <input type="email" name="email_address" id="email_address" autoComplete="email" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Email" defaultValue={user.email} />
               </div>
               
+               <div className="col-span-6 sm:col-span-6">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">Kata Sandi</label>
+                <input type="password" name="password" id="password" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Kata Sandi" />
+              </div>
+              
+              <div className="col-span-6 sm:col-span-6">
+                <label htmlFor="password-confirmation" className="block text-sm font-medium text-gray-700">Konfirmasi Kata Sandi</label>
+                <input type="password" name="password-confirmation" id="password-confirmation" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Konfirmasi Kata Sandi" />
+              </div>
+
               <div className="col-span-6 sm:col-span-6">
                 <label className="block text-sm font-medium text-gray-700">
                   Foto

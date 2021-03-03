@@ -80,8 +80,9 @@ function Home({ user, permissions }: HomeProps) {
             <ContainerBody className="rounded-b-xl">
               <h2 className="text-4xl font-bold	text-black mb-2 dark:text-gray-100">Berita</h2>
               <NewsContainer>
-                <NewsCard date="29 May 2020" title="Pentingnya Liburan" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet pulvinar tellus. Aliquam diam lectus, vehicula a ultrices vel, aliquam nec orci. Nulla dignissim rhoncus turpis nec malesuada. Praesent euismod pulvinar mi, at mollis purus suscipit et. Nunc facilisis vulputate purus quis placerat. Fusce maximus, ex nec gravida pharetra, tellus leo dignissim tellus, eu dapibus lorem felis vitae tortor. Integer et molestie elit." />
-                <NewsCard date="29 May 2020" title="Pentingnya Liburan" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet pulvinar tellus. Aliquam diam lectus, vehicula a ultrices vel, aliquam nec orci. Nulla dignissim rhoncus turpis nec malesuada. Praesent euismod pulvinar mi, at mollis purus suscipit et. Nunc facilisis vulputate purus quis placerat. Fusce maximus, ex nec gravida pharetra, tellus leo dignissim tellus, eu dapibus lorem felis vitae tortor. Integer et molestie elit." />
+                <NewsCard  />
+                {/* <NewsCard date="29 May 2020" title="Pentingnya Liburan" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet pulvinar tellus. Aliquam diam lectus, vehicula a ultrices vel, aliquam nec orci. Nulla dignissim rhoncus turpis nec malesuada. Praesent euismod pulvinar mi, at mollis purus suscipit et. Nunc facilisis vulputate purus quis placerat. Fusce maximus, ex nec gravida pharetra, tellus leo dignissim tellus, eu dapibus lorem felis vitae tortor. Integer et molestie elit." />
+                <NewsCard date="29 May 2020" title="Pentingnya Liburan" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet pulvinar tellus. Aliquam diam lectus, vehicula a ultrices vel, aliquam nec orci. Nulla dignissim rhoncus turpis nec malesuada. Praesent euismod pulvinar mi, at mollis purus suscipit et. Nunc facilisis vulputate purus quis placerat. Fusce maximus, ex nec gravida pharetra, tellus leo dignissim tellus, eu dapibus lorem felis vitae tortor. Integer et molestie elit." /> */}
               </NewsContainer>
             </ContainerBody>
           </Container>
@@ -93,10 +94,6 @@ function Home({ user, permissions }: HomeProps) {
 
 export default Home;
 export const getServerSideProps = withAuthServerSideProps(async function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-
-  console.log(permissions);
-  
-
   return {
     props: {
       user,

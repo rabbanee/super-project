@@ -25,6 +25,7 @@ import { DatePicker } from '@modules/Datepicker';
 import dynamic from 'next/dynamic'
 import ContainerFooter from '@elements/container/Footer';
 import * as OutlineIcon from '@elements/icon/Outline';
+import checkPermissions from '@utils/checkPermissions';
 
 
 interface TestScoresProps {
@@ -144,16 +145,16 @@ const TestScores= ({ user, permissions }) => {
                   <Td className="text-center">Pak Deddy</Td>
                   <Td className="text-center">05/01/2020 07:00</Td>
                   <Td className="text-center flex justify-center space-x-2">
-                        <Link href={`/`} passHref>
-                          <a className="btn btn-primary inline-flex items-center">
-                            <SolidIcon.DocumentSearch className="-ml-1 mr-1 h-5 w-5" />
-                          Periksa
-                          </a>
-                        </Link>
-                        <Button.Danger onClick={() => setIsConfirmationModalShow(true)} type="button" className="inline-flex items-center">
-                          <SolidIcon.Pencil className="-ml-1 mr-1 h-5 w-5" /> 
-                          Update
-                        </Button.Danger>
+                    <Link href={`/`} passHref>
+                      <a className="btn btn-primary inline-flex items-center">
+                        <SolidIcon.DocumentSearch className="-ml-1 mr-1 h-5 w-5" />
+                      Periksa
+                      </a>
+                    </Link>
+                    <Button.Danger onClick={() => setIsConfirmationModalShow(true)} type="button" className="inline-flex items-center">
+                      <SolidIcon.Pencil className="-ml-1 mr-1 h-5 w-5" /> 
+                      Update
+                    </Button.Danger>
                   </Td>
                 </tr>
               </tbody>
@@ -211,10 +212,15 @@ const TestScores= ({ user, permissions }) => {
 
 export default TestScores;
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-    return {
-      props: {
-        user, 
-        permissions,
-      }
-    };
+  checkPermissions({
+    context,
+    permissions,
+    permissionName: 'crud score',
   });
+  return {
+    props: {
+      user, 
+      permissions,
+    }
+  };
+});

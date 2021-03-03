@@ -1,6 +1,7 @@
 import learningMaterials from '@data/learning-materials';
 import { User } from '@interface/User';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
+import checkPermissions from '@utils/checkPermissions';
 import AddOrUpdateLearningMaterials from 'components/templates/learning-materials/AddOrUpdate';
 import { useRouter } from 'next/router';
 
@@ -19,6 +20,11 @@ function UpdateLearningMaterials({ user, permissions }: UpdateLearningMaterialsP
 
 export default UpdateLearningMaterials;
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+  checkPermissions({
+    context,
+    permissions,
+    permissionName: 'crud learning materials',
+  });
   return {
     props: {
       user, 

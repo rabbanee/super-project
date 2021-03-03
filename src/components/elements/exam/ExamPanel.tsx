@@ -1,4 +1,3 @@
-import * as Button from '@elements/Button';
 import * as OutlineIcon from '@elements/icon/Outline';
 import convertMinutesToMilliseconds from '@utils/convertMinutesToMilliseconds';
 import { useEffect } from 'react';

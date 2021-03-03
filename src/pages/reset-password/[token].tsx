@@ -121,8 +121,6 @@ export async function getServerSideProps(context: any) {
       notFound: true
     }
   }
-
-  
   
   if (!response.data.error) {
     return {

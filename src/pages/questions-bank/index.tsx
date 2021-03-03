@@ -13,6 +13,7 @@ import * as Button from '@elements/Button';
 import ConfirmationModal from '@modules/ConfirmationModal';
 import { useState } from 'react';
 import { thisPageFor } from '@utils/thisPageFor';
+import checkPermissions from '@utils/checkPermissions';
 
 interface QuestionsBankProps {
   user: User;
@@ -91,11 +92,11 @@ const QuestionsBank = ({ user, permissions }: QuestionsBankProps) => {
 
 export default QuestionsBank;
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  // thisPageFor({
-  //   context,
-  //   currentRole: user.role,
-  //   forRoles: [3],
-  // });
+  checkPermissions({
+    context,
+    permissions,
+    permissionName: 'crud question bank',
+  });
   return {
     props: {
       user, 

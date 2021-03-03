@@ -1,5 +1,6 @@
 import { User } from '@interface/User';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
+import checkPermissions from '@utils/checkPermissions';
 import AddOrUpdateLearningMaterials from 'components/templates/learning-materials/AddOrUpdate';
 
 interface AddLearningMaterialsProps {
@@ -15,6 +16,11 @@ function AddLearningMaterials({ user, permissions }: AddLearningMaterialsProps) 
 
 export default AddLearningMaterials;
 export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
+  checkPermissions({
+    context,
+    permissions,
+    permissionName: 'crud learning materials',
+  });
   return {
     props: {
       user, 
