@@ -90,9 +90,6 @@ function Home({ user, permissions }: HomeProps) {
 export default Home;
 export const getServerSideProps = withAuthServerSideProps(async function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
 
-  console.log(permissions);
-  
-
   return {
     props: {
       user,
