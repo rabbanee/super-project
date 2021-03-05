@@ -60,7 +60,7 @@ const LearningMaterials = () => {
                     Bab
                   </Th>
                   <Th className="text-center">
-                    Materi
+                    Judul Materi
                   </Th>
                   <Th className="text-center">
                     Di-update pada

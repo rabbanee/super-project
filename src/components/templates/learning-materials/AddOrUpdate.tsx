@@ -16,6 +16,8 @@ import Container from '@elements/container/Index';
 import ContainerFooter from '@elements/container/Footer';
 import learningMaterials from '@data/learning-materials';
 import LearningMaterial from '@interface/LearningMaterial';
+import grades from '@data/grades';
+import dynamic from 'next/dynamic';
 
 interface AddOrUpdateLearningMaterialsProps {
   user: User,
@@ -24,9 +26,15 @@ interface AddOrUpdateLearningMaterialsProps {
   permissions: any,
 }
 
+const Editor = dynamic(
+  () => import('@modules/Editor'),
+  { ssr: false }
+);
+
 function AddOrUpdateLearningMaterials({ user, title, learningMaterial, permissions }: AddOrUpdateLearningMaterialsProps) {   
   const [selectedSubject, setSelectedSubject] = useState(() => learningMaterial?.subject ?? dummySubjects[0]);
   const [selectedChapter, setSelectedChapter] = useState(() => learningMaterial?.chapter ??dummyChapters[0]);
+  const [selectedGrade, setSelectedGrade] = useState(() => learningMaterial?.chapter ?? grades[0]);
   const [isLoading, setIsLoading] = useState(false);
   const [isModalShow, setIsModalShow] = useState(false);
   const chapterNameRef = useRef();
@@ -56,14 +64,21 @@ function AddOrUpdateLearningMaterials({ user, title, learningMaterial, permissio
             </div>
             <div className="grid grid-cols-6 gap-4 mt-2">
               <div className="col-span-6 sm:col-span-6">
-                <label htmlFor="order_of_the_material" className="block text-sm font-medium text-gray-700">Urutan Materi</label>
-                <input id="order_of_the_material" name="order_of_the_material" type="text" autoComplete="order_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Urutan Materi" defaultValue={learningMaterial?.order ?? ''}/>
+                <label htmlFor="title_of_the_material" className="block text-sm font-medium text-gray-700">Judul Materi</label>
+                <input id="title_of_the_material" name="title_of_the_material" type="text" autoComplete="title_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Judul Materi" defaultValue={learningMaterial?.order ?? ''}/>
+              </div>
+              <div className="col-span-6 sm:col-span-6">
+                <ListBox items={grades} label="Kelas" selectedItem={selectedGrade} setSelectedItem={setSelectedGrade}/>
               </div>
               <div className="col-span-6 sm:col-span-6">
                 <ListBox items={dummySubjects} label="Mata Pelajaran" selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/>
               </div>
               <div className="col-span-6 sm:col-span-6">
                 <ListBox items={dummyChapters} label="Bab" selectedItem={selectedChapter} setSelectedItem={setSelectedChapter}/>
+              </div>
+              <div className="col-span-6 sm:col-span-6">
+                <label htmlFor="title_of_the_material" className="block text-sm font-medium text-gray-700">Konten</label>
+                <Editor />
               </div>
             </div>
           </ContainerBody>

@@ -22,8 +22,9 @@ interface QuestionsBankProps {
 
 const QuestionsBank = () => {
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
-const user = useSelector(state => state.user);
+  const user = useSelector(state => state.user);
   const permissions = useSelector(state => state.permissions);
+  
   return (
     <>
       <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Soal" description="Apakah Anda yakin ingin menghapus Soal ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
