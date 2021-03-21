@@ -12,21 +12,28 @@ import Td from '@elements/Td';
 import * as Button from '@elements/Button';
 import ConfirmationModal from '@modules/ConfirmationModal';
 import { useState } from 'react';
+<<<<<<< HEAD
 import { thisPageFor } from '@utils/thisPageFor';
 import checkPermissions from '@utils/checkPermissions';
+=======
+import WithAuth from '@lib/WithAuth';
+import { useDispatch, useSelector } from 'react-redux';
+>>>>>>> ssg
 
 interface QuestionsBankProps {
   user: User;
   permissions: any;
 }
 
-const QuestionsBank = ({ user, permissions }: QuestionsBankProps) => {
+const QuestionsBank = () => {
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
-
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
+  
   return (
     <>
       <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Soal" description="Apakah Anda yakin ingin menghapus Soal ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
-      <LayoutWithSidebar user={user} title="Bank Soal" permissions={permissions}>
+      <LayoutWithSidebar user={user} title="Bank Soal" permissions={permissions.list}>
         <Container>
           <ContainerBody className="rounded-b-xl">
             <div className="flex justify-between items-start">
@@ -90,17 +97,4 @@ const QuestionsBank = ({ user, permissions }: QuestionsBankProps) => {
   );
 };
 
-export default QuestionsBank;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  checkPermissions({
-    context,
-    permissions,
-    permissionName: 'crud question bank',
-  });
-  return {
-    props: {
-      user, 
-      permissions,
-    }
-  };
-});
+export default WithAuth(QuestionsBank, 'crud question bank');

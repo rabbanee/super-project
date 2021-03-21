@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 class MyUploadAdapter {
   loader: any;
   xhr: any;
@@ -25,12 +27,14 @@ class MyUploadAdapter {
   // Initializes the XMLHttpRequest object using the URL passed to the constructor.
   _initRequest() {
     const xhr = this.xhr = new XMLHttpRequest();
+    const token = Cookies.get('token');
 
     // Note that your request may look different. It is up to you and your editor
     // integration to choose the right communication channel. This example uses
     // a POST request with JSON as a data structure but your configuration
     // could be different.
-    xhr.open( 'POST', `${process.env.NEXT_PUBLIC_BASE_URL}api/upload`, true );
+    xhr.open( 'POST', `${process.env.NEXT_PUBLIC_API_HOST}images`, true );
+    xhr.setRequestHeader("Authorization", `Bearer ${token}`);
     xhr.responseType = 'json';
   }
 
@@ -38,7 +42,7 @@ class MyUploadAdapter {
   _initListeners( resolve, reject, file ) {
     const xhr = this.xhr;
     const loader = this.loader;
-    const genericErrorText = `Couldn't upload file: ${file.name}.`;
+    const genericErrorText = `Tidak dapat mengunggah berkas: ${file.name}.`;
 
     xhr.addEventListener('error', () => reject(genericErrorText));
     xhr.addEventListener('abort', () => reject() );
@@ -60,7 +64,7 @@ class MyUploadAdapter {
       // This URL will be used to display the image in the content. Learn more in the
       // UploadAdapter#upload documentation.
       resolve({
-        default: response.url
+        default: `${process.env.NEXT_PUBLIC_API_HOST}images/${response.image_id}`
       });
     });
 
@@ -82,7 +86,11 @@ class MyUploadAdapter {
     // Prepare the form data.
     const data = new FormData();
 
+<<<<<<< HEAD
     data.append('upload', file );
+=======
+    data.append('image', file);
+>>>>>>> ssg
 
     // Important note: This is the right place to implement security mechanisms
     // like authentication and CSRF protection. For instance, you can use

@@ -14,23 +14,23 @@ const ForgotPassword = () => {
   const forgotPasswordHandler = async (e: any) => {
     setLoading(true);
     e.preventDefault();
-    // daffarabbanee@gmail.com
     let response = null;
     try {
       response = await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}password/request`, {
         email
       });
     } catch (error) {
-      console.log(error);
-      return
+      dispatch(showAlert({
+        title: error.response.data.message || 'Terjadi Kesalahan',
+        type: 'error',
+      }));
+      setLoading(false);
+      return;
     }
-
     dispatch(showAlert({
       title: response.data.message,
       type: 'success',
     }));
-    console.log(response);
-    
     setLoading(false);
   }
 

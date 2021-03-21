@@ -15,8 +15,8 @@ import * as Button from '@elements/Button';
 import ContainerFooter from '@elements/container/Footer';
 import Link from 'next/link';
 import * as OutlineIcon from '@elements/icon/Outline';
-import checkPermissions from '@utils/checkPermissions';
-
+import WithAuth from '@lib/WithAuth';
+import { useDispatch, useSelector } from 'react-redux';
 interface AddQuestionsProps {
   user: User,
   permissions: any,
@@ -27,14 +27,16 @@ const Editor = dynamic(
   { ssr: false }
 )
 
-const UpdateQuestions = ({ user, permissions }: AddQuestionsProps) => {
+const UpdateQuestions = () => {
   const [selectedTypeOfQuestion, setSelectedTypeOfQuestion] = useState(typeOfQuestions[0]);
   const [selectedCorrectAnswer, setSelectedCorrectAnswer] = useState(options[0]);
   const [selectedGrade, setSelectedGrade] = useState(grades[0]);
   const [selectedSubject, setSelectedSubject] = useState(dummySubjects[0]);
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
 
   return (
-    <LayoutWithSidebar user={user} title="Tambah Soal" permissions={permissions}>
+    <LayoutWithSidebar user={user} title="Tambah Soal" permissions={permissions.list}>
       <Container>
         <form>
           <ContainerBody>
@@ -112,17 +114,4 @@ const UpdateQuestions = ({ user, permissions }: AddQuestionsProps) => {
   );
 };
 
-export default UpdateQuestions;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  checkPermissions({
-    context,
-    permissions,
-    permissionName: 'crud question bank',
-  });
-  return {
-    props: {
-      user, 
-      permissions,
-    }
-  };
-});
+export default WithAuth(UpdateQuestions, 'crud question bank');

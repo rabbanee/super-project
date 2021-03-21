@@ -6,6 +6,10 @@ import axios, { AxiosResponse } from 'axios';
 import Router from 'next/router';
 import Link from 'next/link';
 import List from '@modules/List';
+import ApiSource from '@data/api-source';
+import Cookies from 'js-cookie';
+import { useDispatch } from 'react-redux';
+import { logout } from '@actions/index';
 
 const Mobile = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -86,6 +90,30 @@ const Mobile = (props: any) => {
 };
 
 const _Sidebar  = (user: any, permissions: any, className?: string) => {
+  const dispatch: Function = useDispatch();
+  
+  const logoutHandler = async (e: any) => {
+    e.preventDefault();
+    let response: AxiosResponse<any>;
+    const tokenFromCookie = Cookies.get('token');
+    try {
+      response = await ApiSource.logout(tokenFromCookie);
+    } catch (error) {
+      Cookies.remove('token');
+      if (error.response.status === 401) {
+        Router.replace('/login');
+      }
+      console.error(error);
+      return;
+    }
+    if (!response.data.error) {
+      dispatch(logout());
+      Cookies.remove('token');
+      Router.replace('/login');
+    }
+  };
+
+
  return (
     <aside className={`h-full flex flex-col py-6 dark:bg-primary-darkest dark:border-primary-darkest shadow-md overflow-y-scrol w-full ${className && className}`}>
       <div className="flex items-start px-5 space-x-4">
@@ -94,11 +122,11 @@ const _Sidebar  = (user: any, permissions: any, className?: string) => {
           <h2 className="text-2xl font-bold dark:text-gray-100">{ user.name  }</h2>
           <div className="flex space-x-2">
             <Link href="/edit-profile">
-              <a className="bg-yellow-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-yellow-300">
+              <a className="bg-yellow-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-yellow-300" title="Edit">
                 <SolidIcon.PencilAlt className="h-5" />
               </a>
             </Link>
-            <button className="bg-red-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-red-300" onClick={logoutHandler}>
+            <button className="bg-red-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-red-300" title="Keluar" onClick={logoutHandler}>
               <SolidIcon.Logout className="h-5" />
             </button>
           </div>
@@ -122,26 +150,6 @@ const Desktop = (props: any) => {
   return (
    _Sidebar(user, permissions, className)
   );
-};
-
-const logoutHandler = async (e: any) => {
-  e.preventDefault();
-  let response: AxiosResponse<any>;
-  try {
-    response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}api/logout`);
-  } catch (error) {
-    if (error.response.status === 401) {
-      Router.replace('/login');
-    }
-    console.error(error);
-    return;
-  }
-
-  if (!response.data.error) {
-    Router.replace('/login');
-  }
-
-  console.log(response);
 };
 
 export { Desktop, Mobile  };

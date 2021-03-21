@@ -61,8 +61,8 @@ const ResetPassword = ({ user }) => {
       title: 'Berhasil mereset kata sandi',
       type: 'success',
     }));     
+    await router.replace('/');
     setIsLoading(false);
-    router.replace('/');
   }
 
   return (
@@ -79,12 +79,12 @@ const ResetPassword = ({ user }) => {
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label className="sr-only">Password</label>
-              <input id="password" name="password"  type="password" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Password"/>
+              <input id="password" name="password"  type="password" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Password"/>
             </div>
            <span>
             <div>
               <label  className="sr-only">Konfirmasi Password</label>
-              <input id="password_confirmation" name="password_confirmation" type="password"  required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Konfirmasi Password"/>
+              <input id="password_confirmation" name="password_confirmation" type="password"  required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Konfirmasi Password"/>
             </div>
            </span>
           </div>
@@ -121,6 +121,8 @@ export async function getServerSideProps(context: any) {
       notFound: true
     }
   }
+
+  
   
   if (!response.data.error) {
     return {

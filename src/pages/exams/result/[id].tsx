@@ -5,17 +5,19 @@ import Td from "@elements/Td";
 import Th from "@elements/Th";
 import { User } from "@interface/User";
 import LayoutWithSidebar from "@layouts/LayoutWithSidebar";
-import { withAuthServerSideProps } from "@lib/withAuthServerSide";
-
+import WithAuth from '@lib/WithAuth';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface ExamResultProps {
   user: User,
   permissions: any,
 }
 
-const ExamResult = ({ user, permissions }: ExamResultProps) => {
+const ExamResult = () => {
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
   return (
-    <LayoutWithSidebar title="Hasil Ujian" user={user}  permissions={permissions}>
+    <LayoutWithSidebar title="Hasil Ujian" user={user}  permissions={permissions.list}>
       <Container>
         <ContainerBody className="rounded-b-xl">
           <div className="mb-4">
@@ -167,13 +169,4 @@ const ExamResult = ({ user, permissions }: ExamResultProps) => {
   );
 };
 
-export default ExamResult;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  
-  return {
-    props: {
-      user, 
-      permissions,
-    }
-  };
-});
+export default WithAuth(ExamResult);

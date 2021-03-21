@@ -8,24 +8,27 @@ import NewsContainer from '@elements/container/News';
 import * as Button from '@elements/Button';
 import * as SolidIcon from '@elements/icon/Solid';
 import Link from 'next/link';
-import { isAdmin } from '@utils/roles/isAdmin';
 import Title from '@elements/Title';
 import findPermissionByName from '@utils/findPermissionByName';
-import checkPermissions from '@utils/checkPermissions';
-
+import usePermissions from '@lib/usePermissions';
+import { useDispatch, useSelector } from 'react-redux';
+import WithAuth from '@lib/WithAuth';
 interface NewsProps { 
   user: User,
   permissions: any,
 }
 
-function News({ user, permissions }: NewsProps) {
+function News() {
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
+
   return (
-    <LayoutWithSidebar title="Berita" user={user} permissions={permissions}>
+    <LayoutWithSidebar title="Berita" user={user} permissions={permissions.list}>
       <Container>
         <ContainerBody className="rounded-b-xl">
           <div className="flex justify-between items-start">
             <Title className=" mb-2">Berita</Title>
-            { findPermissionByName(permissions, 'crud news') &&
+            { findPermissionByName(permissions.list, 'crud news') &&
               <Link href={`/news/management`}>
                 <a className="btn btn-primary inline-flex items-center">
                   <SolidIcon.Adjustments className="-ml-1 mr-1 h-5 w-5" />
@@ -43,17 +46,4 @@ function News({ user, permissions }: NewsProps) {
   );
 }
 
-export default News;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  checkPermissions({
-    context,
-    permissions,
-    permissionName: 'view news',
-  });
-  return {
-    props: {
-      user, 
-      permissions, 
-    }
-  };
-});
+export default WithAuth(News, 'view news');

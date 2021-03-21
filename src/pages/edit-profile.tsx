@@ -6,31 +6,30 @@ import { User } from '@interface/User';
 import Container from '@elements/container/Index';
 import ContainerBody from '@elements/container/Body';
 import ContainerFooter from '@elements/container/Footer';
-import checkPermissions from '@utils/checkPermissions';
 import * as Button from '@elements/Button';
 import axios from 'axios';
 import ApiSource from '@data/api-source';
 import Cookies from 'js-cookie';
-import { CookieSignatureHelper } from '@utils/auth/cookie-signature-helper';
-import { CookieHelper } from '@utils/auth/cookie-helper';
-import { showAlert } from '@actions/index';
-import { useDispatch } from "react-redux";
-
-// import { CookieHelper } from '@utils/auth/cookie-helper';
-// import { CookieSignatureHelper } from '@utils/auth/cookie-signature-helper';
-
+import usePermissions from '@lib/usePermissions';
+import { useDispatch, useSelector } from 'react-redux';
+import WithAuth from '@lib/WithAuth';
+import { setUser, showAlert } from '@actions/index';
 
 interface EditProfileProps {
   user: User,
   permissions: any,
 }
 
-const EditProfile = ({ user, permissions }: EditProfileProps) => {
+const EditProfile = () => {
   const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const formRef = useRef(null);
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
+  const tokenFromCookie = Cookies.get('token');
   const dispatch: Function = useDispatch();
-  
+
+
   const imageHandler = (event: any) => setImage(URL.createObjectURL(event.target.files[0]));
   
   useEffect(() => {
@@ -41,42 +40,7 @@ const EditProfile = ({ user, permissions }: EditProfileProps) => {
     const fd = new FormData();
     e.preventDefault();
     setIsLoading(true);
-    const form = formRef.current;
-    const password = (form['password'].value).trim();
-    const passwordConfirmation = (form['password-confirmation'].value).trim();
-
-    if (password !== passwordConfirmation) {
-      dispatch(showAlert({
-        title: 'Kata sandi harus sama dengan konfirmasi kata sandi',
-        type: 'error',
-      }));
-
-      setIsLoading(false);
-      return;
-    }
-
-    
-    if (password.length < 8 && password.length !== 0) {
-      dispatch(showAlert({
-        title: 'Kata sandi minimal 8 karakter',
-        type: 'error',
-      }));     
-      setIsLoading(false);
-      return;
-    }
-
-    if (password.length >= 8) {
-      fd.append('password', password);
-      fd.append('password_confirmation', passwordConfirmation);  
-    }
-
-    let token;
-    try {
-      token = (await ApiSource.getUnsignToken()).data;
-    } catch (error) {
-      console.log(error);
-    }
-    
+    const form = formRef.current
     let response = null;
     if (image) {
       fd.append('image', form['file-upload'].files[0]);
@@ -89,22 +53,28 @@ const EditProfile = ({ user, permissions }: EditProfileProps) => {
     try {
       response = await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}users`, fd, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${tokenFromCookie}`,
         }
       });
     } catch (error) {
       console.log(error.response.data);
     }
-    Cookies.remove('user');
+    const imageId = response.data.user.image_id;
+    delete response.data.user.image_id;
+    const user: User = {
+      ...response.data.user,
+      imageId,
+    };
+    dispatch(setUser(user))
     dispatch(showAlert({
-      title: 'Berhasil mengubah pengguna!',
+      title: 'Berhasil merubah pengguna!',
       type: 'success',
     })); 
     setIsLoading(false);
   };
 
   return (
-   <LayoutWithSidebar title="Edit Profile" user={user} permissions={permissions}>
+   <LayoutWithSidebar title="Edit Profile" user={user} permissions={permissions.list}>
       {/* <div className="bg-white p-6 md:px-10 rounded-xl shadow-md relative overflow-hidden container mx-auto"> */}
       <form onSubmit={editHandler} ref={formRef}>
         <Container>
@@ -178,18 +148,4 @@ const EditProfile = ({ user, permissions }: EditProfileProps) => {
   );
 };
 
-export default EditProfile;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any) {
-  checkPermissions({
-    context,
-    permissions,
-    permissionName: 'edit profile',
-  });
-
-  return {
-    props: {
-      user, 
-      permissions,
-    }
-  };
-});
+export default WithAuth(EditProfile, 'edit profile');

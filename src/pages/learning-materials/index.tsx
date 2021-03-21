@@ -16,20 +16,23 @@ import * as Button from '@elements/Button';
 import Link from 'next/link';
 import learningMaterials from '@data/learning-materials';
 import ConfirmationModal from '@modules/ConfirmationModal';
-import checkPermissions from '@utils/checkPermissions';
+import WithAuth from '@lib/WithAuth';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface LearningMaterialsProps {
   user: User,
   permissions: any,
 }
 
-const LearningMaterials = ({ user, permissions }: LearningMaterialsProps) => {
+const LearningMaterials = () => {
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
 
   return (
     <>
       <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Materi Pembelajaran" description="Apakah Anda yakin ingin menghapus materi pembelajaran ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
-      <LayoutWithSidebar title="Materi Pembelajaran" user={user} permissions={permissions}>
+      <LayoutWithSidebar title="Materi Pembelajaran" user={user} permissions={permissions.list}>
         <Container>
           <ContainerBody className="rounded-b-xl space-y-2">
             <div className="flex justify-between items-baseline flex-wrap">
@@ -57,7 +60,7 @@ const LearningMaterials = ({ user, permissions }: LearningMaterialsProps) => {
                     Bab
                   </Th>
                   <Th className="text-center">
-                    Materi
+                    Judul Materi
                   </Th>
                   <Th className="text-center">
                     Di-update pada
@@ -101,17 +104,4 @@ const LearningMaterials = ({ user, permissions }: LearningMaterialsProps) => {
   );
 };
 
-export default LearningMaterials;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  checkPermissions({
-    context,
-    permissions,
-    permissionName: 'crud learning materials',
-  });
-  return {
-    props: {
-      user, 
-      permissions,
-    }
-  };
-});
+export default WithAuth(LearningMaterials, 'crud learning materials');

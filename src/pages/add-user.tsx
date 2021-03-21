@@ -1,29 +1,29 @@
-import { useState } from 'react';
-import ApiSource from '@data/api-source';
+import { useEffect, useState } from 'react';
 import * as OutlineIcon from '@elements/icon/Outline';
 import * as Button from '@elements/Button';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
-import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import { roleNames } from '@data/roles';
-import { convertRoleNameToRoleNumber } from '@utils/roles/convertRoleNameToRoleNumber';
 import ListBox from '@modules/ListBox';
-import { useDispatch } from "react-redux";
 import { closeAlert, showAlert } from 'redux/actions';
-import { thisPageFor } from '@utils/thisPageFor';
 import { User } from '@interface/User';
 import Container from '@elements/container/Index';
 import ContainerBody from '@elements/container/Body';
 import ContainerFooter from '@elements/container/Footer';
-import checkPermissions from '@utils/checkPermissions';
 import grades from '@data/grades';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import usePermissions from '@lib/usePermissions';
+import ApiSource from '@data/api-source';
+import Cookies from 'js-cookie';
+import WithAuth from '@lib/WithAuth';
 
 interface AddUser {
   user: User,
   permissions: any,
 }
 
-const AddUser = ({ user, permissions }: AddUser) => {
+const AddUser = () => {
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [selectedRole, setSelectedRole] = useState(roleNames[0]);
@@ -31,12 +31,15 @@ const AddUser = ({ user, permissions }: AddUser) => {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const tokenFromCookie = Cookies.get('token');
   const dispatch: Function = useDispatch();
 
   const handleRegister = async (e) => {
+    e.preventDefault();
     let response;
     e.preventDefault();
     setIsLoading(true);
+
     dispatch(closeAlert());
     if (password !== passwordConfirmation) {
       dispatch(showAlert({
@@ -59,14 +62,11 @@ const AddUser = ({ user, permissions }: AddUser) => {
 
     const role = selectedRole;
     const grade = selectedGrade;
-    // const role = convertRoleNameToRoleNumber(selectedRole);
 
-    try {
-      response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}api/register`, {
-        name, email, password, role, passwordConfirmation, grade
-      });
+     try {
+      response = await ApiSource.register(name, email, role, password, passwordConfirmation, grade, tokenFromCookie);
     } catch (error) {
-      dispatch(showAlert({
+       dispatch(showAlert({
         title:  error.response.data.message || 'Terjadi Kesalahan',
         description: error.response.data.errors[Object.keys(error.response.data.errors || '')[0]][0] || 'Mohon coba kembali :)',
         type: 'error',
@@ -74,7 +74,6 @@ const AddUser = ({ user, permissions }: AddUser) => {
       setIsLoading(false);
       return;
     }
-    console.log(response);
     
     dispatch(showAlert({
       title: 'Berhasil menambahkan pengguna!',
@@ -85,7 +84,7 @@ const AddUser = ({ user, permissions }: AddUser) => {
   };
 
   return (
-    <LayoutWithSidebar title="Tambahkan Pengguna" user={user} permissions={permissions}>
+    <LayoutWithSidebar title="Tambahkan Pengguna" user={user} permissions={permissions.list}>
       <form onSubmit={handleRegister}>
         <Container>
           <ContainerBody>
@@ -143,19 +142,4 @@ const AddUser = ({ user, permissions }: AddUser) => {
   )
 };
 
-export default AddUser;
-
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  checkPermissions({
-    context,
-    permissions,
-    permissionName: 'register'
-  });
-
-  return {
-    props: {
-      user,
-      permissions, 
-    },
-  };
-});
+export default WithAuth(AddUser, 'register');

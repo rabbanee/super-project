@@ -1,34 +1,23 @@
 import learningMaterials from '@data/learning-materials';
 import { User } from '@interface/User';
-import { withAuthServerSideProps } from '@lib/withAuthServerSide';
-import checkPermissions from '@utils/checkPermissions';
 import AddOrUpdateLearningMaterials from 'components/templates/learning-materials/AddOrUpdate';
 import { useRouter } from 'next/router';
+import WithAuth from '@lib/WithAuth';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface UpdateLearningMaterialsProps {
   user: User,
   permissions: any,
 }
 
-function UpdateLearningMaterials({ user, permissions }: UpdateLearningMaterialsProps) {
+function UpdateLearningMaterials() {
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
   const router = useRouter();
   const { id } = router.query;
   return(
-    <AddOrUpdateLearningMaterials permissions={permissions} title="Ubah Materi Pembelajaran" user={user} learningMaterial={learningMaterials.find((learningMaterial) => learningMaterial.id === Number(id))}/>
+    <AddOrUpdateLearningMaterials permissions={permissions.list} title="Ubah Materi Pembelajaran" user={user} learningMaterial={learningMaterials.find((learningMaterial) => learningMaterial.id === Number(id))}/>
   );
 };
 
-export default UpdateLearningMaterials;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  checkPermissions({
-    context,
-    permissions,
-    permissionName: 'crud learning materials',
-  });
-  return {
-    props: {
-      user, 
-      permissions,
-    }
-  };
-});
+export default WithAuth(UpdateLearningMaterials, 'crud learning materials');

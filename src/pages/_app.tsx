@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import '../styles/main.css';
+import '../styles/ck-content.css';
 import { Provider } from 'react-redux';
 import { useStore } from '../redux/store';
 import Alerts from '@modules/Alerts';

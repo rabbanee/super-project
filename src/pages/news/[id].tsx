@@ -1,16 +1,18 @@
 import { User } from '@interface/User';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
-import { withAuthServerSideProps } from '@lib/withAuthServerSide';
-import checkPermissions from '@utils/checkPermissions';
+import WithAuth from '@lib/WithAuth';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface ReadNewsProps {
   user: User,
   permissions: any,
 }
 
-function ReadNews({ user, permissions }: ReadNewsProps) {
+function ReadNews() {
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
   return (
-    <LayoutWithSidebar title="Berita" user={user} permissions={permissions}>
+    <LayoutWithSidebar title="Berita" user={user} permissions={permissions.list}>
       <div className="bg-white p-6 md:px-7 rounded-xl shadow-md relative overflow-hidden container mx-auto">
         <h2 className="text-4xl font-bold	text-black mb-2">Definition of Cooperative Learning Type Jigsaw </h2>
         <div className="date-excerpt single skwp-news-meta">
@@ -21,20 +23,7 @@ function ReadNews({ user, permissions }: ReadNewsProps) {
       </div>
     </LayoutWithSidebar>  
     );
-  };
+};
 
-  
-  export default ReadNews;
-  export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-    checkPermissions({
-      context,
-      permissions,
-      permissionName: 'view news',
-    });
-    return {
-      props: {
-        user, 
-        permissions,
-      }
-    };
-  });
+
+export default WithAuth(ReadNews, 'view news');

@@ -33,4 +33,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+<<<<<<< HEAD
 super-project.zip
+=======
+super-project.zip
+out.zip
+>>>>>>> ssg

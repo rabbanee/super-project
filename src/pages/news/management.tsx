@@ -5,9 +5,7 @@ import Td from '@elements/Td';
 import Th from '@elements/Th';
 import { User } from '@interface/User';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
-import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import ConfirmationModal from '@modules/ConfirmationModal';
-import { thisPageFor } from '@utils/thisPageFor';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import * as SolidIcon from '@elements/icon/Solid';
@@ -15,20 +13,23 @@ import * as Button from '@elements/Button';
 import Pagination from '@modules/Pagination';
 import Title from '@elements/Title';
 import InputWithIcon from '@modules/InputWithIcon';
-import checkPermissions from '@utils/checkPermissions';
+import WithAuth from '@lib/WithAuth';
+import { useSelector } from 'react-redux';
 
 interface NewsManagementProps {
   user: User,
   permissions: any,
 }
 
-const NewsManagement = ({ user, permissions }: NewsManagementProps) => {
+const NewsManagement = () => {
+  const user = useSelector(state => state.user);
+  const permissions = useSelector(state => state.permissions);
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
-
+  
   return (
     <>
       <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Berita" description="Apakah Anda yakin ingin menghapus berita ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
-      <LayoutWithSidebar title="Pengelolaan Berita" user={user} permissions={permissions}>
+      <LayoutWithSidebar title="Pengelolaan Berita" user={user} permissions={permissions.list}>
         <Container>
           <ContainerBody className="rounded-b-xl">
             <div className="flex items-end flex-col justify-end space-y-2">
@@ -84,18 +85,4 @@ const NewsManagement = ({ user, permissions }: NewsManagementProps) => {
   );
 };
 
-export default NewsManagement;
-export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  checkPermissions({
-    context,
-    permissions,
-    permissionName: 'crud news',
-  });
-
-  return {
-    props: {
-      user, 
-      permissions,
-    }
-  };
-});
+export default WithAuth(NewsManagement, 'crud news');
