@@ -27,10 +27,8 @@ const EditProfile = () => {
   const user = useSelector(state => state.user);
   const permissions = useSelector(state => state.permissions);
   const tokenFromCookie = Cookies.get('token');
-  const checkPermissions = usePermissions({
-    permissionName: 'edit profile',
-  });
   const dispatch: Function = useDispatch();
+
 
   const imageHandler = (event: any) => setImage(URL.createObjectURL(event.target.files[0]));
 
@@ -136,18 +134,4 @@ const EditProfile = () => {
   );
 };
 
-export default WithAuth(EditProfile);
-// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any) {
-//   checkPermissions({
-//     context,
-//     permissions,
-//     permissionName: 'edit profile',
-//   });
-
-//   return {
-//     props: {
-//       user, 
-//       permissions,
-//     }
-//   };
-// });
+export default WithAuth(EditProfile, 'edit profile');

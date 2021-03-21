@@ -5,9 +5,7 @@ import Td from '@elements/Td';
 import Th from '@elements/Th';
 import { User } from '@interface/User';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
-import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import ConfirmationModal from '@modules/ConfirmationModal';
-import { thisPageFor } from '@utils/thisPageFor';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import * as SolidIcon from '@elements/icon/Solid';
@@ -16,8 +14,7 @@ import Pagination from '@modules/Pagination';
 import Title from '@elements/Title';
 import InputWithIcon from '@modules/InputWithIcon';
 import WithAuth from '@lib/WithAuth';
-import { useDispatch, useSelector } from 'react-redux';
-import usePermissions from '@lib/usePermissions';
+import { useSelector } from 'react-redux';
 
 interface NewsManagementProps {
   user: User,
@@ -28,9 +25,6 @@ const NewsManagement = () => {
   const user = useSelector(state => state.user);
   const permissions = useSelector(state => state.permissions);
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
-  const checkPermissions = usePermissions({
-    permissionName: 'crud news',
-  });
   
   return (
     <>
@@ -91,18 +85,4 @@ const NewsManagement = () => {
   );
 };
 
-export default WithAuth(NewsManagement);
-// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-//   checkPermissions({
-//     context,
-//     permissions,
-//     permissionName: 'crud news',
-//   });
-
-//   return {
-//     props: {
-//       user, 
-//       permissions,
-//     }
-//   };
-// });
+export default WithAuth(NewsManagement, 'crud news');

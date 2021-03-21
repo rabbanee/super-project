@@ -33,10 +33,6 @@ const AddUser = () => {
   const [isLoading, setIsLoading] = useState(false);
   const tokenFromCookie = Cookies.get('token');
   const dispatch: Function = useDispatch();
-  const checkPermissions = usePermissions({
-    permissionName: 'register',
-  });
-
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -86,8 +82,6 @@ const AddUser = () => {
     
     setIsLoading(false);
   };
-
-
 
   return (
     <LayoutWithSidebar title="Tambahkan Pengguna" user={user} permissions={permissions.list}>
@@ -148,4 +142,4 @@ const AddUser = () => {
   )
 };
 
-export default WithAuth(AddUser);
+export default WithAuth(AddUser, 'register');

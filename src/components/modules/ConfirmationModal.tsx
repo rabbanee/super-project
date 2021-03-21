@@ -2,7 +2,7 @@ import Modal from "@elements/Modal";
 import ModalBody from "@elements/ModalBody";
 import ModalFooter from "@elements/ModalFooter";
 import * as Button from '@elements/Button';
-import { ReactNode } from "react";
+import { MouseEventHandler, ReactNode, useState } from "react";
 import * as OutlineIcon from '@elements/icon/Outline';
 
 interface ConfirmationModalProps {
@@ -11,9 +11,18 @@ interface ConfirmationModalProps {
   title: string,
   description: string,
   confirmText: string,
+  onConfirm?: MouseEventHandler<HTMLButtonElement>,
 }
 
-const ConfirmationModal = ({ isShow, setIsShow, title, description, confirmText }: ConfirmationModalProps) => {
+const ConfirmationModal = ({ isShow, setIsShow, title, description, confirmText, onConfirm }: ConfirmationModalProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onConfirmButtonClick = async (e) => {
+    setIsLoading(true);
+    await onConfirm(e);
+    setIsLoading(false);
+  }
+
   return (
     <Modal isShow={isShow} setIsShow={setIsShow}>
       <ModalBody className="sm:px-6 sm:flex sm:items-start">
@@ -32,8 +41,16 @@ const ConfirmationModal = ({ isShow, setIsShow, title, description, confirmText 
         </div>
       </ModalBody>
       <ModalFooter className="sm:px-6">
-        <Button.Danger className="w-full inline-flex justify-center shadow-sm text-base font-medium sm:ml-3 sm:w-auto sm:text-sm">
-          { confirmText }
+        <Button.Danger  
+          className={`${isLoading && 'cursor-not-allowed'} w-full inline-flex justify-center shadow-sm text-base font-medium sm:ml-3 sm:w-auto sm:text-sm`}
+          disabled={isLoading}
+          type="button" 
+          onClick={onConfirmButtonClick}
+          >
+            {
+              isLoading && <OutlineIcon.Circle className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"  /> 
+            }
+            { !isLoading ? confirmText : 'Memproses' }
         </Button.Danger>
         <Button.Secondary type="button" className="mt-3 w-full inline-flex justify-center shadow-sm text-base font-medium sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => setIsShow(false)}>
           Batal

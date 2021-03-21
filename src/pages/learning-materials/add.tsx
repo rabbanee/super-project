@@ -16,12 +16,4 @@ function AddLearningMaterials() {
   );
 };
 
-export default WithAuth(AddLearningMaterials);
-// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-//   return {
-//     props: {
-//       user, 
-//       permissions,
-//     }
-//   };
-// });
+export default WithAuth(AddLearningMaterials, 'crud learning materials');

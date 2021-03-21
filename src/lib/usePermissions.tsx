@@ -22,7 +22,7 @@ const usePermissions = ({ permissionName, redirectTo }: usePermissionsParams) =>
     }
   },[user, permissions]);
 
-  return false;
+  return <p>hao</p>;
 };
 
 export default usePermissions;

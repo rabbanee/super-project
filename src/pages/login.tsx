@@ -121,4 +121,3 @@ const Login: React.FC = () => {
 };
 
 export default WithoutAuth(Login);
-// export const getServerSideProps = withoutAuthServerSideProps();

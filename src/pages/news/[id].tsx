@@ -9,7 +9,7 @@ interface ReadNewsProps {
 }
 
 function ReadNews() {
-   const user = useSelector(state => state.user);
+  const user = useSelector(state => state.user);
   const permissions = useSelector(state => state.permissions);
   return (
     <LayoutWithSidebar title="Berita" user={user} permissions={permissions.list}>
@@ -23,20 +23,7 @@ function ReadNews() {
       </div>
     </LayoutWithSidebar>  
     );
-  };
+};
 
-  
-  export default WithAuth(ReadNews);
-  // export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-  //   checkPermissions({
-  //     context,
-  //     permissions,
-  //     permissionName: 'view news',
-  //   });
-  //   return {
-  //     props: {
-  //       user, 
-  //       permissions,
-  //     }
-  //   };
-  // });
+
+export default WithAuth(ReadNews, 'view news');

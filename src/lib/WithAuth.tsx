@@ -8,10 +8,10 @@ import { User } from '@interface/User';
 import { setPermissions, setUser } from '@actions/index';
 import Loading from '@elements/Loading';
 import Error from 'next/error';
+import findPermissionByName from '@utils/findPermissionByName';
 
-const WitAuth = (Component: any) => {
+const WitAuth = (Component: any, permissionName?: string = null) => {
   return (...props) => {
-    // const dispatch = useDispatch();
     const router = useRouter();
     const tokenFromCookie = Cookies.get('token');
     const user = useSelector(state => state.user);
@@ -54,15 +54,14 @@ const WitAuth = (Component: any) => {
         }
         return null;
       }
-      console.log(response.data);
+      // console.log(response.data);
       dispatch(setPermissions(response.data));
       setIsLoading(false);
       return response.data;
     }
 
     useEffect(() => {
-      console.log('hai');
-      
+      // console.log('permissionName: ', permissionName);
       if (!tokenFromCookie) {
         CookieHelper.resetCookie(Cookies);
         router.push('/login');
@@ -84,11 +83,11 @@ const WitAuth = (Component: any) => {
       )
     }
 
-    if (tokenFromCookie && user.isValid && permissions.isValid) {
+    if ((tokenFromCookie && user.isValid && permissions.isValid) && (findPermissionByName(permissions.list, permissionName) || permissionName === null)) {
       return (<Component {...props}/>)
     }
     return (
-      <Error statusCode={403} />
+      <Error statusCode={404} />
     );
   }
 };

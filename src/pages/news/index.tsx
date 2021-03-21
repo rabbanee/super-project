@@ -10,7 +10,6 @@ import * as SolidIcon from '@elements/icon/Solid';
 import Link from 'next/link';
 import Title from '@elements/Title';
 import findPermissionByName from '@utils/findPermissionByName';
-// import checkPermissions from '@utils/checkPermissions';
 import usePermissions from '@lib/usePermissions';
 import { useDispatch, useSelector } from 'react-redux';
 import WithAuth from '@lib/WithAuth';
@@ -22,9 +21,6 @@ interface NewsProps {
 function News() {
   const user = useSelector(state => state.user);
   const permissions = useSelector(state => state.permissions);
-  const checkPermissions = usePermissions({
-    permissionName: 'view news',
-  });
 
   return (
     <LayoutWithSidebar title="Berita" user={user} permissions={permissions.list}>
@@ -50,17 +46,4 @@ function News() {
   );
 }
 
-export default WithAuth(News);
-// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-//   checkPermissions({
-//     context,
-//     permissions,
-//     permissionName: 'view news',
-//   });
-//   return {
-//     props: {
-//       user, 
-//       permissions, 
-//     }
-//   };
-// });
+export default WithAuth(News, 'view news');

@@ -10,7 +10,7 @@ const tes = [
   // 'forgot password',
   // 'edit profile',
   'edit permission',
-  'crud student attandance',
+  'crud student attendance',
   'crud chapter',
   'crud learning materials',
   'crud exam',
@@ -52,7 +52,7 @@ const navItems = async (permissions) => {
       href: '/add-user'
     });
 
-    if ((permission.name === 'crud student attandance' || permission.name === 'recap student attandance') && !findNavItemsByName(items, 'Kehadiran Siswa')) items.push({
+    if ((permission.name === 'crud student attendance' || permission.name === 'recap student attendance') && !findNavItemsByName(items, 'Kehadiran Siswa')) items.push({
       name: 'Kehadiran Siswa',
       icon:  <OutlineIcon.ClipboardList className="h-6"/>,
       href: '/student-attendance'

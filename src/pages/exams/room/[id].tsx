@@ -33,11 +33,3 @@ const ExamRoom = () => {
 };
 
 export default WithAuth(ExamRoom);
-// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-//   return {
-//     props: {
-//       user, 
-//       permissions,
-//     }
-//   };
-// });

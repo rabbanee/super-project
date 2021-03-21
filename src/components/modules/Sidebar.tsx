@@ -122,11 +122,11 @@ const _Sidebar  = (user: any, permissions: any, className?: string) => {
           <h2 className="text-2xl font-bold dark:text-gray-100">{ user.name  }</h2>
           <div className="flex space-x-2">
             <Link href="/edit-profile">
-              <a className="bg-yellow-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-yellow-300">
+              <a className="bg-yellow-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-yellow-300" title="Edit">
                 <SolidIcon.PencilAlt className="h-5" />
               </a>
             </Link>
-            <button className="bg-red-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-red-300" onClick={logoutHandler}>
+            <button className="bg-red-200 p-2 inline-block rounded-full shadow-sm focus:outline-none focus:ring-offset-2  focus:ring-offset-white focus:ring-2 focus:ring-red-300" title="Keluar" onClick={logoutHandler}>
               <SolidIcon.Logout className="h-5" />
             </button>
           </div>

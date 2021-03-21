@@ -29,12 +29,3 @@ const Exams = () => {
 };
 
 export default WithAuth(Exams);
-// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-
-//   return {
-//     props: {
-//       user, 
-//       permissions,
-//     }
-//   };
-// });

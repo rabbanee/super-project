@@ -46,7 +46,7 @@ export const setPermissions = (list) => {
 };
 
 export const setUser = (user) => {
-  console.log(user);
+  // console.log(user);
   return {
     type: 'SET_USER',
     user: {

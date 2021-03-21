@@ -15,26 +15,17 @@ interface StudentAttendanceProps {
 const StudentAttendance = () => {
   const user = useSelector(state => state.user);
   const permissions = useSelector(state => state.permissions);
-  if (findPermissionByName(permissions.list, 'crud student attandance')) {
+  if (findPermissionByName(permissions.list, 'crud student attendance')) {
     return (
       <StudentAttendanceCRUDAndReport user={user} permissions={permissions.list}/>
     );
-  } else if (findPermissionByName(permissions.list, 'recap student attandance')) {
+  } else if (findPermissionByName(permissions.list, 'recap student attendance')) {
     return (
       <StudentAttendanceJustReport user={user} permissions={permissions.list}/>
     )
   } else {
-    return <Error statusCode={403} />
+    return <Error statusCode={404} />
   }
 };
 
 export default WithAuth(StudentAttendance);
-
-// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-//   return {
-//     props: {
-//       user, 
-//       permissions,
-//     }
-//   };
-// });

@@ -28,7 +28,7 @@ interface AttitudeAssessmentProps {
 const AttitudeAssessment = () => {
   const [selectedGrade, setSelectedGrade] = useState(grades[0]);
   const [selectedSubject, setSelectedSubject] = useState(attitudes[0]);
-const user = useSelector(state => state.user);
+  const user = useSelector(state => state.user);
   const permissions = useSelector(state => state.permissions);
   return (
     <>
@@ -136,12 +136,4 @@ const user = useSelector(state => state.user);
   );
 };
 
-export default WithAuth(AttitudeAssessment);
-// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-//     return {
-//       props: {
-//         user, 
-//         permissions,
-//       }
-//     };
-//   });
+export default WithAuth(AttitudeAssessment, 'crud attitude assessment');

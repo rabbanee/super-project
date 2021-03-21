@@ -36,9 +36,6 @@ const EditAccessRights = () => {
   const user = useSelector(state => state.user);
   const permissions = useSelector(state => state.permissions);
   const [selectedRoleName, setSelectedRoleName] = useState(roleNames[0]);
-  const checkPermissions = usePermissions({
-    permissionName: 'edit permission',
-  });
 
   return (
     <>
@@ -210,17 +207,4 @@ const EditAccessRights = () => {
   );
 };
 
-export default WithAuth(EditAccessRights);
-// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-//   checkPermissions({
-//     context,
-//     permissions,
-//     permissionName: 'edit permission',
-//   });
-//   return {
-//     props: {
-//       user, 
-//       permissions,
-//     }
-//   };
-// });
+export default WithAuth(EditAccessRights, 'edit permission');

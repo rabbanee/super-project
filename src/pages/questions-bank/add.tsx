@@ -119,17 +119,4 @@ const AddQuestions = () => {
   );
 };
 
-export default WithAuth(AddQuestions);
-// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-//   // thisPageFor({
-//   //   context,
-//   //   currentRole: user.role,
-//   //   forRoles: [3],
-//   // });
-//   return {
-//     props: {
-//       user, 
-//       permissions,
-//     }
-//   };
-// });
+export default WithAuth(AddQuestions, 'crud question bank');

@@ -104,12 +104,4 @@ const LearningMaterials = () => {
   );
 };
 
-export default WithAuth(LearningMaterials);
-// export const getServerSideProps = withAuthServerSideProps(function getServerSidePropsFunc(context: any, user: User, permissions: any)  {
-//   return {
-//     props: {
-//       user, 
-//       permissions,
-//     }
-//   };
-// });
+export default WithAuth(LearningMaterials, 'crud learning materials');
