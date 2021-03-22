@@ -10,7 +10,7 @@ import Loading from '@elements/Loading';
 import Error from 'next/error';
 import findPermissionByName from '@utils/findPermissionByName';
 
-const WitAuth = (Component: any, permissionName?: string = null) => {
+const WitAuth = (Component: any, permissionName: string = '') => {
   return (...props) => {
     const router = useRouter();
     const tokenFromCookie = Cookies.get('token');
@@ -26,6 +26,7 @@ const WitAuth = (Component: any, permissionName?: string = null) => {
         response = await ApiSource.getUser(tokenFromCookie);
       } catch (error) {
         CookieHelper.resetCookie(Cookies);
+        router.push('/login');
         console.log(error);
         return null;
       }
@@ -83,7 +84,7 @@ const WitAuth = (Component: any, permissionName?: string = null) => {
       )
     }
 
-    if ((tokenFromCookie && user.isValid && permissions.isValid) && (findPermissionByName(permissions.list, permissionName) || permissionName === null)) {
+    if ((tokenFromCookie && user.isValid && permissions.isValid) && (findPermissionByName(permissions.list, permissionName) || !permissionName.trim())) {
       return (<Component {...props}/>)
     }
     return (

@@ -8,16 +8,10 @@ import * as SolidIcon from '@elements/icon/Solid';
 import * as Button from '@elements/Button';
 import dynamic from "next/dynamic";
 import ContainerFooter from "@elements/container/Footer";
-<<<<<<< HEAD
-import grades from "@data/grades";
-import { useState } from "react";
-import ListBox from "@modules/ListBox";
-=======
 import ListBox from "@modules/ListBox";
 import grades from "@data/grades";
 import * as OutlineIcon from '@elements/icon/Outline';
 import { FormEventHandler, MouseEventHandler } from "react";
->>>>>>> ssg
 
 interface AddOrEditAnnouncementProps {
   user: User,
@@ -37,19 +31,7 @@ const Editor = dynamic(
   { ssr: false }
 )
 
-<<<<<<< HEAD
-const readers = [
-  ...grades,
-  'Seluruh Pengguna',
-  // 'Wali Siswa',
-];
-
-const AddOrEditAnnouncement = ({ user, announcement, permissions }: AddOrEditAnnouncementProps) => {
-  const [selectedGrade, setSelectedGrade] = useState(readers[0]);
-
-=======
 const AddOrEditAnnouncement = ({ user, announcement, permissions, selectedReader, setSelectedReader, isLoading, onSave, onEditorChanges, titleInputRef, readers }: AddOrEditAnnouncementProps) => {
->>>>>>> ssg
   return (
     <LayoutWithSidebar user={user} title={`${ announcement ? 'Edit' : 'Tambah' } Pengumuman`} permissions={permissions}>
       <Container>
@@ -64,16 +46,6 @@ const AddOrEditAnnouncement = ({ user, announcement, permissions, selectedReader
                 </a>
               </Link>
             </div>
-<<<<<<< HEAD
-            {/* Readers */}
-            <div className="col-span-2">
-              <ListBox items={readers} label="Pembaca" selectedItem={selectedGrade} setSelectedItem={setSelectedGrade}/>
-            </div>
-            {/* Editor */}
-            <div className="col-span-2">
-              <label htmlFor="content" className="block text-md font-medium text-gray-700">Isi Konten</label>
-              <Editor />
-=======
             <div className="grid grid-cols-2 gap-4">
               {/* Title */}
               <div className="col-span-2">
@@ -89,7 +61,6 @@ const AddOrEditAnnouncement = ({ user, announcement, permissions, selectedReader
                 <label htmlFor="content" className="block text-md font-medium text-gray-700">Isi Konten</label>
                 <Editor onEditorChanges={onEditorChanges} data={announcement?.description ?? ''}/>
               </div>
->>>>>>> ssg
             </div>
           </ContainerBody>
           <ContainerFooter className="flex justify-end">

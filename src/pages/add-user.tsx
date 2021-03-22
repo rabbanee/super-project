@@ -66,15 +66,23 @@ const AddUser = () => {
      try {
       response = await ApiSource.register(name, email, role, password, passwordConfirmation, grade, tokenFromCookie);
     } catch (error) {
-       dispatch(showAlert({
-        title:  error.response.data.message || 'Terjadi Kesalahan',
-        description: error.response.data.errors[Object.keys(error.response.data.errors || '')[0]][0] || 'Mohon coba kembali :)',
-        type: 'error',
-      })); 
+      console.log(error.response);
+      if (error?.response?.data?.errors) {
+        dispatch(showAlert({
+         title:  error?.response?.data?.message || 'Terjadi Kesalahan',
+         description: error?.response?.data?.errors[Object.keys(error?.response?.data?.errors || '')[0]][0] || 'Mohon coba kembali :)',
+         type: 'error',
+       })); 
+      } else {
+        dispatch(showAlert({
+         title:  error?.response?.data?.message || 'Terjadi Kesalahan',
+         type: 'error',
+       })); 
+      }
       setIsLoading(false);
       return;
     }
-    
+    console.log(response);
     dispatch(showAlert({
       title: 'Berhasil menambahkan pengguna!',
       type: 'success',

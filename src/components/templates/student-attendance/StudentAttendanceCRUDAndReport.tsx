@@ -196,13 +196,20 @@ const StudentAttendanceCRUDAndReport = ({ user, permissions }: StudentAttendance
   const onSaveHandler = async (e) => {
     let response;
     setIsSaving(true);
-    const checkedInputs = document.querySelectorAll('input[type=radio]:checked');
-    const studentAttendance = [...checkedInputs].map((checkedInput) => {
+    let checkedInputs = document.querySelectorAll('input[type=radio]:checked');
+    // checkedInputs = Array.from(checkedInputs);
+    const studentAttendance = Array.from(checkedInputs, (checkedInput: any) => {
       return {
         student_id: checkedInput.name,
         status: checkedInput.value,
       }
     });
+    // const studentAttendance = [...checkedInputs].map((checkedInput: any) => {
+    //   return {
+    //     student_id: checkedInput.name,
+    //     status: checkedInput.value,
+    //   }
+    // });
     setPayload({
       ...payload,
       student_attendance: studentAttendance,
@@ -251,10 +258,10 @@ const StudentAttendanceCRUDAndReport = ({ user, permissions }: StudentAttendance
               <h1 className="text-3xl font-bold	text-black mb-2">{`Kehadiran Siswa (${openedTab === 1 ? 'Pengelolaan' : 'Laporan'})`}</h1>
               <Tab color="primary-dark" openTab={openedTab} setOpenTab={setOpenedTab}>
                 <TabList>
-                  <TabItem openedTab={openedTab} thisTab={1} setOpenedTab={setOpenedTab} color="primary-dark" href="#management">
+                  <TabItem openedTab={openedTab} thisTab={1} setOpenedTab={setOpenedTab} color="primary-darkest" href="#management">
                     Pengelolaan
                   </TabItem>
-                  <TabItem openedTab={openedTab} thisTab={2} setOpenedTab={setOpenedTab} color="primary-dark" href="#report">
+                  <TabItem openedTab={openedTab} thisTab={2} setOpenedTab={setOpenedTab} color="primary-darkest" href="#report">
                     Laporan
                   </TabItem>
                 </TabList>

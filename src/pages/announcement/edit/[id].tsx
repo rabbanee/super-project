@@ -29,7 +29,7 @@ const EditAnnoncement = () => {
   const [content, setContent] = useState('');
   const dispatch: Function = useDispatch();
   const router = useRouter();
-  const { id } = router.query;
+  const id: any = router.query.id;
   const [readers, setReaders] = useState(['Seluruh Pengguna']);
   const [grades, setGrades] = useState([]);
   const token = Cookies.get('token');
@@ -37,10 +37,10 @@ const EditAnnoncement = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getAnnouncementById(parseInt(id));
+    getAnnouncementById(id);
   }, []);
 
-  const getAnnouncementById = async (announcementId: number) => {
+  const getAnnouncementById = async (announcementId: string) => {
     setIsLoading(true);
     let response: any;
     try {

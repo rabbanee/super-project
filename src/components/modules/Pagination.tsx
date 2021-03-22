@@ -2,16 +2,15 @@ import * as Button from '@elements/Button';
 import * as SolidIcon from '@elements/icon/Solid';
 
 type PaginationProps = {
-  from?: number,
-  to?: number,
+  totalShow?: number,
   total?: number,
   currentPage?: number,
   lastPage?: number,
   perPage?: number,
-  onCurrentPageChange: Function,
+  onCurrentPageChange?: Function,
 }
 
-const Pagination = ({ from, to, total, currentPage, lastPage, perPage, onCurrentPageChange }: PaginationProps) => {
+const Pagination = ({ totalShow, total, currentPage, lastPage, perPage, onCurrentPageChange }: PaginationProps) => {
 
   const onPreviousHandler = (e) => {
     e.preventDefault();
@@ -28,15 +27,16 @@ const Pagination = ({ from, to, total, currentPage, lastPage, perPage, onCurrent
     if (currentPage === lastPage) {
       return;
     }
-    onCurrentPageChange({
+    if (onCurrentPageChange !== null) onCurrentPageChange({
       currentPage: currentPage + 1,
     });
+    
   }
 
   const linksHandler = (e, pageNumber) => {
     e.preventDefault();
     if (pageNumber === currentPage) return;
-    onCurrentPageChange({
+     if (onCurrentPageChange !== null)  onCurrentPageChange({
       currentPage: pageNumber,
     });
   };
@@ -57,7 +57,7 @@ const Pagination = ({ from, to, total, currentPage, lastPage, perPage, onCurrent
         <div>
           <p className="text-sm text-gray-700">
             Menampilkan
-            <span className="font-medium"> { total < perPage  ? total : perPage } </span>
+            <span className="font-medium"> { totalShow } </span>
             data
             dari
             <span className="font-medium"> { total } </span>

@@ -12,13 +12,8 @@ import Td from '@elements/Td';
 import * as Button from '@elements/Button';
 import ConfirmationModal from '@modules/ConfirmationModal';
 import { useState } from 'react';
-<<<<<<< HEAD
-import { thisPageFor } from '@utils/thisPageFor';
-import checkPermissions from '@utils/checkPermissions';
-=======
 import WithAuth from '@lib/WithAuth';
 import { useDispatch, useSelector } from 'react-redux';
->>>>>>> ssg
 
 interface QuestionsBankProps {
   user: User;

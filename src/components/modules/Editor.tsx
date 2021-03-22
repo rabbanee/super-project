@@ -3,8 +3,12 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useEffect, useState } from 'react';
 import MyUploadAdapter from '@lib/MyUploadAdapter';
 
+type EditorProps = {
+  onEditorChanges?: Function,
+  data?: string,
+}
 
-const Editor = ({ onEditorChanges, data }) => {
+const Editor = ({ onEditorChanges, data }: EditorProps) => {
   const [editorLoaded, setEditorLoaded] = useState(false);
 
   useEffect(() => {

@@ -8,9 +8,7 @@ import ContainerBody from '@elements/container/Body';
 import ContainerFooter from '@elements/container/Footer';
 import * as Button from '@elements/Button';
 import axios from 'axios';
-import ApiSource from '@data/api-source';
 import Cookies from 'js-cookie';
-import usePermissions from '@lib/usePermissions';
 import { useDispatch, useSelector } from 'react-redux';
 import WithAuth from '@lib/WithAuth';
 import { setUser, showAlert } from '@actions/index';
@@ -28,7 +26,6 @@ const EditProfile = () => {
   const permissions = useSelector(state => state.permissions);
   const tokenFromCookie = Cookies.get('token');
   const dispatch: Function = useDispatch();
-
 
   const imageHandler = (event: any) => setImage(URL.createObjectURL(event.target.files[0]));
   

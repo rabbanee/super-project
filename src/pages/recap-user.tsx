@@ -65,7 +65,7 @@ const RecapUser = () => {
     //Save the cancel token for the current request
     cancelToken = axios.CancelToken.source();
     try {
-      response = await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}recap-user/${role}?page=${page}&search=${query}`, {
+      response = await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}recap-user${role.trim() ? `/${role}` : ''}?page=${page}&search=${query}`, {
         cancelToken: cancelToken.token,
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -130,7 +130,7 @@ const RecapUser = () => {
                 }
                 {
                   users?.data?.map((user, userIndex) => 
-                    <tr>
+                    <tr key={`${user.name}-${userIndex}`}>
                       <Td className="text-center"> { (1 + ((users.current_page - 1) * users.per_page)) + userIndex }</Td>
                       <Td className="text-center">{user.name}</Td>
                       <Td className="text-center">{user.email}</Td>
@@ -143,7 +143,7 @@ const RecapUser = () => {
             </Table>
           }
           {
-            ((users?.data)?.length > 0 && !isLoading) && <Pagination from={users.from} to={users.to} total={users.total} lastPage={users.last_page} currentPage={users.current_page} onCurrentPageChange={onCurrentPageChange} perPage={users.per_page}/>
+            ((users?.data)?.length > 0 && !isLoading) && <Pagination totalShow={users.data.length}  total={users.total} lastPage={users.last_page} currentPage={users.current_page} onCurrentPageChange={onCurrentPageChange} perPage={users.per_page}/>
           }
         </ContainerBody>
       </Container>

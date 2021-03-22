@@ -86,11 +86,7 @@ class MyUploadAdapter {
     // Prepare the form data.
     const data = new FormData();
 
-<<<<<<< HEAD
-    data.append('upload', file );
-=======
     data.append('image', file);
->>>>>>> ssg
 
     // Important note: This is the right place to implement security mechanisms
     // like authentication and CSRF protection. For instance, you can use

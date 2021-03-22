@@ -182,7 +182,7 @@ const AnnouncementManagement = () => {
               loading === 'get announcements' && <SkeletonTable />
             }
             {
-              (loading !== 'get announcements' && announcements?.data?.length > 0) && <Pagination from={announcements?.from} to={announcements?.to} currentPage={announcements?.current_page} total={announcements?.total} lastPage={announcements?.last_page} perPage={announcements?.per_page} onCurrentPageChange={onCurrentPageChange} />
+              (loading !== 'get announcements' && announcements?.data?.length > 0) && <Pagination totalShow={announcements?.data?.length} currentPage={announcements?.current_page} total={announcements?.total} lastPage={announcements?.last_page} perPage={announcements?.per_page} onCurrentPageChange={onCurrentPageChange} />
             }
           </ContainerBody>
         </Container>

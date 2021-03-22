@@ -27,10 +27,15 @@ const Login: React.FC = () => {
     let response : any;
     dispatch(closeAlert());
     setLoading(true);
+    console.log(process.env.NEXT_PUBLIC_API_HOST);
     try {
-      response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}api/login`, { email, password, remember_me: rememberMeRef?.current?.checked  });
+      response = await ApiSource.login(email, password, rememberMeRef?.current?.checked);
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error.response);
+      setLoading(false);
+      if (!error?.response?.data) {
+        return;
+      }
       const { data } = error.response;
       if (data.errors) {
         dispatch(showAlert({

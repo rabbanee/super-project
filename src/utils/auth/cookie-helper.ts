@@ -8,13 +8,11 @@ tomorrow.setDate(new Date().getDate() + 1);
 
 export class CookieHelper {
   static resetCookie(cookie: any) {
-    cookie.set('token', '');
-    cookie.set('user', '');
+    cookie.remove('token');
+    cookie.remove('user');
   }
 
   static setUserCookie(cookie: any, user: string, expires?: string) {
-    console.log(user);
-    
     cookie.set('user', user, {
       ...defaultOptions,
       expires: new Date(expires ?? tomorrow)

@@ -37,7 +37,7 @@ const Chapters = () => {
   const permissions = useSelector(state => state.permissions);
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);
   const [isEditChapterModalShow, setIsEditChapterModalShow] = useState(false);
-  const chapterNameRef = useRef();
+  const chapterNameRef = useRef<HTMLInputElement>();
   const searchInputRef = useRef<HTMLInputElement>();
   const [chapters, setChapters] = useState(initialDataWithPagination);
   const [selectedChapterId, setSelectedChapterId] = useState('');
@@ -301,7 +301,7 @@ const Chapters = () => {
               isLoading && <SkeletonTable />
             }
             {
-              (chapters?.data)?.length > 0 && <Pagination from={chapters.from} to={chapters.to} total={chapters.total} lastPage={chapters.last_page} currentPage={chapters.current_page} onCurrentPageChange={onCurrentPageChange} perPage={chapters.per_page}/>
+              (chapters?.data)?.length > 0 && <Pagination totalShow={chapters?.data?.length} total={chapters.total} lastPage={chapters.last_page} currentPage={chapters.current_page} onCurrentPageChange={onCurrentPageChange} perPage={chapters.per_page}/>
             }
           </ContainerBody>
         </Container>
