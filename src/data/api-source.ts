@@ -17,12 +17,13 @@ class ApiSource {
     });
   }
   
-  static async register(name : string, email : string, role: string,  password : string, passwordConfirmation: string, grade: string, token: string) {
+  static async register(name : string, email : string, role: string,  password : string, passwordConfirmation: string, grade: string, studentId, token: string) {
     return await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}register`, {
       name,
       email,
       role,
       password,
+      student_id: studentId,
       password_confirmation: passwordConfirmation,
       grade,
     },

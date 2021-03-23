@@ -58,12 +58,12 @@ const AddOrEditNews = ({ user, news, permissions, isLoading, onSave, onEditorCha
   }, [files]);
   
   return (
-    <LayoutWithSidebar user={user} title="Tambah Berita" permissions={permissions}>
+    <LayoutWithSidebar user={user} title={`${news  ? 'Edit' : 'Tambah'} Berita`} permissions={permissions}>
       <Container>
         <form onSubmit={onSave}>
           <ContainerBody>
             <div className="flex justify-between flex-wrap items-start mb-2">
-              <Title>{ news ? 'Edit' : 'Tambah' } Berita</Title>
+              <Title>{ news  ? 'Edit' : 'Tambah' } Berita</Title>
               <Link href={`/news/management`}>
                 <a className="btn btn-secondary inline-flex items-center">
                   <SolidIcon.ArrowNarrowLeft className="-ml-1 mr-1 h-5 w-5" />

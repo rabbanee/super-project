@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 import { showAlert } from '@actions/index';
 import Loading from '@elements/Loading';
 import Error from 'next/error';
+import Id from 'pages/exams/result/[id]';
 
 interface EditNewsProps {
   user: User,
@@ -47,6 +48,7 @@ const EditNews = () => {
       return error;
     }
     if (!response.data.error) {
+      setContent(response.data.content);
       setNews(response?.data);
     };
     setIsLoading(false);
@@ -58,7 +60,7 @@ const EditNews = () => {
     let response;
     setIsLoading(true);
 
-    if (!content.trim() || !news?.content.trim()) {
+    if (!content.trim()) {
       dispatch(showAlert({
         title: 'Kolom konten harus diisi!',
         type: 'error'
@@ -67,36 +69,33 @@ const EditNews = () => {
       return;
     }
 
-    if (files.length == 0) {
-      dispatch(showAlert({
-        title: 'Kolom thumbnail harus diisi!',
-        type: 'error'
-      }));
-      setIsLoading(false);
-      return;
+    if (files.length > 0) {
+      fd.append('thumbnail', files[0]);
     }
-
-    fd.append('thumbnail', files[0]);
-    fd.append('title', titleInputRef.current.value);
-    fd.append('content', content);
+    fd.append('title', titleInputRef.current.value.trim() ? titleInputRef.current.value : news.title);
+    fd.append('content', content.trim() ? content.trim() : news.content);
+    fd.append('_method', 'put');
 
     try {
-      response = await axios.put(`${process.env.NEXT_PUBLIC_API_HOST}news`, fd, {
+      response = await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}news/${id}`, fd, {
         headers: {
           'Authorization': `Bearer ${token}`,
         }
       });
     } catch (error) {
-      console.log(error);
+      setIsLoading(false);
+      dispatch(showAlert({
+        title: 'Gagal mengedit berita!',
+        type: 'error'
+      }));
+      console.log(error.response);
       return error;
     }
-    console.log(response);
     setIsLoading(false);
     dispatch(showAlert({
-      title: 'Berhasil menambahkan berita!',
+      title: 'Berhasil mengedit berita!',
       type: 'success'
     }));
-    // console.log(files);
   };
 
   const onEditorChanges = (event, editor) => {

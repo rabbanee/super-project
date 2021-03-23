@@ -14,16 +14,12 @@ import Pagination from '@modules/Pagination';
 import Title from '@elements/Title';
 import InputWithIcon from '@modules/InputWithIcon';
 import WithAuth from '@lib/WithAuth';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import initialDataWithPagination from '@data/initial-data-with-pagination';
 import SkeletonTable from '@modules/SkeletonTable';
-
-interface NewsManagementProps {
-  user: User,
-  permissions: any,
-}
+import { showAlert } from '@actions/index';
 
 const NewsManagement = () => {
   const user = useSelector(state => state.user);
@@ -33,6 +29,8 @@ const NewsManagement = () => {
   const token = Cookies.get('token');
   const [news, setNews] = useState(initialDataWithPagination);
   const searchInputRef = useRef<HTMLInputElement>();
+  const [selectedNewsId, setSelectedNewsId] = useState(null);
+  const dispatch: Function = useDispatch();
 
   useEffect(() => {
     getNews();
@@ -51,21 +49,62 @@ const NewsManagement = () => {
       console.log(error);
       return error;
     }
-    console.log(response.data);
     setNews(response.data);
     setIsLoading(false);
   };
 
-  const searchNews = (query, page = 1) => {
-
+  const searchNews = async (query, page = 1) => {
+    let response;
+    if (!query.trim()) { 
+      getNews();
+      return;
+    }
+    setIsLoading(true);
+    try {
+      response = await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}news/search/${query}?=page${page}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+    setNews(response.data);
+    setIsLoading(false);
   };
   
   const onCurrentPageChange = ({ currentPage }) => searchInputRef.current.value ? searchNews(searchInputRef.current.value, currentPage) : getNews(currentPage);
 
+  const destroyNews = async (e) => {
+    let response; 
+    console.log('hai');
+    try {
+      response = await axios.delete(`${process.env.NEXT_PUBLIC_API_HOST}news/${selectedNewsId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      })
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+    setIsConfirmationModalShow(false);
+    getNews();
+    dispatch(showAlert({
+      title: 'Berhasil menghapus berita!',
+      type: 'success'
+    }));
+  };
+
+  const deleteNews = async (newsId: number) => {
+    setIsConfirmationModalShow(true);
+    setSelectedNewsId(newsId);
+  };
   
   return (
     <>
-      <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Berita" description="Apakah Anda yakin ingin menghapus berita ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" />
+      <ConfirmationModal isShow={isConfirmationModalShow} setIsShow={setIsConfirmationModalShow} title="Hapus Berita" description="Apakah Anda yakin ingin menghapus berita ini? jika ini dihapus maka akan terhapus selamanya." confirmText="Hapus" onConfirm={destroyNews} />
       <LayoutWithSidebar title="Pengelolaan Berita" user={user} permissions={permissions.list}>
         <Container>
           <ContainerBody className="rounded-b-xl">
@@ -123,7 +162,7 @@ const NewsManagement = () => {
                               Ubah
                             </a>
                           </Link>
-                          <Button.Danger onClick={() => setIsConfirmationModalShow(true)} type="button" className="inline-flex items-center">
+                          <Button.Danger onClick={() => deleteNews(newsItem.id)} type="button" className="inline-flex items-center">
                             <SolidIcon.Trash className="-ml-1 mr-1 h-5 w-5" /> 
                             Hapus
                           </Button.Danger>

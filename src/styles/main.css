@@ -12,7 +12,7 @@
   .h1 {
     @apply text-center pb-5 text-xl;
   }
-  .alert-info {
+  .alert-success {
     @apply bg-green-200 border-green-600 text-green-800;
   }
   .alert-error {
@@ -30,7 +30,7 @@
   .btn-secondary {
     @apply bg-white hover:bg-gray-50 text-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-primary border border-gray-300;
   }
-  .btn-info {
+  .btn-success {
     @apply bg-green-200 hover:bg-green-100 p-5 rounded text-black focus:outline-none;
   }
   .btn-error {
@@ -39,4 +39,7 @@
   .btn-warning {
     @apply bg-yellow-200 hover:bg-yellow-100 p-5 rounded text-black focus:outline-none;
   }
+}
+.css-yk16xz-control:hover {
+  /* color */
 }

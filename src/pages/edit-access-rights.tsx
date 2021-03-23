@@ -50,7 +50,6 @@ const EditAccessRights = () => {
               <span className="text-md font-bold">Rol: </span>
               <ListBox items={roleNames} selectedItem={selectedRoleName} setSelectedItem={setSelectedRoleName} />
             </div>
-            <InputWithIcon Icon={<SolidIcon.Search className="text-gray-500 w-5 h-5" />}/>
           </div>
           <Table color="primary-darkest" className="rounded-b-xl rounded-t-xl">
             <thead className="bg-primary">
@@ -199,7 +198,6 @@ const EditAccessRights = () => {
                 }
               </tbody>
           </Table>
-          <Pagination />
         </ContainerBody>
       </Container>
     </LayoutWithSidebar>

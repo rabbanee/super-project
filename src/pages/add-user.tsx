@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as OutlineIcon from '@elements/icon/Outline';
 import * as Button from '@elements/Button';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
@@ -15,6 +15,7 @@ import usePermissions from '@lib/usePermissions';
 import ApiSource from '@data/api-source';
 import Cookies from 'js-cookie';
 import WithAuth from '@lib/WithAuth';
+import axios from 'axios';
 
 interface AddUser {
   user: User,
@@ -32,12 +33,15 @@ const AddUser = () => {
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const tokenFromCookie = Cookies.get('token');
+  const [students, setStudents] = useState(null);
+  const [studentNames, setStudentNames] = useState(null);
+  const [selectedStudentName, setSelectedStudentName] = useState('');
   const dispatch: Function = useDispatch();
+  const studentRef = useRef<HTMLSelectElement>();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     let response;
-    e.preventDefault();
     setIsLoading(true);
 
     dispatch(closeAlert());
@@ -62,9 +66,10 @@ const AddUser = () => {
 
     const role = selectedRole;
     const grade = selectedGrade;
+    const studentId = studentRef.current.value;
 
-     try {
-      response = await ApiSource.register(name, email, role, password, passwordConfirmation, grade, tokenFromCookie);
+    try {
+      response = await ApiSource.register(name, email, role, password, passwordConfirmation, grade, studentId, tokenFromCookie);
     } catch (error) {
       console.log(error.response);
       if (error?.response?.data?.errors) {
@@ -91,6 +96,27 @@ const AddUser = () => {
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    getStudents();
+  }, []);
+
+  const getStudents = async () => {
+    let response;
+    try {
+      response = await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}students`, {
+        headers: {
+          'Authorization': `Bearer ${tokenFromCookie}`,
+        }
+      });
+    } catch (error) {
+      return error;
+    }
+    const studentNames = response.data.map((student) => `${student.user.name} ${student.grade.name}`);
+    setStudentNames(studentNames);
+    setSelectedStudentName(studentNames[0]);
+    setStudents(response.data);
+  };
+
   return (
     <LayoutWithSidebar title="Tambahkan Pengguna" user={user} permissions={permissions.list}>
       <form onSubmit={handleRegister}>
@@ -105,12 +131,27 @@ const AddUser = () => {
 
               <div className="col-span-6 sm:col-span-6">
                 <label htmlFor="email_address" className="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" name="email_address" id="email_address" autoComplete="email" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                <input type="email" name="email_address" id="email_address" autoComplete="email" className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" onChange={(e) => setEmail(e.target.value)} placeholder="Email" />  
               </div>
 
               <div className="col-span-6 sm:col-span-6">
                 <ListBox items={roleNames} label="Rol" selectedItem={selectedRole} setSelectedItem={setSelectedRole}/>
               </div>
+
+              {
+                selectedRole === 'Wali Siswa' && (
+                  <div className="col-span-6 sm:col-span-6">
+                    <label htmlFor="student" className="block text-sm font-medium text-gray-700">Siswa</label>
+                    <select id="student" ref={studentRef} className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" disabled={students.length === 0}>
+                      {
+                        students?.map((student) => 
+                          <option value={student.id} key={student.id}>{student.user.name} {student.grade.name}</option>
+                        )
+                      }
+                    </select>
+                  </div>
+                )
+              }
 
               {
                 selectedRole === 'Siswa' && (

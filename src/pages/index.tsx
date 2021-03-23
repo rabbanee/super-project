@@ -13,26 +13,39 @@ import initialDataWithPagination from '@data/initial-data-with-pagination';
 import axios from 'axios';
 import convertDate from '@utils/convertDate';
 import SkeletonAnnouncementTable from '@modules/SkeletonAnnouncementTable';
-
-interface HomeProps {
-  user: User,
-  permissions: any,
-}
+import NewsCardSkeleton from '@elements/NewsCardSkeleton';
+import NoData from '@elements/NoData';
 
 function Home() {
   const user = useSelector(state => state.user);
   const permissions = useSelector(state => state.permissions);
   const [announcements, setAnnouncements] = useState(initialDataWithPagination);
-  const [isLoading, setIsLoading] = useState(false);
   const token = Cookies.get('token');
-
-  const getNews = () => {
-    // axios
-  };
+  const [news, setNews] = useState(initialDataWithPagination);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isGettingNews, setIsGettingNews] = useState(false);
 
   useEffect(() => {
     getAnnouncement();
+    getNews();
   }, []);
+
+  const getNews = async (page = 1) => {
+    setIsGettingNews(true);
+    let response;
+    try {
+      response = await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}news?per_page=2&page=${page}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      });
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+    setNews(response.data);
+    setIsGettingNews(false);
+  };
 
   const getAnnouncement = async () => {
     let response: any;
@@ -73,9 +86,7 @@ function Home() {
               <h2 className="text-4xl font-bold	text-black mb-2 dark:text-gray-100">Pengumuman</h2>
               {
                 (!isLoading && announcements?.data?.length === 0) && 
-                <div className="bg-white p-6 md:px-10 rounded-xl shadow-md relative overflow-hidden container mx-auto mb-2">
-                  Pengumuman tidak ditemukan!  
-                </div>
+                <NoData />
               }
               {
                 isLoading && <SkeletonAnnouncementTable />
@@ -108,31 +119,6 @@ function Home() {
                   </div>
                 )
               }
-              {/* <div className="bg-white p-6 md:px-10 rounded-xl shadow-md relative overflow-hidden container mx-auto">
-                <table className="table table-borderless tab mt-2">
-                  <tbody>
-                    <tr>
-                      <th className="w-1/4">Tanggal</th>
-                      <th className="w-1/4">:</th>
-                      <td>22 Januari 2021</td>
-                    </tr>
-                    <tr>
-                      <th className="w-1/4">Pengampu</th>
-                      <th className="w-1/4">:</th>
-                      <td>Siapa Saja</td>
-                    </tr>
-                    <tr>
-                      <th className="w-1/4">Mata Pelajaran</th>
-                      <th className="w-1/4">:</th>
-                      <td>Mekanika</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <hr className="mt-2"/>
-                <div className="mt-2">
-                  dasdas 
-                </div>
-              </div> */}
             </ContainerBody>
           </Container>
         ) 
@@ -142,11 +128,31 @@ function Home() {
           <Container className="mt-5">
             <ContainerBody className="rounded-b-xl">
               <h2 className="text-4xl font-bold	text-black mb-2 dark:text-gray-100">Berita</h2>
-              <NewsContainer>
-                <NewsCard  />
-                {/* <NewsCard date="29 May 2020" title="Pentingnya Liburan" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet pulvinar tellus. Aliquam diam lectus, vehicula a ultrices vel, aliquam nec orci. Nulla dignissim rhoncus turpis nec malesuada. Praesent euismod pulvinar mi, at mollis purus suscipit et. Nunc facilisis vulputate purus quis placerat. Fusce maximus, ex nec gravida pharetra, tellus leo dignissim tellus, eu dapibus lorem felis vitae tortor. Integer et molestie elit." />
-                <NewsCard date="29 May 2020" title="Pentingnya Liburan" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet pulvinar tellus. Aliquam diam lectus, vehicula a ultrices vel, aliquam nec orci. Nulla dignissim rhoncus turpis nec malesuada. Praesent euismod pulvinar mi, at mollis purus suscipit et. Nunc facilisis vulputate purus quis placerat. Fusce maximus, ex nec gravida pharetra, tellus leo dignissim tellus, eu dapibus lorem felis vitae tortor. Integer et molestie elit." /> */}
-              </NewsContainer>
+               {
+                  isGettingNews && 
+                  <NewsContainer>
+                    {
+                      Array.apply(1, Array(2)).map((value, i) => 
+                        <NewsCardSkeleton key={i}/>
+                      )
+                    }
+                  </NewsContainer>
+                }
+                {
+                  (news?.data?.length > 0 && !isGettingNews) &&  
+                    <>
+                      <NewsContainer className="mb-4">
+                        {
+                          news.data.map((newsItem: any) => 
+                            <NewsCard key={newsItem.id} date={newsItem.created_at} title={newsItem.title} description={newsItem.content} imageId={newsItem?.image?.id} id={newsItem.id}/>
+                          )
+                        }
+                      </NewsContainer>
+                    </>
+                }
+                {
+                  (news?.data?.length === 0 && !isGettingNews) && <NoData />
+                }
             </ContainerBody>
           </Container>
         ) 

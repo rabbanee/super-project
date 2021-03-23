@@ -54,6 +54,7 @@ const EditAnnoncement = () => {
       return error;
     }
     if (!response.data.error) {
+      setContent(response.data.description)
       setAnnouncement(response?.data);
     };
     setIsLoading(false);
@@ -120,7 +121,7 @@ const EditAnnoncement = () => {
       description = announcement.description;
     }
     if (content.trim()) description = content;
-    if (!content.trim() && !announcement.description.trim()) {
+    if (!content.trim()) {
       dispatch(showAlert({
         title: 'Mohon isi kolom kontent',
         type: 'error'

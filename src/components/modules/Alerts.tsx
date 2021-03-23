@@ -11,13 +11,14 @@ interface AlertProps {
   title: string;
   description?: string;
   onClose?: Function;
+  className?: string,
 }
 
 function Alert(props: AlertProps) {
-  const { type, icon, title, description, onClose } = props;
+  const { icon, title, description, onClose, className } = props;
   return (
     <div
-      className={`relative border-t-4 rounded-b px-4 py-3 shadow-md my-2 alert-${type}`}
+      className={`relative border-t-4 rounded-b px-4 py-3 shadow-md my-2 ${className && className}`}
       role="alert"
     >
       <div className="absolute top-0 right-0 p-2">
@@ -37,15 +38,15 @@ function Alert(props: AlertProps) {
 }
 
 function SuccessAlert(props: AlertProps) {
-  return <Alert {...props} type="info" icon={<OutlineIcon.CheckCircle className="w-6 h-6"/>} />;
+  return <Alert {...props} className="alert-success" type="success" icon={<OutlineIcon.CheckCircle className="w-6 h-6"/>} />;
 }
 
 function ErrorAlert(props: AlertProps) {
-  return <Alert {...props} type="error" icon={<OutlineIcon.Exclamation className="w-6 h-6"/>} />;
+  return <Alert {...props} className="alert-error" type="error" icon={<OutlineIcon.Exclamation className="w-6 h-6"/>} />;
 }
 
 function WarningAlert(props: AlertProps) {
-  return <Alert {...props} type="warning" icon={<OutlineIcon.Exclamation className="w-6 h-6"/>} />;
+  return <Alert {...props} className="alert-warning" type="warning" icon={<OutlineIcon.Exclamation className="w-6 h-6"/>} />;
 }
 
 export default function Alerts() {
