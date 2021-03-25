@@ -2,14 +2,13 @@ import { useEffect, useState } from 'react';
 import { AsyncPaginate } from 'react-select-async-paginate';
 
 const SelectAsyncPaginate = (props) => {
-   const [regionName, setRegionName] = useState(null);
+  //  const [regionName, setRegionName] = useState(null);
 
-  useEffect(() => {
-    setRegionName(props.regionName);
-  }, [props.regionName]);
+  // useEffect(() => {
+  //   setRegionName(props.regionName);
+  // }, [props.regionName]);
 
   const loadOptions = async (searchQuery, loadedOptions, { page }) => {
-
     const response = await fetch(
       `https://www.anapioficeandfire.com/api/houses?region=${regionName}&page=${page}&pageSize=10`
     );

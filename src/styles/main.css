@@ -40,6 +40,15 @@
     @apply bg-yellow-200 hover:bg-yellow-100 p-5 rounded text-black focus:outline-none;
   }
 }
-.css-yk16xz-control:hover {
-  /* color */
+
+.css-1pahdxg-control {
+  box-shadow: none !important;
+}
+
+.css-1pahdxg-control:hover {
+  border-color: #3f927c !important;
+}
+
+.css-2613qy-menu {
+  z-index: 99999999999999999999999999999;
 }

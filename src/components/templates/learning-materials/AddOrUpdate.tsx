@@ -3,7 +3,7 @@ import { User } from '@interface/User';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
 import { withAuthServerSideProps } from '@lib/withAuthServerSide';
 import ListBox from '@modules/ListBox';
-import { useRef, useState } from 'react';
+import { FormEventHandler, useEffect, useRef, useState } from 'react';
 import * as Button from '@elements/Button';
 import * as OutlineIcon from '@elements/icon/Outline';
 import * as SolidIcon from '@elements/icon/Solid';
@@ -20,15 +20,26 @@ import dynamic from 'next/dynamic';
 import Title from '@elements/Title';
 import Link from 'next/link';
 import SelectAsyncPaginate from '@modules/SelectAsyncPaginate';
+import { AsyncPaginate } from 'react-select-async-paginate';
 
 interface AddOrUpdateLearningMaterialsProps {
   user: User,
   title: string,
-  learningMaterial?: LearningMaterial,
+  learningMaterial?: any,
   permissions: any,
-  grades?: any,
-  subjects?: any,
-  chapters?: any,
+  selectedSubject?: string,
+  setSelectedSubject: Function,
+  getSubjects: Function,
+  onSubmit: FormEventHandler<HTMLFormElement>,
+  getChapters: Function,
+  selectedChapter?: string,
+  setSelectedChapter: Function,
+  getGrades: Function,
+  selectedGrade?: string,
+  setSelectedGrade: Function,
+  titleRef: any,
+  onEditorChanges: Function,
+  isLoading: boolean,
 }
 
 const Editor = dynamic(
@@ -36,45 +47,19 @@ const Editor = dynamic(
   { ssr: false }
 );
 
-function AddOrUpdateLearningMaterials({ user, title, learningMaterial, permissions, grades, subjects, chapters }: AddOrUpdateLearningMaterialsProps) {   
-  const [selectedChapter, setSelectedChapter] = useState(() => learningMaterial?.chapter ??dummyChapters[0]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isModalShow, setIsModalShow] = useState(false);
-  const chapterNameRef = useRef();
+function AddOrUpdateLearningMaterials({ user, title, learningMaterial, permissions, selectedSubject, setSelectedSubject, getSubjects, onSubmit, getChapters, selectedChapter, setSelectedChapter, getGrades, selectedGrade, setSelectedGrade, titleRef, onEditorChanges, isLoading }: AddOrUpdateLearningMaterialsProps) {   
 
-  const createChapterHandler = (e: any) => {
-    e.preventDefault();
-    setIsLoading(true);
-    console.log('clicked!');
-    console.log(chapterNameRef.current);
-    setIsLoading(false);
-
-  };
-
-  const options = [
-       { value: "The Crownlands" },
-       { value: "Iron Islands" },
-       { value: "The North" },
-       { value: "The Reach" },
-       { value: "The Riverlands" },
-       { value: "The Vale" },
-       { value: "The Westerlands" },
-       { value: "The Stormlands" }
-   ];
-  const [region, setRegion] = useState(options[0]);
-  const [currentCountry, setCurrentCountry] = useState(null);
-  const onchangeSelect = (item) => {
-    setCurrentCountry(null);
-    setRegion(item);
-  };
+  useEffect(() => {
+    console.log(learningMaterial);
+  }, [learningMaterial]);
 
   return (
     <LayoutWithSidebar title={title} user={user} permissions={permissions}>
-      <form>
-        <Container>
+      <Container>
+        <form onSubmit={onSubmit}>
           <ContainerBody className="px-4 py-5 bg-white sm:p-6 rounded-t-xl">
             <div className="flex justify-between flex-wrap items-start mb-2">
-              <Title>{ learningMaterials ? 'Edit' : 'Tambah' } Materi Pembelajaran</Title>
+              <Title>{title}</Title>
               <Link href={`/learning-materials`}>
                 <a className="btn btn-secondary inline-flex items-center">
                   <SolidIcon.ArrowNarrowLeft className="-ml-1 mr-1 h-5 w-5" />
@@ -84,51 +69,62 @@ function AddOrUpdateLearningMaterials({ user, title, learningMaterial, permissio
             </div>
             <div className="grid grid-cols-6 gap-4 mt-2">
               <div className="col-span-6 sm:col-span-6">
-                <label htmlFor="title_of_the_material" className="block text-sm font-medium text-gray-700">Judul Materi</label>
-                <input id="title_of_the_material" name="title_of_the_material" type="text" autoComplete="title_of_the_material" required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Judul Materi" defaultValue={learningMaterial?.order ?? ''}/>
+                <label htmlFor="title" className="block text-sm font-medium text-gray-700">Judul Materi</label>
+                <input id="title" name="title" type="text" ref={titleRef} required className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm" placeholder="Judul Materi" defaultValue={learningMaterial?.title || ''}/>
               </div>
               <div className="col-span-6 sm:col-span-6">
                 <div className="col-span-6 sm:col-span-6">
                   <label htmlFor="grade" className="block text-sm font-medium text-gray-700">Kelas</label>
-                  <select id="grade" className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm">
-                    {
-                      grades?.map((grade) => 
-                        <option value={grade.id} key={grade.id}>{grade.name}</option>
-                      )
-                    }
-                  </select>
+                  <AsyncPaginate
+                    key={''}
+                    value={selectedGrade || ''}
+                    loadOptions={getGrades}
+                    getOptionValue={(option) => option.name}
+                    getOptionLabel={(option) => option.name}
+                    onChange={(item) => setSelectedGrade(item)}
+                    isSearchable={false}
+                    placeholder="Kelas"
+                    additional={{
+                      page: 1,
+                    }}
+                  />
                 </div>
               </div>
               <div className="col-span-6 sm:col-span-6">
                 <label htmlFor="subject" className="block text-sm font-medium text-gray-700">Mata Pelajaran</label>
-                 <SelectAsyncPaginate
-                    regionName={region.value}
-                    value={currentCountry}
-                    onChange={(country) => setCurrentCountry(country)}
-                  />
-                {/* <select id="subject" className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm">
-                  {
-                    subjects?.map((subject) => 
-                      <option value={subject.id} key={subject.id}>{subject.name}</option>
-                    )
-                  }
-                </select> */}
-                {/* <ListBox items={dummySubjects} label="Mata Pelajaran" selectedItem={selectedSubject} setSelectedItem={setSelectedSubject}/> */}
+                <AsyncPaginate
+                  key={''}
+                  value={selectedSubject || ''}
+                  loadOptions={getSubjects}
+                  getOptionValue={(option) => option.name}
+                  getOptionLabel={(option) => option.name}
+                  onChange={(item) => setSelectedSubject(item)}
+                  isSearchable={false}
+                  placeholder="Mata Pelajaran"
+                  additional={{
+                    page: 1,
+                  }}
+                />
               </div>
               <div className="col-span-6 sm:col-span-6">
                 <label htmlFor="chapter" className="block text-sm font-medium text-gray-700">Bab</label>
-                <select id="chapter" className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-dark focus:border-primary-dark focus:z-10 sm:text-sm">
-                  {
-                    chapters?.map((chapter) => 
-                      <option value={chapter.id} key={chapter.id}>{chapter.name}</option>
-                    )
-                  }
-                </select>
-                {/* <ListBox items={dummyChapters} label="Bab" selectedItem={selectedChapter} setSelectedItem={setSelectedChapter}/> */}
+                <AsyncPaginate
+                  key={''}
+                  value={selectedChapter || ''}
+                  loadOptions={getChapters}
+                  getOptionValue={(option) => option.name}
+                  getOptionLabel={(option) => option.name}
+                  onChange={(item) => setSelectedChapter(item)}
+                  isSearchable={false}
+                  placeholder="Bab"
+                  additional={{
+                    page: 1,
+                  }}
+                />
               </div>
               <div className="col-span-6 sm:col-span-6">
-                <label htmlFor="title_of_the_material" className="block text-sm font-medium text-gray-700">Konten</label>
-                <Editor />
+                <label htmlFor="content" className="block text-sm font-medium text-gray-700">Konten</label>
+                <Editor onEditorChanges={onEditorChanges} data={learningMaterial?.content ?? ''} />
               </div>
             </div>
           </ContainerBody>
@@ -145,8 +141,8 @@ function AddOrUpdateLearningMaterials({ user, title, learningMaterial, permissio
                 }
             </Button.Primary>
           </ContainerFooter>
-        </Container>
-      </form>
+        </form>
+      </Container>
     </LayoutWithSidebar>
   );
 };

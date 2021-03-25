@@ -46,6 +46,12 @@ const navItems = async (permissions) => {
       href: '/edit-access-rights' 
     });
 
+    if (permission.name === 'crud question bank') items.push({
+      name: 'Bank Soal',
+      icon:  <OutlineIcon.Document className="h-6"/>,
+      href: '/question-bank'
+    });
+
     if (permission.name === 'register') items.push({
       name: 'Tambahkan Pengguna',
       icon: <OutlineIcon.UserAdd className="h-6"/>,
@@ -78,8 +84,8 @@ const navItems = async (permissions) => {
 
     if (permission.name === 'crud score') items.push({
       name: 'Penilaian',
-      icon:  <OutlineIcon.Puzzle className="h-6"/>,
-      href: '/test-scores'
+      icon:  <OutlineIcon.Tag className="h-6"/>,
+      href: '/assessment'
     });
 
     if (permission.name === 'crud attitude assessment') items.push({

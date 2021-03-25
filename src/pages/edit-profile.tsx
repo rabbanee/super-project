@@ -37,7 +37,7 @@ const EditProfile = () => {
     const fd = new FormData();
     e.preventDefault();
     setIsLoading(true);
-    const form = formRef.current
+    const form = formRef.current;
     let response = null;
     if (image) {
       fd.append('image', form['file-upload'].files[0]);

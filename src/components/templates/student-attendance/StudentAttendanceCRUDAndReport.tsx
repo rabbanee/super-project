@@ -42,7 +42,7 @@ const initialPayload = (date) => {
     };
 }
 
-const StudentAttendanceCRUDAndReport = ({ user, permissions }: StudentAttendanceCRUDAndReportProps) => {
+const StudentAttendanceCRUDAndReport =  ({ user, permissions }: StudentAttendanceCRUDAndReportProps) => {
   const [openedTab, setOpenedTab] = useState(1);
   const [date, setDate] = useState(new Date());
   const [isConfirmationModalShow, setIsConfirmationModalShow] = useState(false);

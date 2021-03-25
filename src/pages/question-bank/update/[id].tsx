@@ -42,7 +42,7 @@ const UpdateQuestions = () => {
           <ContainerBody>
             <div className="flex justify-between flex-wrap">
               <h2 className="text-3xl font-bold	text-black mb-2">Tambah Soal</h2>
-              <Link href="/questions-bank">
+              <Link href="/question-bank">
                 <a className="bg-white hover:bg-gray-50 text-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-primary border border-gray-300 py-2 px-4 text-sm font-medium rounded-md focus:outline-none inline-flex items-center cursor-pointer">
                   <OutlineIcon.ArrowLeft className="-ml-1 mr-1 h-5 w-5" />
                   Kembali

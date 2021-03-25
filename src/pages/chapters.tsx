@@ -74,13 +74,16 @@ const Chapters = () => {
 
   const onCurrentPageChange = ({ currentPage }) => {
     const query = searchInputRef.current.value;
-    console.log(currentPage);
+    // console.log(currentPage);
     setIsLoading(true);
     setChapters({
       ...chapters,
       data: [],
     });
-    if (!query.trim()) getChapters(currentPage);
+    if (!query.trim()) {
+      getChapters(currentPage)
+      return;
+    };
     searchChapterHandler(query, currentPage);
   }
 
@@ -106,7 +109,7 @@ const Chapters = () => {
       return error;
     }
     setSubjects(response.data);
-    const subjectNames = (response.data).map(subject => subject.name);
+    const subjectNames = (response.data.data).map(subject => subject.name);
     setSubjectNames(subjectNames);
   }
 
@@ -200,7 +203,10 @@ const Chapters = () => {
   };
 
   const searchChapterHandler = async (query: string, page: any) => {
-    if (!query) getChapters();
+    if (!query.trim()) {
+      getChapters();
+      return;
+    };
     setIsLoading(true);
     let response;
     try {

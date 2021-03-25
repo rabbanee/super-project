@@ -70,7 +70,7 @@ const QuestionsBank = () => {
                   <Td className="text-center">Kimia</Td>
                   <Td className="text-center truncate">XII RPL</Td>
                   <Td className="text-center flex justify-center space-x-2">
-                    <Link href={`/questions-bank/update/1`}>
+                    <Link href={`/question-bank/update/1`}>
                       <a className="btn btn-primary inline-flex items-center">
                         <SolidIcon.Pencil className="-ml-1 mr-1 h-5 w-5" />
                         Ubah
