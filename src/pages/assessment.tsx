@@ -129,16 +129,16 @@ const TestScores= () => {
                   <Td className="text-center">Pak Deddy</Td>
                   <Td className="text-center">05/01/2020 07:00</Td>
                   <Td className="text-center flex justify-center space-x-2">
-                        <Link href={`/`} passHref>
-                          <a className="btn btn-primary inline-flex items-center">
-                            <SolidIcon.DocumentSearch className="-ml-1 mr-1 h-5 w-5" />
-                          Periksa
-                          </a>
-                        </Link>
-                        <Button.Danger onClick={() => setIsConfirmationModalShow(true)} type="button" className="inline-flex items-center">
-                          <SolidIcon.Pencil className="-ml-1 mr-1 h-5 w-5" /> 
-                          Update
-                        </Button.Danger>
+                    <Link href={`/`} passHref>
+                      <a className="btn btn-primary inline-flex items-center">
+                        <SolidIcon.DocumentSearch className="-ml-1 mr-1 h-5 w-5" />
+                      Periksa
+                      </a>
+                    </Link>
+                    <Button.Danger onClick={() => setIsConfirmationModalShow(true)} type="button" className="inline-flex items-center">
+                      <SolidIcon.Pencil className="-ml-1 mr-1 h-5 w-5" /> 
+                      Update
+                    </Button.Danger>
                   </Td>
                 </tr>
                 <tr>

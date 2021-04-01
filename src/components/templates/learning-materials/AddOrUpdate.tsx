@@ -1,25 +1,15 @@
-import dummySubjects from '@data/dummies/subjects';
 import { User } from '@interface/User';
 import LayoutWithSidebar from '@layouts/LayoutWithSidebar';
-import { withAuthServerSideProps } from '@lib/withAuthServerSide';
-import ListBox from '@modules/ListBox';
 import { FormEventHandler, useEffect, useRef, useState } from 'react';
 import * as Button from '@elements/Button';
 import * as OutlineIcon from '@elements/icon/Outline';
 import * as SolidIcon from '@elements/icon/Solid';
-import dummyChapters from '@data/dummies/chapters';
-import Modal from '@elements/Modal';
-import ModalBody from '@elements/ModalBody';
-import ModalFooter from '@elements/ModalFooter';
 import ContainerBody from '@elements/container/Body';
 import Container from '@elements/container/Index';
 import ContainerFooter from '@elements/container/Footer';
-import learningMaterials from '@data/learning-materials';
-import LearningMaterial from '@interface/LearningMaterial';
 import dynamic from 'next/dynamic';
 import Title from '@elements/Title';
 import Link from 'next/link';
-import SelectAsyncPaginate from '@modules/SelectAsyncPaginate';
 import { AsyncPaginate } from 'react-select-async-paginate';
 
 interface AddOrUpdateLearningMaterialsProps {

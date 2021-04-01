@@ -269,7 +269,8 @@ const AttitudeAssessment = () => {
       type: 'success',
       title: 'Berhasil menghapus penilaian sikap',
     }));
-    // setLoading(null);
+    setIsConfirmationModalShow(false);
+    getAttitudeAssessment();
   }
 
   return (
@@ -310,7 +311,7 @@ const AttitudeAssessment = () => {
                   {/* <ListBox items={grades} selectedItem={selectedGrade} setSelectedItem={setSelectedGrade} label="Kelas" /> */}
                   <ListBox items={semesters} selectedItem={selectedSemester} setSelectedItem={setSelectedSemester} label="Semester" />
                 </div>
-                <InputWithIcon Icon={<SolidIcon.Search className="text-gray-500 w-5 h-5" />}/>
+                {/* <InputWithIcon Icon={<SolidIcon.Search className="text-gray-500 w-5 h-5" />}/> */}
               </div>
               {
                 loading === 'getting attitude assessment' && <SkeletonTable />

@@ -48,8 +48,8 @@ const WitAuth = (Component: any, permissionName: string = '') => {
       try {
         response = await ApiSource.getPermissions(tokenFromCookie);
       } catch (error) {
-        console.log('failed to getPermissions', error.response.status);
-        if (error.response.status === 401) {
+        console.log('failed to getPermissions', error?.response?.status);
+        if (error?.response?.status === 401) {
           CookieHelper.resetCookie(Cookies);
           router.push('/login');
         }

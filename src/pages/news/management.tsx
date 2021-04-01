@@ -173,7 +173,6 @@ const NewsManagement = () => {
                 </tbody>
               </Table>
             }
-            
             {
               (!isLoading && news?.data?.length > 0) && <Pagination totalShow={news?.data?.length} currentPage={news?.current_page} total={news?.total} lastPage={news?.last_page} perPage={news?.per_page} onCurrentPageChange={onCurrentPageChange} />
             }

@@ -50,7 +50,7 @@ const RecapUser = () => {
         role = 'Siswa';
         break;
       default:
-        break;
+        break;  
     }
     return role;
   };

@@ -66,7 +66,7 @@ const AddUser = () => {
 
     const role = selectedRole;
     const grade = selectedGrade;
-    const studentId = studentRef.current.value;
+    const studentId = studentRef?.current?.value;
 
     try {
       response = await ApiSource.register(name, email, role, password, passwordConfirmation, grade, studentId, tokenFromCookie);

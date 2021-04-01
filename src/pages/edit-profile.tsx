@@ -45,7 +45,15 @@ const EditProfile = () => {
     fd.append('email', form['email_address'].value);
     fd.append('name', form['name'].value);
     fd.append('_method', 'put');
-    console.log(form['file-upload'].files[0]);
+    console.log(form['file-upload']?.files[0]?.size);
+    if (form['file-upload']?.files[0]?.size > 2000000 ) {
+      setIsLoading(false);
+      dispatch(showAlert({
+        title: 'Ukuran maksimal foto 2MB',
+        type: 'error'
+      }));
+      return;
+    }
     
     try {
       response = await axios.post(`${process.env.NEXT_PUBLIC_API_HOST}users`, fd, {
@@ -54,12 +62,34 @@ const EditProfile = () => {
         }
       });
     } catch (error) {
-      console.log(error.response.data);
+      setIsLoading(false);
+      if (!error?.response?.data) {
+        return;
+      }
+      const { data } = error.response;
+      console.log(data);
+      if (data.errors) {
+        dispatch(showAlert({
+          title: data.message || 'Terjadi Kesalahan',
+          description: data.errors[Object.keys(data.errors)[0]] || 'Mohon coba kembali :)',
+          type: 'error'
+        }));
+      }
+
+      if (data.error) {
+        dispatch(showAlert({
+          title: data.message || 'Terjadi Kesalahan',
+          type: 'error'
+        }));
+      }
+
+      setIsLoading(false);
+      return;
     }
-    const imageId = response.data.user.image_id;
-    delete response.data.user.image_id;
+    const imageId = response?.data?.user?.image_id;
+    delete response?.data?.user?.image_id;
     const user: User = {
-      ...response.data.user,
+      ...response?.data?.user,
       imageId,
     };
     dispatch(setUser(user))

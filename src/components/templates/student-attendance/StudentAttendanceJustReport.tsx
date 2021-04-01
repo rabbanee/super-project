@@ -17,7 +17,9 @@ import { useState } from "react";
 import axios from "axios";
 import convertMonthNameToMonthNumber from "@utils/convertMonthNameToMonthNumber";
 import Cookies from "js-cookie";
+import { useDispatch, useSelector } from 'react-redux';
 import * as OutlineIcon from '@elements/icon/Outline';
+import { showAlert } from "@actions/index";
 
 interface StudentAttendanceJustReportProps {
   user: User,
@@ -33,7 +35,8 @@ const StudentAttendanceJustReport = ({ user, permissions }: StudentAttendanceJus
     year: '',
   });
   const [isLoading, setIsLoading] = useState(false);
-  const token = Cookies.get('token');
+  const token = Cookies.get('token'); 
+  const dispatch: Function = useDispatch();
 
   const viewHandler = async () => {
     let response: any;
@@ -46,10 +49,21 @@ const StudentAttendanceJustReport = ({ user, permissions }: StudentAttendanceJus
         }
       });
     } catch (error) {
-      console.log(error);
+      if (error?.response?.data?.message) {
+        dispatch(showAlert({
+          title: `${error?.response?.data?.message}`,
+          type: 'error'
+        }));
+      } else {
+        dispatch(showAlert({
+          title: 'Terjadi Kesalahan',
+          type: 'error'
+        }));
+      }
       setIsLoading(false);
       return error;
     }
+    console.log(response.data);
     setCurrentData({
       monthName: selectedMonthName,
       year: selectedYear.toString(),
